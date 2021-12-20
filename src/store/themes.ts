@@ -11,14 +11,17 @@ enum Themes {
 enum themeVariables {
   blackWhite = 'black-white',
   blackGrey = 'black-grey',
+  greyBlack = 'grey-black',
   brushBlackGrey = 'brush-black-grey',
   tooltipBorder = 'tooltip-border',
+  greyWhite = 'grey-white',
   violet = 'violet',
   grey = 'grey',
   blue = 'blue',
   orange = 'orange',
   red = 'red',
   black = 'black',
+  white = 'white',
   bg = 'bg'
 }
 
@@ -41,7 +44,18 @@ const themeModuleState: ThemeModuleState = {
       value: '0 0 0'
     },
     {
+      name: themeVariables.white,
+      value: '255 255 255'
+    },
+    {
       name: themeVariables.blackGrey,
+      value: new Map([
+        [Themes.black, '0 0 0'],
+        [Themes.white, '245 245 245']
+      ])
+    },
+    {
+      name: themeVariables.greyBlack,
       value: new Map([
         [Themes.black, '245 245 245'],
         [Themes.white, '0 0 0']
@@ -59,6 +73,13 @@ const themeModuleState: ThemeModuleState = {
       value: new Map([
         [Themes.black, '29 29 29'],
         [Themes.white, '245 245 245']
+      ])
+    },
+    {
+      name: themeVariables.greyWhite,
+      value: new Map([
+        [Themes.black, '46 46 46'],
+        [Themes.white, '255 255 255']
       ])
     },
     //TODO: add other colors

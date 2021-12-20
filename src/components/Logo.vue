@@ -9,7 +9,7 @@ b {
 
   i {
     font-weight: 300;
-    color: rgb(var(--black-grey)); //TODO: replace color
+    color: rgb(var(--grey-black)); //TODO: replace color
   }
 }
 </style>

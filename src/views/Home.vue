@@ -29,6 +29,11 @@ export default defineComponent({
 
   .canvas {
     grid-area: canvas;
+    width: 100%;
+    height: 100%;
+    background: rgb(var(--white));
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: .5rem;
   }
 
   .dock {
