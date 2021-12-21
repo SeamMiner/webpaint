@@ -17,7 +17,7 @@ import MobileNavbar from '@/components/MobileNavbar.vue'
 export default defineComponent({
   components: {
     Navbar,
-    MobileNavbar
+    MobileNavbar,
   },
   setup() {
     const store = useStore();
@@ -57,7 +57,6 @@ export default defineComponent({
     font-weight: 700;
     font-style: normal;
 }
-
 
 @font-face {
     font-family: 'HelveticaNeueCyr';
