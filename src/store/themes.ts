@@ -7,8 +7,9 @@ enum Themes {
   orange,
   red
 }
-
+// TODO: add color keys, newer are higher
 enum themeVariables {
+  redBlue = 'red-blue',
   blackWhite = 'black-white',
   blackGrey = 'black-grey',
   greyBlack = 'grey-black',
@@ -83,6 +84,13 @@ const themeModuleState: ThemeModuleState = {
       ])
     },
     //TODO: add other colors
+    {
+      name: themeVariables.redBlue,
+      value: new Map([
+        [Themes.black, '46 46 46'],
+        [Themes.white, '255 255 255']
+      ])
+    },
   ]
 }
 
@@ -97,6 +105,8 @@ const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
     if (window.matchMedia("(prefers-color-scheme)").media !== "not all") {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         context.dispatch("setDark");
+      } else {
+        context.dispatch("setLight");
       }
     } else {
       context.dispatch("setLight");

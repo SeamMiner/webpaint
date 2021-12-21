@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Navbar class="navbar"></Navbar>
+    <MobileNavbar class="mobile__navbar"></MobileNavbar>
     <router-view class="content" />
   </div>
 </template>
@@ -11,10 +12,12 @@ import { Themes } from '@/store/themes'
 import { useStore } from "vuex";
 
 import Navbar from '@/components/Navbar.vue'
+import MobileNavbar from '@/components/MobileNavbar.vue'
 
 export default defineComponent({
   components: {
-    Navbar
+    Navbar,
+    MobileNavbar
   },
   setup() {
     const store = useStore();
@@ -43,16 +46,44 @@ export default defineComponent({
 
 
 <style lang="scss">
+@font-face {
+    font-family: 'HelveticaNeueCyr';
+    src: url('./assets/fonts/HelveticaNeueCyr-Bold.eot');
+    src: local('./assets/fonts/HelveticaNeueCyr-Bold'),
+        url('./assets/fonts/HelveticaNeueCyr-Bold.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/HelveticaNeueCyr-Bold.woff2') format('woff2'),
+        url('./assets/fonts/HelveticaNeueCyr-Bold.woff') format('woff'),
+        url('./assets/fonts/HelveticaNeueCyr-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'HelveticaNeueCyr';
+    src: url('./assets/fonts/HelveticaNeueCyr-Italic.eot');
+    src: local('./assets/fonts/HelveticaNeueCyr-Italic'),
+        url('./assets/fonts/HelveticaNeueCyr-Italic.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/HelveticaNeueCyr-Italic.woff2') format('woff2'),
+        url('./assets/fonts/HelveticaNeueCyr-Italic.woff') format('woff'),
+        url('./assets/fonts/HelveticaNeueCyr-Italic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
 #app {
-  font-family: Helvetica, system-ui, sans-serif;
+  font-family: 'Inter','HelveticaNeueCyr', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: var(--red)
 }
 
 *, :after, :before {
   box-sizing: border-box;
+}
+
+html {
+  background-color: rgb(var(--bg));
 }
 
 body {
@@ -82,10 +113,28 @@ body {
   .navbar {
     grid-area: navbar;
     padding: 1.5rem 4rem; //TODO: throw it to component
+
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  .mobile__navbar {
+    display: none;
+
+    @media (max-width: 992px) {
+      display: block;
+    }
   }
   
   .content {
     grid-area: content;
+  }
+
+  @media (max-width: 576px) {
+    .paint {
+      padding: 0 1rem !important;
+    }
   }
 }
 
