@@ -3,11 +3,9 @@
 </template>
 
 <style lang="scss" scoped>
-
 * {
-  font-family: 'HelveticaNeueCyr', 'Inter', system-ui, sans-serif;
+  font-family: "HelveticaNeueCyr", "Inter", system-ui, sans-serif;
 }
-
 
 b {
   display: flex;

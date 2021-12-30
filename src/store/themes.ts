@@ -1,29 +1,34 @@
-import { ActionTree, MutationTree } from 'vuex';
+import { ActionTree, MutationTree } from "vuex";
 
 enum Themes {
   black,
   white,
   blue,
   orange,
-  red
+  red,
 }
 // TODO: add color keys, newer are higher
 enum themeVariables {
-  redBlue = 'red-blue',
-  blackWhite = 'black-white',
-  blackGrey = 'black-grey',
-  greyBlack = 'grey-black',
-  brushBlackGrey = 'brush-black-grey',
-  tooltipBorder = 'tooltip-border',
-  greyWhite = 'grey-white',
-  violet = 'violet',
-  grey = 'grey',
-  blue = 'blue',
-  orange = 'orange',
-  red = 'red',
-  black = 'black',
-  white = 'white',
-  bg = 'bg'
+  redBlue = "red-blue",
+  blackWhite = "black-white",
+  blackGrey = "black-grey",
+  greyBlack = "grey-black",
+  brushBlackGrey = "brush-black-grey",
+  tooltipBorder = "tooltip-border",
+  greyWhite = "grey-white",
+  violet = "violet",
+  grey = "grey",
+  blue = "blue",
+  orange = "orange",
+  red = "red",
+  black = "black",
+  white = "white",
+  bg = "bg",
+
+  //New Colors
+  thicknessBrush = 'thickness-brush',
+  thicknessBg = 'thickness-bg',
+  active = 'active'
 }
 
 type ThemeColorInfo = {
@@ -42,63 +47,74 @@ const themeModuleState: ThemeModuleState = {
   colors: [
     {
       name: themeVariables.black,
-      value: '0 0 0'
+      value: "0 0 0",
     },
     {
       name: themeVariables.white,
-      value: '255 255 255'
+      value: "255 255 255",
     },
     {
       name: themeVariables.blackGrey,
       value: new Map([
-        [Themes.black, '0 0 0'],
-        [Themes.white, '245 245 245']
-      ])
+        [Themes.black, "0 0 0"],
+        [Themes.white, "227 227 227"],
+      ]),
     },
     {
       name: themeVariables.greyBlack,
       value: new Map([
-        [Themes.black, '245 245 245'],
-        [Themes.white, '0 0 0']
-      ])
+        [Themes.black, "245 245 245"],
+        [Themes.white, "0 0 0"],
+      ]),
     },
     {
       name: themeVariables.blackWhite,
       value: new Map([
-        [Themes.black, '255 255 255'],
-        [Themes.white, '0 0 0']
-      ])
+        [Themes.black, "255 255 255"],
+        [Themes.white, "0 0 0"],
+      ]),
     },
     {
       name: themeVariables.bg,
       value: new Map([
-        [Themes.black, '29 29 29'],
-        [Themes.white, '245 245 245']
-      ])
+        [Themes.black, "29 29 29"],
+        [Themes.white, "245 245 245"],
+      ]),
     },
     {
       name: themeVariables.greyWhite,
       value: new Map([
-        [Themes.black, '46 46 46'],
-        [Themes.white, '255 255 255']
-      ])
+        [Themes.black, "46 46 46"],
+        [Themes.white, "255 255 255"],
+      ]),
     },
     //TODO: add other colors
     {
-      name: themeVariables.redBlue,
+      name: themeVariables.thicknessBrush,
       value: new Map([
-        [Themes.black, '46 46 46'],
-        [Themes.white, '255 255 255']
-      ])
+        [Themes.black, "244 244 244"],
+        [Themes.white, "29 29 29"],
+      ]),
     },
-  ]
-}
+    {
+      name: themeVariables.thicknessBg,
+      value: new Map([
+        [Themes.black, "31 31 31"],
+        [Themes.white, "245 245 245"],
+      ]),
+    },
+    {
+      name: themeVariables.active,
+      value: "0 0 0",
+    },
+  ],
+};
 
 const themeModuleMutations = <MutationTree<ThemeModuleState>>{
   change(state, props: { newTheme: Themes }) {
     state.activeTheme = props.newTheme;
   },
-}
+};
 
 const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
   init(context) {
@@ -137,7 +153,9 @@ const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
       root.setProperty(
         `--${colors[token].name}`,
         `${
-          colors[token].value instanceof Map ? (colors[token].value as Map<Themes, string>).get(theme) : colors[token].value
+          colors[token].value instanceof Map
+            ? (colors[token].value as Map<Themes, string>).get(theme)
+            : colors[token].value
         }`
       );
     }

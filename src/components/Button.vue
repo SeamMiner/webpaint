@@ -5,41 +5,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 enum Sizes {
-  Small = 'small',
-  Big = 'big'
+  Small = "small",
+  Big = "big",
 }
 
 enum Types {
-  Accent = 'accent',
-  White = 'white'
+  Accent = "accent",
+  White = "white",
 }
 
 enum SlotTypes {
-  Text = 'text',
-  Icon = 'icon'
+  Text = "text",
+  Icon = "icon",
 }
 
 export default defineComponent({
-
   props: {
     size: {
       type: String as () => Sizes,
-      default: Sizes.Small
+      default: Sizes.Small,
     },
     type: {
       type: String as () => Types,
-      default: Types.White
+      default: Types.White,
     },
     slotType: {
       type: String as () => SlotTypes,
-      default: SlotTypes.Text
-    }
+      default: SlotTypes.Text,
+    },
   },
-
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -53,10 +51,11 @@ button {
 button[data-type="accent"] {
   color: rgb(var(--white));
   background: rgb(var(--violet));
-  border: 1px solid rgba(var(--black) / .1);
+  border: 1px solid rgba(var(--black) / 0.1);
 }
 
-button[data-type="white"], button[data-type="icon"] {
+button[data-type="white"],
+button[data-type="icon"] {
   color: rgb(var(--black));
   background: rgb(var(--white));
 }
@@ -64,8 +63,8 @@ button[data-type="white"], button[data-type="icon"] {
 button[data-size="small"] {
   font-size: 1.25rem;
   line-height: 1.2;
-  padding: .5rem .75rem calc(.5rem + 1px);
-  border-radius: .75rem;
+  padding: 0.5rem 0.75rem calc(0.5rem + 1px);
+  border-radius: 0.75rem;
 }
 
 button[data-size="big"] {

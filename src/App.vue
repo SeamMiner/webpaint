@@ -8,11 +8,11 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted } from "vue";
-import { Themes } from '@/store/themes'
+import { Themes } from "@/store/themes";
 import { useStore } from "vuex";
 
-import Navbar from '@/components/Navbar.vue'
-import MobileNavbar from '@/components/MobileNavbar.vue'
+import Navbar from "@/components/Navbar.vue";
+import MobileNavbar from "@/components/MobileNavbar.vue";
 
 export default defineComponent({
   components: {
@@ -41,43 +41,46 @@ export default defineComponent({
       document.removeEventListener("keydown", shortCut);
     });
   },
-})
+});
 </script>
-
 
 <style lang="scss">
 @font-face {
-    font-family: 'HelveticaNeueCyr';
-    src: url('./assets/fonts/HelveticaNeueCyr-Bold.eot');
-    src: local('./assets/fonts/HelveticaNeueCyr-Bold'),
-        url('./assets/fonts/HelveticaNeueCyr-Bold.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HelveticaNeueCyr-Bold.woff2') format('woff2'),
-        url('./assets/fonts/HelveticaNeueCyr-Bold.woff') format('woff'),
-        url('./assets/fonts/HelveticaNeueCyr-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+  font-family: "HelveticaNeueCyr";
+  src: url("./assets/fonts/HelveticaNeueCyr-Bold.eot");
+  src: local("./assets/fonts/HelveticaNeueCyr-Bold"),
+    url("./assets/fonts/HelveticaNeueCyr-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HelveticaNeueCyr-Bold.woff2") format("woff2"),
+    url("./assets/fonts/HelveticaNeueCyr-Bold.woff") format("woff"),
+    url("./assets/fonts/HelveticaNeueCyr-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'HelveticaNeueCyr';
-    src: url('./assets/fonts/HelveticaNeueCyr-Italic.eot');
-    src: local('./assets/fonts/HelveticaNeueCyr-Italic'),
-        url('./assets/fonts/HelveticaNeueCyr-Italic.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HelveticaNeueCyr-Italic.woff2') format('woff2'),
-        url('./assets/fonts/HelveticaNeueCyr-Italic.woff') format('woff'),
-        url('./assets/fonts/HelveticaNeueCyr-Italic.ttf') format('truetype');
-    font-weight: 500;
-    font-style: italic;
+  font-family: "HelveticaNeueCyr";
+  src: url("./assets/fonts/HelveticaNeueCyr-Italic.eot");
+  src: local("./assets/fonts/HelveticaNeueCyr-Italic"),
+    url("./assets/fonts/HelveticaNeueCyr-Italic.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HelveticaNeueCyr-Italic.woff2") format("woff2"),
+    url("./assets/fonts/HelveticaNeueCyr-Italic.woff") format("woff"),
+    url("./assets/fonts/HelveticaNeueCyr-Italic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
 }
 
 #app {
-  font-family: 'Inter','HelveticaNeueCyr', system-ui, sans-serif;
+  font-family: "Inter", "HelveticaNeueCyr", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
 
-*, :after, :before {
+*,
+:after,
+:before {
   box-sizing: border-box;
 }
 
@@ -90,11 +93,11 @@ body {
 }
 
 :root {
-  --grey: #F5F4F4;
-  --blue: #157EF9;
-  --orange: #FFD030;
-  --red: #FC3141;
-  --black-theme: #1D1D1D;
+  --grey: #f5f4f4;
+  --blue: #157ef9;
+  --orange: #ffd030;
+  --red: #fc3141;
+  --black-theme: #1d1d1d;
   // These are temporary variables only for easier developing
 }
 
@@ -103,9 +106,10 @@ body {
   width: 100%;
   // padding: 1.5rem 4rem 2.5rem 4rem;
   display: grid;
-  grid: 'navbar' minmax(40px, min-content)
-        'content' auto
-        / 100%;
+  grid:
+    "navbar" minmax(40px, min-content)
+    "content" auto
+    / 100%;
   background-color: rgb(var(--bg));
   color: rgb(var(--black-white));
 
@@ -125,7 +129,7 @@ body {
       display: block;
     }
   }
-  
+
   .content {
     grid-area: content;
   }
@@ -136,5 +140,4 @@ body {
     }
   }
 }
-
 </style>
