@@ -93,12 +93,11 @@ body {
 }
 
 :root {
-  --grey: #f5f4f4;
-  --blue: #157ef9;
-  --orange: #ffd030;
-  --red: #fc3141;
-  --black-theme: #1d1d1d;
-  // These are temporary variables only for easier developing
+  --grey:245 244 244;
+  --blue:21 126 249;
+  --orange:255 208 48;
+  --red:252 49 65;
+  --black:29 29 29;
 }
 
 .container {

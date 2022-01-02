@@ -1,6 +1,6 @@
 <template>
   <div class="opacityTool">
-    <input type="range" min="0.1" max="1" step="0.1" id="opacity">
+    <input type="range" min="0.1" max="1" step="0.01" value="1" id="opacity">
   </div>
 </template>
 
@@ -16,22 +16,80 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.opacityTool {
-  input {
-    appearance: none;
-    background: none;
-    width: 100%;
-    border: .0625rem solid rgba(var(--black-white) / 0.1);
-    box-sizing: border-box;
-    border-radius: 1.5rem;
-
-    :focus {
-      outline: none;
-    }
-
-    ::-webkit-slider-runnable-track {
-      
-    }
-  }
+input[type=range] {
+  appearance: none;
+  background: rgba(var(--checked-opacity)) url('data:image/svg+xml,\
+   <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill-opacity=".25" >\
+            <rect x="0" width="200" height="200" />\
+            <rect y="200" x="200" width="200" height="200" />\
+            </svg>');
+  background-size: 21px 21px;
+  width: 100%;
+  border-radius: 1.5rem;
+  border: .0625rem solid rgba(var(--black-white) / 0.1);
+  margin: 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, rgba(var(--active) / .1) 0%, rgba(var(--active)) 100%);
+  border: none;
+  border-radius: 1.5rem;
+  width: 100%;
+  height: 1.875rem;
+  padding: 0 .25rem;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  margin-top: .1875rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: transparent;
+  border: .1875rem solid #F5F4F4;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+input[type=range]::-moz-range-track {
+  background: linear-gradient(90deg, transparent 0%, rgba(var(--active)) );
+  border: none;
+  border-radius: 1.5rem;
+  width: 100%;
+  height: 1.875rem;
+  padding-right: .5rem;
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  margin: .25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: transparent;
+  border: 4px solid #F5F4F4;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+input[type=range]::-ms-track {
+  background: linear-gradient(90deg, transparent 0%, rgba(var(--active)) );
+  border: none;
+  border-radius: 1.5rem;
+  width: 100%;
+  height: 1.875rem;
+  padding-right: .5rem;
+  cursor: pointer;
+}
+input[type=range]::-ms-thumb {
+  margin: .25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: transparent;
+  border: 4px solid #F5F4F4;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
 }
 </style>
