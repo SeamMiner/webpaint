@@ -26,10 +26,10 @@ enum themeVariables {
   bg = "bg",
 
   //New Colors
-  thicknessBrush = 'thickness-brush',
-  thicknessBg = 'thickness-bg',
-  checkedOpacity = 'checked-opacity',
-  active = 'active'
+  thicknessBrush = "thickness-brush",
+  thicknessBg = "thickness-bg",
+  checkedOpacity = "checked-opacity",
+  active = "active",
 }
 
 type ThemeColorInfo = {
@@ -45,7 +45,7 @@ type ThemeModuleState = {
 
 const themeModuleState: ThemeModuleState = {
   activeTheme: Themes.white,
-  activeColor: '0 0 0',
+  activeColor: "0 0 0",
 
   colors: [
     {
@@ -122,7 +122,7 @@ const themeModuleMutations = <MutationTree<ThemeModuleState>>{
   },
   setActiveColor(state, props: { newColor: string }) {
     state.activeColor = props.newColor;
-  }
+  },
 };
 
 const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
@@ -137,7 +137,7 @@ const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
       context.dispatch("setLight");
     }
 
-    context.dispatch("updateActiveColor", context.state.activeColor)
+    context.dispatch("updateActiveColor", context.state.activeColor);
   },
 
   setLight(context) {
@@ -159,7 +159,7 @@ const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
     const root = document.documentElement.style;
 
     context.commit("setActiveColor", { newColor: newColor });
-    root.setProperty('--active', newColor)
+    root.setProperty("--active", newColor);
   },
 
   updateProperties(context) {

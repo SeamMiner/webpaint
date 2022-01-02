@@ -37,8 +37,7 @@ export default defineComponent({
   color: rgb(var(--black-white));
   border-radius: 0.75rem;
   text-decoration: none;
-  transition: background-color 0.15s ease-in-out,
-              box-shadow 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   &:hover,
   &:focus {
@@ -46,7 +45,7 @@ export default defineComponent({
   }
 
   &:focus {
-    box-shadow: 0 0 0 .125rem rgba(var(--black-white) / 0.2);
+    box-shadow: 0 0 0 0.125rem rgba(var(--black-white) / 0.2);
   }
 
   &:disabled {
