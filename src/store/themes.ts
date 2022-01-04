@@ -29,6 +29,9 @@ enum themeVariables {
   thicknessBrush = "thickness-brush",
   thicknessBg = "thickness-bg",
   checkedOpacity = "checked-opacity",
+  dockBorder = "dock-border",
+  dockBg = "dock-bg",
+  dockDraw = "dock-draw",
   active = "active",
 }
 
@@ -55,6 +58,10 @@ const themeModuleState: ThemeModuleState = {
     {
       name: themeVariables.white,
       value: "255 255 255",
+    },
+    {
+      name: themeVariables.violet,
+      value: "151 70 255",
     },
     {
       name: themeVariables.blackGrey,
@@ -111,6 +118,27 @@ const themeModuleState: ThemeModuleState = {
       value: new Map([
         [Themes.black, "64 64 64"],
         [Themes.white, "225 225 225"],
+      ]),
+    },
+    {
+      name: themeVariables.dockBorder,
+      value: new Map([
+        [Themes.black, "255 255 255"],
+        [Themes.white, "0 0 0"],
+      ]),
+    },
+    {
+      name: themeVariables.dockBg,
+      value: new Map([
+        [Themes.black, "46 46 46"],
+        [Themes.white, "255 255 255"],
+      ]),
+    },
+    {
+      name: themeVariables.dockDraw,
+      value: new Map([
+        [Themes.black, "29 29 29"],
+        [Themes.white, "254 255 255"],
       ]),
     },
   ],

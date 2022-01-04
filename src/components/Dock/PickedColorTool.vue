@@ -57,7 +57,10 @@ export default defineComponent({
       }
     };
 
-    const colorPickerColor = useDebouncedRef(store.state.theme.activeColor);
+    const colorPickerColor = useDebouncedRef(
+      store.state.theme.activeColor,
+      500
+    );
     watchEffect(() => setActiveColor(hex2rgb(colorPickerColor.value)));
 
     return {

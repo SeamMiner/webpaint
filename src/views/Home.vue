@@ -59,19 +59,26 @@
         </defs>
       </svg>
     </div>
-    <canvas class="canvas"> </canvas>
-    <!-- <div class="dock"></div> -->
-    <Dock></Dock>
+    <canvas class="canvas"></canvas>
+    <div class="dock">
+      <Dock></Dock>
+      <Button data-type="accent" data-size="big" data-slot="text">
+        Let’s work
+      </Button>
+    </div>
   </section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Dock from "@/components/Dock.vue";
+import Button from "@/components/Button.vue";
+
 
 export default defineComponent({
   components: {
     Dock,
+    Button
   },
   name: "Home",
 });
@@ -84,6 +91,7 @@ export default defineComponent({
     "canvas" minmax(50vh, 1fr)
     "dock" min-content
     / 100%;
+  gap: 1.5rem;
   width: 100%;
   height: 100%;
   padding: 0 4rem;
@@ -109,8 +117,15 @@ export default defineComponent({
     }
   }
 
-  .dock {
+  & > .dock {
     grid-area: dock;
+    justify-content: flex-end;
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.625rem 1.625rem 1rem;
+    background:
+		radial-gradient(circle at 4px 4px, rgba(var(--black-white) / .1) 10%, rgb(var(--bg)) 10%);
+    background-size: 1.5rem 1.5rem;
   }
 
   .goDesktop {

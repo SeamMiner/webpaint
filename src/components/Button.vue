@@ -69,7 +69,7 @@ button[data-size="small"] {
 
 button[data-size="big"] {
   font-size: 1.5rem;
-  line-height: 1;
+  line-height: calc(1.5rem - 1px);
   padding: 3.25rem 1.875rem calc(3.25rem + 1px);
   box-shadow: 0px 19px 48px rgba(0, 0, 0, 0.05);
   border-radius: 2rem;
