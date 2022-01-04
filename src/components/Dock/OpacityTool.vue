@@ -26,7 +26,8 @@ input[type="range"] {
   background-size: 21px 21px;
   width: 100%;
   border-radius: 1.5rem;
-  border: 0.0625rem solid rgba(var(--black-white) / 0.1);
+  //border: 0.0625rem solid rgba(var(--black-white) / 0.1);
+  box-shadow: inset 0 0 0 1px rgba(var(--black-white) / 0.1);
   margin: 0;
 }
 input[type="range"]:focus {
@@ -50,7 +51,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 1.5rem;
   height: 1.5rem;
   background: transparent;
-  border: 0.1875rem solid #f5f4f4;
+  border: 0.1875rem solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
   -webkit-appearance: none;
@@ -70,7 +71,7 @@ input[type="range"]::-moz-range-thumb {
   width: 1.25rem;
   height: 1.25rem;
   background: transparent;
-  border: 4px solid #f5f4f4;
+  border: 4px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
   -webkit-appearance: none;
@@ -90,7 +91,7 @@ input[type="range"]::-ms-thumb {
   width: 1.25rem;
   height: 1.25rem;
   background: transparent;
-  border: 4px solid #f5f4f4;
+  border: 4px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
   -webkit-appearance: none;

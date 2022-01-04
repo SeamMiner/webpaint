@@ -74,11 +74,10 @@ import { defineComponent } from "vue";
 import Dock from "@/components/Dock.vue";
 import Button from "@/components/Button.vue";
 
-
 export default defineComponent({
   components: {
     Dock,
-    Button
+    Button,
   },
   name: "Home",
 });
@@ -123,8 +122,11 @@ export default defineComponent({
     display: flex;
     gap: 1.5rem;
     padding: 1.625rem 1.625rem 1rem;
-    background:
-		radial-gradient(circle at 4px 4px, rgba(var(--black-white) / .1) 10%, rgb(var(--bg)) 10%);
+    background: radial-gradient(
+      circle at 4px 4px,
+      rgba(var(--black-white) / 0.1) 10%,
+      rgb(var(--bg)) 10%
+    );
     background-size: 1.5rem 1.5rem;
   }
 
@@ -170,6 +172,14 @@ export default defineComponent({
     }
     .dock {
       display: none;
+    }
+  }
+
+  @media (max-height: 768px) {
+    .goDesktop {
+      svg {
+        display: none;
+      }
     }
   }
 }
