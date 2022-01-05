@@ -1,15 +1,30 @@
 <template>
   <div class="opacityTool">
-    <input type="range" min="0.1" max="1" step="0.01" value="1" id="opacity" />
+    <input type="range" min="1" max="255" step="1" id="opacity" v-model="opacity_" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, watchEffect } from "vue";
+import useDebouncedRef from "@/useDebouncedRef";
 
 export default defineComponent({
-  setup() {
-    console.log("opacity");
+   props: {
+    opacity: Number,
+  },
+
+  emits: ['update:opacity'],
+
+  setup(props, { emit }) {
+    const opacity_ = useDebouncedRef(255, 500)
+
+    watchEffect(() => {
+      emit('update:opacity', parseInt(opacity_.value))
+    })
+    
+    return {
+      opacity_
+    }
   },
 });
 </script>
