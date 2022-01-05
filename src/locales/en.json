@@ -1,3 +1,38 @@
 {
-  "message": "hello i18n !!"
+  "navbar": {
+    "save": "Save File",
+    "share": "Share",
+    "about": "About",
+    "help": "Help",
+    "donate": "Donate"
+  },
+  "tooltip": {
+    "move": "Move tool",
+    "zoom": "Zoom tool",
+    "pen": "Pen tool",
+    "marker": "Marker tool",
+    "eraser": "Eraser tool",
+    "magic": "Magic tool"
+  },
+  "button": [
+    {
+      "accent": [
+        {
+          "cta": "Let’s work"
+        }
+      ]
+    }
+  ],
+  "cap": {
+    "title": "Hey!",
+    "description": "Try a desktop version to see the full functionality of WebPaint."
+  },
+  "popup": [
+    {
+      "about": {
+        "title": "Web Paint",
+        "description": "Minimalistic graphic editor on the web. Idea by Greene & Lapp studio. Designed by Alexander Greene, developed by Platon Lapp in 2021. Web Paint 1.0.1"
+      }
+    }
+  ]
 }

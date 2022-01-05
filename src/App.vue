@@ -71,6 +71,19 @@ export default defineComponent({
   font-style: italic;
 }
 
+@font-face {
+  font-family: "Graphik LCG";
+  src: url("./assets/fonts/GraphikLCG-Medium.eot");
+  src: local("Graphik LCG Medium"), local("./assets/fonts/GraphikLCG-Medium"),
+    url("./assets/fonts/GraphikLCG-Medium.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/GraphikLCG-Medium.woff2") format("woff2"),
+    url("./assets/fonts/GraphikLCG-Medium.woff") format("woff"),
+    url("./assets/fonts/GraphikLCG-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 #app {
   font-family: "Inter", "HelveticaNeueCyr", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -46,12 +46,23 @@ button {
   cursor: pointer;
   display: grid;
   place-items: center;
+  transition: all 0.2s ease-in-out;
 }
 
 button[data-type="accent"] {
   color: rgb(var(--white));
   background: rgb(var(--violet));
   border: 1px solid rgba(var(--black) / 0.1);
+  font-family: Graphik LCG;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.38px;
+}
+// testing
+button[data-type="accent"]:hover {
+  background: #0000ff;
 }
 
 button[data-type="white"],
