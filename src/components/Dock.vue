@@ -19,19 +19,28 @@
       </Button>
     </div>
     <div class="drawTools">
-      <Pen></Pen>
-      <Marker></Marker>
-      <Erase></Erase>
-      <Magic></Magic>
+      <Pen 
+        @click="lineCap_ = 'round'; activeDrawTool_= 'pen'"
+        :class="{'active': activeDrawTool_ == 'pen'}"
+      />
+      <Marker 
+        @click="lineCap_ = 'square'; activeDrawTool_= 'marker'"
+        :class="{'active': activeDrawTool_ == 'marker'}"
+      />
+      <Erase 
+        @click="activeDrawTool_= 'erase'"
+        :class="{'active': activeDrawTool_ == 'erase'}"
+      />
+      <Magic @click="magic" />
     </div>
-    <BrushThickness></BrushThickness>
-    <OpacityTool></OpacityTool>
+    <BrushThickness v-model:lineWidth="lineWidth_"/>
+    <OpacityTool v-model:opacity="opacity_" />
     <PickedColorTool></PickedColorTool>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, watchEffect } from "vue";
 import Button from "@/components/Button.vue";
 
 import BrushThickness from "@/components/Dock/BrushThickness.vue";
@@ -43,6 +52,10 @@ import Magic from "@/components/Dock/DrawTools/Magic.vue";
 import Marker from "@/components/Dock/DrawTools/Marker.vue";
 import Pen from "@/components/Dock/DrawTools/Pen.vue";
 
+
+enum LineCap {
+  "butt", "round", "square"
+}
 export default defineComponent({
   components: {
     Button,
@@ -56,8 +69,38 @@ export default defineComponent({
     Marker,
     Pen,
   },
-  setup() {
-    console.log("this is dock");
+
+  props: {
+    lineCap: String,
+    lineWidth: Number,
+    opacity: Number
+  },
+
+  emits: ['update:lineCap', 'update:lineWidth', 'update:opacity', 'update:magic'],
+
+  setup(props, { emit }) {
+    const lineWidth_ = ref(5)
+    const lineCap_ = ref('round');
+    const opacity_ = ref(255)
+    const activeDrawTool_ = ref('marker')
+
+    watchEffect(() => {
+      emit('update:opacity', opacity_.value)
+      emit('update:lineWidth', lineWidth_.value)
+      emit('update:lineCap', lineCap_.value)
+    })
+
+    const magic = () => {
+      emit('update:magic');
+    }
+
+    return {
+      lineWidth_,
+      lineCap_,
+      opacity_,
+      activeDrawTool_,
+      magic
+    }
   },
 });
 </script>
@@ -102,7 +145,7 @@ export default defineComponent({
       transition: margin-top 0.15s ease-in-out;
       margin-top: 0;
 
-      &:hover {
+      &:hover, &.active {
         margin-top: -0.75rem;
       }
     }

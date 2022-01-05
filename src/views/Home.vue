@@ -59,9 +59,16 @@
         </defs>
       </svg>
     </div>
-    <canvas class="canvas"></canvas>
+    <div class="canvas">
+      <canvas ref="canvas" id="canvas"></canvas>
+    </div>
     <div class="dock">
-      <Dock></Dock>
+      <Dock 
+        v-model:lineCap="lineCap"
+        v-model:lineWidth="lineWidth"
+        v-model:opacity="opacity"
+        @update:magic="magic"
+      />
       <Button data-type="accent" data-size="big" data-slot="text">
         Let’s work
       </Button>
@@ -70,7 +77,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref, Ref, watchEffect } from "vue";
+
+import { Paint } from '../paint/main'
+
 import Dock from "@/components/Dock.vue";
 import Button from "@/components/Button.vue";
 
@@ -80,6 +90,39 @@ export default defineComponent({
     Button,
   },
   name: "Home",
+
+  setup() {
+    const canvas: Ref<HTMLCanvasElement | null> = ref(null);
+    const paint = ref()
+    const lineCap: Ref<"butt" | "round" | "square"> = ref('round')
+    const lineWidth: Ref<number> = ref(5)
+    const opacity: Ref<number> = ref(255)
+    
+    onMounted(() => {
+      paint.value = new Paint(canvas.value!)
+      paint.value.init()
+    })
+
+    watchEffect(() => {
+      if (paint.value) {
+        paint.value._lineCap = lineCap.value
+        paint.value._lineWidth = lineWidth.value
+        paint.value._opacity = opacity.value
+      }
+    })
+
+    const magic = () => {
+      paint.value.eraseAll()
+    }
+
+    return {
+      canvas,
+      lineCap,
+      lineWidth,
+      opacity,
+      magic
+    }
+  }
 });
 </script>
 
@@ -87,7 +130,7 @@ export default defineComponent({
 .paint {
   display: grid;
   grid:
-    "canvas" minmax(50vh, 1fr)
+    "canvas" auto
     "dock" min-content
     / 100%;
   gap: 1.5rem;
@@ -107,9 +150,11 @@ export default defineComponent({
     grid-area: canvas;
     width: 100%;
     height: 100%;
-    background: rgb(var(--white));
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 0.5rem;
+    & > canvas {
+      background: rgb(var(--white));
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 0.5rem;
+    }
 
     @media (max-width: 576px) {
       display: none;
@@ -123,11 +168,11 @@ export default defineComponent({
     gap: 1.5rem;
     padding: 1.625rem 1.625rem 1rem;
     background: radial-gradient(
-      circle at 4px 4px,
-      rgba(var(--black-white) / 0.1) 10%,
-      rgb(var(--bg)) 10%
+      circle at 2px 2px,
+      rgba(var(--black-white) / 0.1) 2px,
+      rgb(var(--bg)) 2px
     );
-    background-size: 1.5rem 1.5rem;
+    background-size: 1.75rem 1.75rem;
   }
 
   .goDesktop {

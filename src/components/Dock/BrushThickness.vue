@@ -1,6 +1,6 @@
 <template>
   <div class="brushes">
-    <div class="brush lighter">
+    <div class="brush lighter" :class="{'active': lineWidth_ == 2}" @click="lineWidth_ = 2">
       <svg
         width="35"
         height="37"
@@ -16,7 +16,7 @@
         />
       </svg>
     </div>
-    <div class="brush light">
+    <div class="brush light" :class="{'active': lineWidth_ == 3}" @click="lineWidth_ = 3">
       <svg
         width="36"
         height="37"
@@ -32,7 +32,7 @@
         />
       </svg>
     </div>
-    <div class="brush normal">
+    <div class="brush normal" :class="{'active': lineWidth_ == 5}" @click="lineWidth_ = 5">
       <svg
         width="36"
         height="37"
@@ -48,7 +48,7 @@
         />
       </svg>
     </div>
-    <div class="brush bold">
+    <div class="brush bold" :class="{'active': lineWidth_ == 7}" @click="lineWidth_ = 7">
       <svg
         width="36"
         height="37"
@@ -64,7 +64,7 @@
         />
       </svg>
     </div>
-    <div class="brush bolder">
+    <div class="brush bolder" :class="{'active': lineWidth_ == 10}" @click="lineWidth_ = 10">
       <svg
         width="36"
         height="37"
@@ -84,12 +84,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, watchEffect } from "vue";
 
 export default defineComponent({
-  components: {},
-  setup() {
-    console.log("this is dock");
+
+  props: {
+    lineWidth: Number,
+  },
+
+  emits: ['update:lineWidth'],
+
+  setup(props, { emit }) {
+    const lineWidth_ = ref(5);
+
+    watchEffect(() => {
+      emit('update:lineWidth', lineWidth_.value)
+    })
+
+    return {
+      lineWidth_
+    }
   },
 });
 </script>
@@ -106,7 +120,7 @@ export default defineComponent({
     background-color: transparent;
     color: rgb(var(--thickness-brush));
 
-    &:hover {
+    &:hover, &.active {
       cursor: pointer;
       background-color: rgb(var(--thickness-bg));
     }

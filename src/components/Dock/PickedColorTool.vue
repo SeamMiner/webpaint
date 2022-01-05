@@ -27,8 +27,6 @@ import { computed, defineComponent, watchEffect } from "vue";
 import { useStore } from "vuex";
 import useDebouncedRef from "@/useDebouncedRef";
 
-/^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
-
 export default defineComponent({
   setup() {
     const store = useStore();
