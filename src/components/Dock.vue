@@ -6,6 +6,7 @@
         data-size="small"
         data-type="accent"
         data-slot="icon"
+        @click="paint.undo()"
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
@@ -19,28 +20,37 @@
       </Button>
     </div>
     <div class="drawTools">
-      <Pen 
-        @click="lineCap_ = 'round'; activeDrawTool_= 'pen'"
-        :class="{'active': activeDrawTool_ == 'pen'}"
+      <Pen
+        @click="
+          lineCap_ = 'round';
+          activeDrawTool_ = 'pen';
+        "
+        :class="{ active: activeDrawTool_ == 'pen' }"
       />
-      <Marker 
-        @click="lineCap_ = 'square'; activeDrawTool_= 'marker'"
-        :class="{'active': activeDrawTool_ == 'marker'}"
+      <Marker
+        @click="
+          lineCap_ = 'square';
+          activeDrawTool_ = 'marker';
+        "
+        :class="{ active: activeDrawTool_ == 'marker' }"
       />
-      <Erase 
-        @click="activeDrawTool_= 'erase'"
-        :class="{'active': activeDrawTool_ == 'erase'}"
+      <Erase
+        @click="
+          lineCap_ = 'eraser';
+          activeDrawTool_ = 'erase';
+        "
+        :class="{ active: activeDrawTool_ == 'erase' }"
       />
       <Magic @click="magic" />
     </div>
-    <BrushThickness v-model:lineWidth="lineWidth_"/>
-    <OpacityTool v-model:opacity="opacity_" />
+    <BrushThickness />
+    <OpacityTool />
     <PickedColorTool></PickedColorTool>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from "vue";
+import { computed, defineComponent, ref, watchEffect } from "vue";
 import Button from "@/components/Button.vue";
 
 import BrushThickness from "@/components/Dock/BrushThickness.vue";
@@ -51,11 +61,8 @@ import Erase from "@/components/Dock/DrawTools/Erase.vue";
 import Magic from "@/components/Dock/DrawTools/Magic.vue";
 import Marker from "@/components/Dock/DrawTools/Marker.vue";
 import Pen from "@/components/Dock/DrawTools/Pen.vue";
+import { useStore } from "vuex";
 
-
-enum LineCap {
-  "butt", "round", "square"
-}
 export default defineComponent({
   components: {
     Button,
@@ -70,37 +77,28 @@ export default defineComponent({
     Pen,
   },
 
-  props: {
-    lineCap: String,
-    lineWidth: Number,
-    opacity: Number
-  },
 
-  emits: ['update:lineCap', 'update:lineWidth', 'update:opacity', 'update:magic'],
+  setup() {
+    const store = useStore()
 
-  setup(props, { emit }) {
-    const lineWidth_ = ref(5)
-    const lineCap_ = ref('round');
-    const opacity_ = ref(255)
-    const activeDrawTool_ = ref('marker')
+    const paint = computed(() => store.state.paint.paint)
+    const lineCap_ = ref(paint.value._lineCap);
+    const activeDrawTool_ = ref("pen");
 
     watchEffect(() => {
-      emit('update:opacity', opacity_.value)
-      emit('update:lineWidth', lineWidth_.value)
-      emit('update:lineCap', lineCap_.value)
+      paint.value._lineCap = lineCap_.value
     })
 
     const magic = () => {
-      emit('update:magic');
-    }
+      paint.value.eraseAll()
+    };
 
     return {
-      lineWidth_,
       lineCap_,
-      opacity_,
       activeDrawTool_,
-      magic
-    }
+      magic,
+      paint
+    };
   },
 });
 </script>
@@ -145,7 +143,8 @@ export default defineComponent({
       transition: margin-top 0.15s ease-in-out;
       margin-top: 0;
 
-      &:hover, &.active {
+      &:hover,
+      &.active {
         margin-top: -0.75rem;
       }
     }

@@ -7,15 +7,19 @@ export class Paint {
 
   private _drawHandler: any;
 
-  public _lineCap: CanvasLineCap = "round";
+  private _redoHistory: string[] = [];
+
+  private _undoHistory: string[] = [];
+
+  public _lineCap: CanvasLineCap | "eraser" = "round";
 
   public _lineWidth = 5;
 
   public _opacity = 255;
 
-  constructor(canvas: HTMLCanvasElement) {
-    this._canvas = canvas;
-    this._ctx = canvas.getContext("2d");
+  constructor(canvas: HTMLCanvasElement | null) {
+    this._canvas = canvas ? canvas : document.createElement('canvas');
+    this._ctx = this._canvas.getContext("2d");
     this._coords = { x: 0, y: 0 };
   }
 
@@ -40,8 +44,8 @@ export class Paint {
   }
 
   public init() {
-    this._canvas.addEventListener("mousedown", this.start.bind(this));
-    this._canvas.addEventListener("mouseup", this.stop.bind(this));
+    document.addEventListener("mousedown", this.start.bind(this));
+    document.addEventListener("mouseup", this.stop.bind(this));
     window.addEventListener("resize", this.resize.bind(this));
 
     this._ctx!.canvas.width = this._canvas.parentElement?.clientWidth || 0;
@@ -49,8 +53,10 @@ export class Paint {
   }
 
   public resize() {
-    this._ctx!.canvas.style.width = (this._canvas.parentElement?.clientWidth || 0) + 'px';
-    this._ctx!.canvas.style.height = (this._canvas.parentElement?.clientHeight || 0) + 'px';
+    this._ctx!.canvas.style.width =
+      (this._canvas.parentElement?.clientWidth || 0) + "px";
+    this._ctx!.canvas.style.height =
+      (this._canvas.parentElement?.clientHeight || 0) + "px";
   }
   public reposition(event: MouseEvent) {
     this._coords.x = event.clientX - this._canvas.offsetLeft;
@@ -58,24 +64,30 @@ export class Paint {
   }
   public start(event: MouseEvent) {
     this._drawHandler = this.draw.bind(this);
+    this.saveState();
 
-    this._canvas.addEventListener("mousemove", this._drawHandler);
+    document.addEventListener("mousemove", this._drawHandler);
     this.reposition(event);
   }
   public stop() {
-    this._canvas.removeEventListener("mousemove", this._drawHandler);
+    document.removeEventListener("mousemove", this._drawHandler);
   }
-  public draw(
-    event: MouseEvent,
-  ) {
+  public draw(event: MouseEvent) {
     const [red, green, blue] = document.documentElement.style
       .getPropertyValue("--active")
+      .trim()
       .split(" ");
 
+    if (this._lineCap == "eraser") {
+      this._ctx!.globalCompositeOperation = "destination-out";
+    } else {
+      this._ctx!.globalCompositeOperation = "source-over";
+    }
     this._ctx!.beginPath();
-    this._ctx!.lineWidth = this._lineWidth;
-    this._ctx!.lineCap = this._lineCap;
-    this._ctx!.strokeStyle = this.ConvertRGBtoHex(
+    this._ctx!.lineWidth =
+    this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
+    this._ctx!.lineCap = this._lineCap == "eraser" ? "round" : this._lineCap;
+    this._ctx!.strokeStyle = this._lineCap == "eraser" ? '#000' : this.ConvertRGBtoHex(
       parseInt(red),
       parseInt(green),
       parseInt(blue),
@@ -87,6 +99,60 @@ export class Paint {
     this._ctx!.stroke();
   }
   public eraseAll() {
-    this._ctx?.clearRect(0, 0, this._canvas.width, this._canvas.height)
+    this._ctx?.clearRect(0, 0, this._canvas.width, this._canvas.height);
+  }
+
+  private saveState(isRedo = false, keepRedo = false) {
+    if (!keepRedo) {
+      this._redoHistory = [];
+    }
+    (isRedo ? this._redoHistory : this._undoHistory).push(
+      this._canvas.toDataURL()
+    );
+  }
+
+  private restoreState(isUndo = false) {
+    console.log(this._undoHistory, this._redoHistory);
+
+    if ((isUndo ? this._undoHistory : this._redoHistory).length) {
+      this.saveState(isUndo, true);
+      const img = new Image();
+      img.src = (isUndo ? this._undoHistory : this._redoHistory).pop()!;
+      img.onload = () => {
+        this.eraseAll();
+        this._ctx?.drawImage(
+          img,
+          0,
+          0,
+          this._canvas.width,
+          this._canvas.height,
+          0,
+          0,
+          this._canvas.width,
+          this._canvas.height
+        );
+      };
+    }
+
+    console.log(this._undoHistory, this._redoHistory);
+    
+  }
+
+  public undo() {
+    console.log('undo');
+    
+    this.restoreState(true);
+  }
+
+  public redo() {
+    this.restoreState();
+  }
+
+  public save() {
+    const link = document.createElement('a')
+    link.download = 'webpaint.png'
+    link.href = this._canvas.toDataURL()
+    link.click()
+    link.remove()
   }
 }

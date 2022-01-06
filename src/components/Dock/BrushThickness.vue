@@ -1,6 +1,10 @@
 <template>
   <div class="brushes">
-    <div class="brush lighter" :class="{'active': lineWidth_ == 2}" @click="lineWidth_ = 2">
+    <div
+      class="brush lighter"
+      :class="{ active: lineWidth_ == 2 }"
+      @click="lineWidth_ = 2"
+    >
       <svg
         width="35"
         height="37"
@@ -16,7 +20,11 @@
         />
       </svg>
     </div>
-    <div class="brush light" :class="{'active': lineWidth_ == 3}" @click="lineWidth_ = 3">
+    <div
+      class="brush light"
+      :class="{ active: lineWidth_ == 3 }"
+      @click="lineWidth_ = 3"
+    >
       <svg
         width="36"
         height="37"
@@ -32,7 +40,11 @@
         />
       </svg>
     </div>
-    <div class="brush normal" :class="{'active': lineWidth_ == 5}" @click="lineWidth_ = 5">
+    <div
+      class="brush normal"
+      :class="{ active: lineWidth_ == 5 }"
+      @click="lineWidth_ = 5"
+    >
       <svg
         width="36"
         height="37"
@@ -48,7 +60,11 @@
         />
       </svg>
     </div>
-    <div class="brush bold" :class="{'active': lineWidth_ == 7}" @click="lineWidth_ = 7">
+    <div
+      class="brush bold"
+      :class="{ active: lineWidth_ == 7 }"
+      @click="lineWidth_ = 7"
+    >
       <svg
         width="36"
         height="37"
@@ -64,7 +80,11 @@
         />
       </svg>
     </div>
-    <div class="brush bolder" :class="{'active': lineWidth_ == 10}" @click="lineWidth_ = 10">
+    <div
+      class="brush bolder"
+      :class="{ active: lineWidth_ == 10 }"
+      @click="lineWidth_ = 10"
+    >
       <svg
         width="36"
         height="37"
@@ -84,26 +104,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from "vue";
+import { defineComponent, ref, watchEffect, computed } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
+  setup() {
+    const store = useStore()
 
-  props: {
-    lineWidth: Number,
-  },
-
-  emits: ['update:lineWidth'],
-
-  setup(props, { emit }) {
+    const paint = computed(() => store.state.paint.paint)
     const lineWidth_ = ref(5);
 
     watchEffect(() => {
-      emit('update:lineWidth', lineWidth_.value)
-    })
+      paint.value._lineWidth = lineWidth_.value
+    });
 
     return {
-      lineWidth_
-    }
+      lineWidth_,
+    };
   },
 });
 </script>
@@ -120,7 +137,8 @@ export default defineComponent({
     background-color: transparent;
     color: rgb(var(--thickness-brush));
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       cursor: pointer;
       background-color: rgb(var(--thickness-bg));
     }

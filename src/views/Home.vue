@@ -63,12 +63,7 @@
       <canvas ref="canvas" id="canvas"></canvas>
     </div>
     <div class="dock">
-      <Dock 
-        v-model:lineCap="lineCap"
-        v-model:lineWidth="lineWidth"
-        v-model:opacity="opacity"
-        @update:magic="magic"
-      />
+      <Dock/>
       <Button data-type="accent" data-size="big" data-slot="text">
         Let’s work
       </Button>
@@ -77,12 +72,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, Ref, watchEffect } from "vue";
+import {
+  defineComponent,
+  onMounted,
+  ref,
+  Ref,
+  watchEffect,
+  onUnmounted,
+  computed,
+} from "vue";
 
-import { Paint } from '../paint/main'
+import { Paint } from "../paint/main";
 
 import Dock from "@/components/Dock.vue";
 import Button from "@/components/Button.vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -92,37 +96,37 @@ export default defineComponent({
   name: "Home",
 
   setup() {
+    const store = useStore()
+
     const canvas: Ref<HTMLCanvasElement | null> = ref(null);
-    const paint = ref()
-    const lineCap: Ref<"butt" | "round" | "square"> = ref('round')
-    const lineWidth: Ref<number> = ref(5)
-    const opacity: Ref<number> = ref(255)
-    
+    const paint = computed(() => store.state.paint.paint)
+
     onMounted(() => {
-      paint.value = new Paint(canvas.value!)
+      store.commit('paint/change', new Paint(canvas.value!));
       paint.value.init()
-    })
+    });
 
-    watchEffect(() => {
-      if (paint.value) {
-        paint.value._lineCap = lineCap.value
-        paint.value._lineWidth = lineWidth.value
-        paint.value._opacity = opacity.value
+    const shortCut = (e: KeyboardEvent) => {
+      if (e.code == "KeyZ" && (e.ctrlKey || e.metaKey)) {
+        paint.value.undo();
       }
-    })
+      if (e.code == "KeyY" && (e.ctrlKey || e.metaKey)) {
+        paint.value.redo();
+      }
+    };
 
-    const magic = () => {
-      paint.value.eraseAll()
-    }
+    onMounted(() => {
+      document.addEventListener("keydown", shortCut);
+    });
+
+    onUnmounted(() => {
+      document.removeEventListener("keydown", shortCut);
+    });
 
     return {
       canvas,
-      lineCap,
-      lineWidth,
-      opacity,
-      magic
-    }
-  }
+    };
+  },
 });
 </script>
 

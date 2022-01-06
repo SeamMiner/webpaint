@@ -3,7 +3,7 @@
     <Logo></Logo>
     <ul class="options">
       <div class="option__controls">
-        <li class="undo">
+        <li @click="paint.undo()" class="undo">
           <svg
             width="15"
             height="15"
@@ -15,7 +15,7 @@
             />
           </svg>
         </li>
-        <li class="redo">
+        <li @click="paint.redo()" class="redo">
           <svg
             width="15"
             height="15"
@@ -29,7 +29,7 @@
           </svg>
         </li>
       </div>
-      <li class="save">
+      <li class="save" @click="paint.save()">
         <Link> Save file </Link>
       </li>
       <li class="share">
@@ -92,10 +92,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import Logo from "@/components/Logo.vue";
 import Link from "@/components/Link.vue";
 import Button from "@/components/Button.vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -104,7 +105,11 @@ export default defineComponent({
     Button,
   },
   setup() {
-    console.log("this is logo");
+    const store = useStore();
+
+    return  {
+      paint: computed(() => store.state.paint.paint)
+    }
   },
 });
 </script>
