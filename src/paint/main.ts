@@ -44,7 +44,7 @@ export class Paint {
   }
 
   public init() {
-    document.addEventListener("mousedown", this.start.bind(this));
+    this._canvas.addEventListener("mousedown", this.start.bind(this));
     document.addEventListener("mouseup", this.stop.bind(this));
     window.addEventListener("resize", this.resize.bind(this));
 
