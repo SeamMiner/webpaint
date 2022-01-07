@@ -15,7 +15,7 @@ b {
 
   i {
     font-weight: 400;
-    color: rgb(var(--grey-black)); //TODO: replace color
+    color: rgb(var(--on-neutral)); //TODO: replace color
   }
 }
 </style>

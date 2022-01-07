@@ -98,19 +98,11 @@ export default defineComponent({
 }
 
 html {
-  background-color: rgb(var(--bg));
+  background-color: rgb(var(--systematic));
 }
 
 body {
   margin: 0;
-}
-
-:root {
-  --grey: 245 244 244;
-  --blue: 21 126 249;
-  --orange: 255 208 48;
-  --red: 252 49 65;
-  --black: 29 29 29;
 }
 
 .container {
@@ -122,8 +114,8 @@ body {
     "navbar" minmax(40px, min-content)
     "content" auto
     / 100%;
-  background-color: rgb(var(--bg));
-  color: rgb(var(--black-white));
+  background-color: rgb(var(--systematic));
+  color: rgb(var(--on-neutral));
 
   .navbar {
     grid-area: navbar;

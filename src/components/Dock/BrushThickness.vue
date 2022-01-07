@@ -135,12 +135,12 @@ export default defineComponent({
     display: flex;
     border-radius: 0.75rem;
     background-color: transparent;
-    color: rgb(var(--thickness-brush));
+    color: rgb(var(--on-neutral));
 
     &:hover,
     &.active {
       cursor: pointer;
-      background-color: rgb(var(--thickness-bg));
+      background-color: rgb(var(--systematic));
     }
   }
 }

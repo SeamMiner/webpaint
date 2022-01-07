@@ -50,8 +50,8 @@ button {
 }
 
 button[data-type="accent"] {
-  color: rgb(var(--white));
-  background: rgb(var(--violet));
+  color: rgb(var(--on-accent));
+  background: rgb(var(--accent));
   border: 1px solid rgba(var(--black) / 0.1);
   font-family: Graphik LCG;
   font-style: normal;
@@ -60,9 +60,9 @@ button[data-type="accent"] {
   line-height: 1.2;
   letter-spacing: -0.38px;
 }
-// testing
+
 button[data-type="accent"]:hover {
-  background: #0000ff;
+  background: rgb(var(--accent-hover));
 }
 
 button[data-type="white"],

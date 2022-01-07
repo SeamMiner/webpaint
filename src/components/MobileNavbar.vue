@@ -157,10 +157,10 @@ export default defineComponent({
 
     .undo,
     .redo {
-      background: rgb(var(--grey-white));
+      background: rgb(var(--neutral));
       border-radius: 50%;
       padding: 0.875rem 0.8125rem 0.75rem;
-      color: rgba(var(--black-white) / 0.2);
+      color: rgba(var(--on-neutral) / 0.2);
 
       svg {
         fill: currentColor;
@@ -184,8 +184,8 @@ export default defineComponent({
     gap: 0.5rem;
 
     Button {
-      background: rgb(var(--grey-white));
-      color: rgba(var(--black-white));
+      background: rgb(var(--neutral));
+      color: rgba(var(--on-neutral));
 
       svg {
         fill: currentColor;

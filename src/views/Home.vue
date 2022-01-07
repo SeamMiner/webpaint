@@ -173,8 +173,8 @@ export default defineComponent({
     padding: 1.625rem 1.625rem 1rem;
     background: radial-gradient(
       circle at 2px 2px,
-      rgba(var(--black-white) / 0.1) 2px,
-      rgb(var(--bg)) 2px
+      rgba(var(--base) / 0.1) 2px,
+      rgb(var(--systematic)) 2px
     );
     background-size: 1.75rem 1.75rem;
   }

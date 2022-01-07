@@ -105,9 +105,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .dock {
-  background: rgb(var(--dock-bg));
+  background: rgb(var(--neutral));
   box-sizing: border-box;
-  box-shadow: inset 0px 0px 0px 1px rgba(var(--black) / 0.1),
+  box-shadow: inset 0px 0px 0px 1px rgba(var(--base) / 0.1),
     0px 19px 48px rgba(0, 0, 0, 0.05);
   border-radius: 2rem;
   display: grid;

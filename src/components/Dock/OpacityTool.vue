@@ -47,8 +47,7 @@ input[type="range"] {
   background-size: 21px 21px;
   width: 100%;
   border-radius: 1.5rem;
-  //border: 0.0625rem solid rgba(var(--black-white) / 0.1);
-  box-shadow: inset 0 0 0 1px rgba(var(--black-white) / 0.1);
+  box-shadow: inset 0 0 0 1px rgba(var(--base) / 0.1);
   margin: 0;
 }
 input[type="range"]:focus {

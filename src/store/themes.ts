@@ -7,30 +7,27 @@ enum Themes {
   orange,
   red,
 }
-// TODO: add color keys, newer are higher
+
 enum themeVariables {
-  redBlue = "red-blue",
-  blackWhite = "black-white",
+  accent = "accent",
+  onAccent = "on-accent",
+  accentHover = "accent-hover",
+  neutral = "neutral",
+  onNeutral = "on-neutral",
+  neutralHover = "neutral-hover",
+  systematic = "systematic",
+  base = "base",
+  // TODO: unify 'black-grey' with current color guide
   blackGrey = "black-grey",
-  greyBlack = "grey-black",
-  brushBlackGrey = "brush-black-grey",
-  tooltipBorder = "tooltip-border",
-  greyWhite = "grey-white",
-  violet = "violet",
   grey = "grey",
   blue = "blue",
   orange = "orange",
   red = "red",
+  semiBlack = "semiBlack",
   black = "black",
   white = "white",
-  bg = "bg",
-
-  //New Colors
-  thicknessBrush = "thickness-brush",
-  thicknessBg = "thickness-bg",
+  // TODO: unify 'checkedOpacity' & 'dockDraw' with current color guide
   checkedOpacity = "checked-opacity",
-  dockBorder = "dock-border",
-  dockBg = "dock-bg",
   dockDraw = "dock-draw",
   active = "active",
 }
@@ -60,57 +57,66 @@ const themeModuleState: ThemeModuleState = {
       value: "255 255 255",
     },
     {
-      name: themeVariables.violet,
-      value: "151 70 255",
-    },
-    {
-      name: themeVariables.blackGrey,
+      name: themeVariables.accent,
       value: new Map([
-        [Themes.black, "0 0 0"],
-        [Themes.white, "227 227 227"],
+        [Themes.black, "134, 41, 253"],
+        [Themes.white, "151, 70, 255"],
       ]),
     },
     {
-      name: themeVariables.greyBlack,
+      name: themeVariables.onAccent,
       value: new Map([
-        [Themes.black, "245 245 245"],
+        [Themes.black, "255, 255, 255"],
+        [Themes.white, "255, 255, 255"],
+      ]),
+    },
+    {
+      name: themeVariables.accentHover,
+      value: new Map([
+        [Themes.black, "97, 6, 212"],
+        [Themes.white, "18, 18, 237"],
+      ]),
+    },
+    {
+      name: themeVariables.neutral,
+      value: new Map([
+        [Themes.black, "46, 46, 46"],
+        [Themes.white, "255, 255, 255"],
+      ]),
+    },
+    {
+      name: themeVariables.onNeutral,
+      value: new Map([
+        [Themes.black, "255, 255, 255"],
         [Themes.white, "0 0 0"],
       ]),
     },
     {
-      name: themeVariables.blackWhite,
+      name: themeVariables.neutralHover,
+      value: new Map([
+        [Themes.black, "29, 29, 29"],
+        [Themes.white, "231, 231, 231"],
+      ]),
+    },
+    {
+      name: themeVariables.systematic,
+      value: new Map([
+        [Themes.black, "29, 29, 29"],
+        [Themes.white, "245, 244, 244"],
+      ]),
+    },
+    {
+      name: themeVariables.base,
       value: new Map([
         [Themes.black, "255 255 255"],
         [Themes.white, "0 0 0"],
       ]),
     },
     {
-      name: themeVariables.bg,
+      name: themeVariables.blackGrey,
       value: new Map([
-        [Themes.black, "29 29 29"],
-        [Themes.white, "245 245 245"],
-      ]),
-    },
-    {
-      name: themeVariables.greyWhite,
-      value: new Map([
-        [Themes.black, "46 46 46"],
-        [Themes.white, "255 255 255"],
-      ]),
-    },
-    //TODO: add other colors
-    {
-      name: themeVariables.thicknessBrush,
-      value: new Map([
-        [Themes.black, "244 244 244"],
-        [Themes.white, "29 29 29"],
-      ]),
-    },
-    {
-      name: themeVariables.thicknessBg,
-      value: new Map([
-        [Themes.black, "31 31 31"],
-        [Themes.white, "245 245 245"],
+        [Themes.black, "0 0 0"],
+        [Themes.white, "227 227 227"],
       ]),
     },
     {
@@ -121,25 +127,31 @@ const themeModuleState: ThemeModuleState = {
       ]),
     },
     {
-      name: themeVariables.dockBorder,
-      value: new Map([
-        [Themes.black, "255 255 255"],
-        [Themes.white, "0 0 0"],
-      ]),
-    },
-    {
-      name: themeVariables.dockBg,
-      value: new Map([
-        [Themes.black, "46 46 46"],
-        [Themes.white, "255 255 255"],
-      ]),
-    },
-    {
       name: themeVariables.dockDraw,
       value: new Map([
         [Themes.black, "29 29 29"],
         [Themes.white, "254 255 255"],
       ]),
+    },
+    {
+      name: themeVariables.grey,
+      value: "245 244 244",
+    },
+    {
+      name: themeVariables.blue,
+      value: "21 126 249",
+    },
+    {
+      name: themeVariables.orange,
+      value: "255 208 48",
+    },
+    {
+      name: themeVariables.red,
+      value: "252 49 65",
+    },
+    {
+      name: themeVariables.semiBlack,
+      value: "29 29 29",
     },
   ],
 };
