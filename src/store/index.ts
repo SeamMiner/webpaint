@@ -5,6 +5,6 @@ import { paintModule } from "./paint";
 export default createStore({
   modules: {
     theme: themeModule,
-    paint: paintModule
+    paint: paintModule,
   },
 });

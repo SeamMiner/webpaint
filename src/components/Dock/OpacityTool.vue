@@ -18,14 +18,13 @@ import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
-    const store = useStore()
+    const store = useStore();
 
-    const paint = computed(() => store.state.paint.paint)
+    const paint = computed(() => store.state.paint.paint);
     const opacity_ = useDebouncedRef(255, 500);
 
-
     watchEffect(() => {
-      paint.value._opacity =  parseInt(opacity_.value)
+      paint.value._opacity = parseInt(opacity_.value);
     });
 
     return {

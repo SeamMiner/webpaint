@@ -63,7 +63,7 @@
       <canvas ref="canvas" id="canvas"></canvas>
     </div>
     <div class="dock">
-      <Dock/>
+      <Dock />
       <Button data-type="accent" data-size="big" data-slot="text">
         Let’s work
       </Button>
@@ -96,14 +96,14 @@ export default defineComponent({
   name: "Home",
 
   setup() {
-    const store = useStore()
+    const store = useStore();
 
     const canvas: Ref<HTMLCanvasElement | null> = ref(null);
-    const paint = computed(() => store.state.paint.paint)
+    const paint = computed(() => store.state.paint.paint);
 
     onMounted(() => {
-      store.commit('paint/change', new Paint(canvas.value!));
-      paint.value.init()
+      store.commit("paint/change", new Paint(canvas.value!));
+      paint.value.init();
     });
 
     const shortCut = (e: KeyboardEvent) => {
@@ -154,10 +154,37 @@ export default defineComponent({
     grid-area: canvas;
     width: 100%;
     height: 100%;
+    border-radius: 0.5rem;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 14px;
+      height: 18px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 6px;
+      border: 4px solid rgba(var(--base) / 0);
+      background-clip: padding-box;
+      background-color: rgba(var(--base) / 0.2);
+      -webkit-border-radius: 7px;
+      -webkit-box-shadow: inset -1px -1px 0px rgba(var(--base) / 0.05),
+        inset 1px 1px 0px rgba(var(--base) / 0.05);
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
     & > canvas {
       background: rgb(var(--white));
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-      border-radius: 0.5rem;
     }
 
     @media (max-width: 576px) {
@@ -170,7 +197,7 @@ export default defineComponent({
     justify-content: flex-end;
     display: flex;
     gap: 1.5rem;
-    padding: 1.625rem 1.625rem 1rem;
+    padding: 1.25rem 1.625rem;
     background: radial-gradient(
       circle at 2px 2px,
       rgba(var(--base) / 0.1) 2px,

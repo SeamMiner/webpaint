@@ -107,9 +107,9 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    return  {
-      paint: computed(() => store.state.paint.paint)
-    }
+    return {
+      paint: computed(() => store.state.paint.paint),
+    };
   },
 });
 </script>

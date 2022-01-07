@@ -6,7 +6,6 @@
         data-size="small"
         data-type="accent"
         data-slot="icon"
-        @click="paint.undo()"
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
@@ -15,6 +14,7 @@
         data-size="small"
         data-type="white"
         data-slot="icon"
+        @click="paint.magnifier()"
       >
         <img :src="require('@/assets/Magnifier.svg')" alt="Scale" />
       </Button>
@@ -41,7 +41,7 @@
         "
         :class="{ active: activeDrawTool_ == 'erase' }"
       />
-      <Magic @click="magic" />
+      <Magic @click="paint.eraseAll()" />
     </div>
     <BrushThickness />
     <OpacityTool />
@@ -77,27 +77,21 @@ export default defineComponent({
     Pen,
   },
 
-
   setup() {
-    const store = useStore()
+    const store = useStore();
 
-    const paint = computed(() => store.state.paint.paint)
+    const paint = computed(() => store.state.paint.paint);
     const lineCap_ = ref(paint.value._lineCap);
     const activeDrawTool_ = ref("pen");
 
     watchEffect(() => {
-      paint.value._lineCap = lineCap_.value
-    })
-
-    const magic = () => {
-      paint.value.eraseAll()
-    };
+      paint.value._lineCap = lineCap_.value;
+    });
 
     return {
       lineCap_,
       activeDrawTool_,
-      magic,
-      paint
+      paint,
     };
   },
 });

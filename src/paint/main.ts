@@ -17,8 +17,12 @@ export class Paint {
 
   public _opacity = 255;
 
+  public _scale = 1;
+
+  public _currentButton: number | null = null;
+
   constructor(canvas: HTMLCanvasElement | null) {
-    this._canvas = canvas ? canvas : document.createElement('canvas');
+    this._canvas = canvas ? canvas : document.createElement("canvas");
     this._ctx = this._canvas.getContext("2d");
     this._coords = { x: 0, y: 0 };
   }
@@ -48,29 +52,56 @@ export class Paint {
     document.addEventListener("mouseup", this.stop.bind(this));
     window.addEventListener("resize", this.resize.bind(this));
 
+    this._canvas.parentElement!.style.height =
+      (this._canvas.parentElement?.clientHeight || 0) + "px";
     this._ctx!.canvas.width = this._canvas.parentElement?.clientWidth || 0;
     this._ctx!.canvas.height = this._canvas.parentElement?.clientHeight || 0;
   }
 
   public resize() {
-    this._ctx!.canvas.style.width =
-      (this._canvas.parentElement?.clientWidth || 0) + "px";
-    this._ctx!.canvas.style.height =
-      (this._canvas.parentElement?.clientHeight || 0) + "px";
+    if (
+      (parseInt(this._ctx!.canvas.style.width) || 0) <
+      (this._canvas.parentElement?.clientWidth || 0)
+    ) {
+      this._ctx!.canvas.style.width =
+        (this._canvas.parentElement?.clientWidth || 0) + "px";
+      this._ctx!.canvas.style.height =
+        (this._canvas.parentElement?.clientHeight || 0) + "px";
+    }
   }
   public reposition(event: MouseEvent) {
-    this._coords.x = event.clientX - this._canvas.offsetLeft;
-    this._coords.y = event.clientY - this._canvas.offsetTop;
+    this._coords.x =
+      (event.clientX -
+        this._canvas.getBoundingClientRect().left -
+        this._canvas.scrollLeft) /
+      this._scale;
+    this._coords.y =
+      (event.clientY -
+        this._canvas.getBoundingClientRect().top -
+        this._canvas.scrollTop) /
+      this._scale;
   }
   public start(event: MouseEvent) {
-    this._drawHandler = this.draw.bind(this);
-    this.saveState();
+    if (this._currentButton == event.button) {
+      this.stop(event);
+    } else if (!this._currentButton && event.button == 2) {
+      event.preventDefault();
+      this.stop(event);
+      this.undo();
+    } else if (!event.button) {
+      this._currentButton = event.button;
+      this._drawHandler = this.draw.bind(this);
+      this.saveState();
 
-    document.addEventListener("mousemove", this._drawHandler);
-    this.reposition(event);
+      document.addEventListener("mousemove", this._drawHandler);
+      this.reposition(event);
+    }
   }
-  public stop() {
-    document.removeEventListener("mousemove", this._drawHandler);
+  public stop(event: MouseEvent) {
+    if (this._currentButton === event.button) {
+      document.removeEventListener("mousemove", this._drawHandler);
+      this._currentButton = null;
+    }
   }
   public draw(event: MouseEvent) {
     const [red, green, blue] = document.documentElement.style
@@ -85,14 +116,17 @@ export class Paint {
     }
     this._ctx!.beginPath();
     this._ctx!.lineWidth =
-    this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
+      this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
     this._ctx!.lineCap = this._lineCap == "eraser" ? "round" : this._lineCap;
-    this._ctx!.strokeStyle = this._lineCap == "eraser" ? '#000' : this.ConvertRGBtoHex(
-      parseInt(red),
-      parseInt(green),
-      parseInt(blue),
-      this._opacity
-    );
+    this._ctx!.strokeStyle =
+      this._lineCap == "eraser"
+        ? "#000"
+        : this.ConvertRGBtoHex(
+            parseInt(red),
+            parseInt(green),
+            parseInt(blue),
+            this._opacity
+          );
     this._ctx!.moveTo(this._coords.x, this._coords.y);
     this.reposition(event);
     this._ctx!.lineTo(this._coords.x, this._coords.y);
@@ -112,8 +146,6 @@ export class Paint {
   }
 
   private restoreState(isUndo = false) {
-    console.log(this._undoHistory, this._redoHistory);
-
     if ((isUndo ? this._undoHistory : this._redoHistory).length) {
       this.saveState(isUndo, true);
       const img = new Image();
@@ -133,14 +165,9 @@ export class Paint {
         );
       };
     }
-
-    console.log(this._undoHistory, this._redoHistory);
-    
   }
 
   public undo() {
-    console.log('undo');
-    
     this.restoreState(true);
   }
 
@@ -149,10 +176,19 @@ export class Paint {
   }
 
   public save() {
-    const link = document.createElement('a')
-    link.download = 'webpaint.png'
-    link.href = this._canvas.toDataURL()
-    link.click()
-    link.remove()
+    const link = document.createElement("a");
+    link.download = "webpaint.png";
+    link.href = this._canvas.toDataURL();
+    link.click();
+    link.remove();
+  }
+
+  public magnifier() {
+    this._scale = this._scale === 1 ? 2 : 1;
+
+    this._ctx!.canvas.style.width =
+      this._scale * (this._canvas.parentElement?.clientWidth || 0) + "px";
+    this._ctx!.canvas.style.height =
+      this._scale * (this._canvas.parentElement?.clientHeight || 0) + "px";
   }
 }

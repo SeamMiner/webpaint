@@ -109,13 +109,13 @@ import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
-    const store = useStore()
+    const store = useStore();
 
-    const paint = computed(() => store.state.paint.paint)
+    const paint = computed(() => store.state.paint.paint);
     const lineWidth_ = ref(5);
 
     watchEffect(() => {
-      paint.value._lineWidth = lineWidth_.value
+      paint.value._lineWidth = lineWidth_.value;
     });
 
     return {

@@ -2,11 +2,11 @@ import { MutationTree } from "vuex";
 import { Paint } from "../paint/main";
 
 type PaintModuleState = {
-  paint: Paint | null
-}
+  paint: Paint | null;
+};
 
 const paintModuleState: PaintModuleState = {
-  paint: new Paint(null)
+  paint: new Paint(null),
 };
 
 const paintModuleMutations = <MutationTree<PaintModuleState>>{
@@ -14,7 +14,6 @@ const paintModuleMutations = <MutationTree<PaintModuleState>>{
     state.paint = newPaint;
   },
 };
-
 
 const paintModule = {
   namespaced: true,
