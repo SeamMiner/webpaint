@@ -99,7 +99,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .dock {
-  animation: dissolve 0.6s ease-in-out, dockAppears 0.45s cubic-bezier(0.18, 0, 0.51, 1.26);
+  animation: dissolve 0.6s ease-in-out,
+    dockAppears 0.45s cubic-bezier(0.18, 0, 0.51, 1.26);
   background: rgb(var(--neutral));
   box-sizing: border-box;
   box-shadow: inset 0px 0px 0px 1px rgba(var(--base) / 0.1),

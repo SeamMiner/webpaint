@@ -63,6 +63,7 @@
       <canvas ref="canvas" id="canvas"></canvas>
     </div>
     <div class="dock">
+      <div data-made-by="@SeamMiner and @greenyboy"></div>
       <Dock />
       <Button data-type="accent" data-size="big" data-slot="text">
         Let’s work
@@ -158,6 +159,7 @@ export default defineComponent({
     overflow-x: auto;
     background: rgb(var(--white));
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    touch-action: none;
 
     &::-webkit-scrollbar {
       width: 14px;
@@ -191,7 +193,7 @@ export default defineComponent({
 
   & > .dock {
     grid-area: dock;
-    justify-content: flex-end;
+    justify-content: space-between;
     display: flex;
     gap: 1.5rem;
     padding: 1.25rem 1.625rem;

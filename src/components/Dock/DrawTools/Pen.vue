@@ -95,11 +95,11 @@
 
 <style lang="scss" scoped>
 .case {
-  fill: rgb(var(--dock-draw))
+  fill: rgb(var(--dock-draw));
 }
 
 .caseShadow {
-  fill: rgb(var(--base))
+  fill: rgb(var(--base));
 }
 
 .active {
