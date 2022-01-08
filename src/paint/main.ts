@@ -48,14 +48,20 @@ export class Paint {
   }
 
   public init() {
-    this._canvas.addEventListener("mousedown", this.start.bind(this));
-    document.addEventListener("mouseup", this.stop.bind(this));
+    this._canvas.addEventListener("pointerdown", this.start.bind(this));
+    document.addEventListener("pointerup", this.stop.bind(this));
+    this._canvas.addEventListener("contextmenu", (e) => {
+      this.stop.bind(this);
+      e.preventDefault();
+    });
     //window.addEventListener("resize", this.resize.bind(this));
 
     this._canvas.parentElement!.style.height =
       (this._canvas.parentElement?.clientHeight || 0) + "px";
-    this._ctx!.canvas.width = (this._canvas.parentElement?.clientWidth || 0) - 14;
-    this._ctx!.canvas.height = (this._canvas.parentElement?.clientHeight || 0) - 14;
+    this._ctx!.canvas.width =
+      (this._canvas.parentElement?.clientWidth || 0) - 14;
+    this._ctx!.canvas.height =
+      (this._canvas.parentElement?.clientHeight || 0) - 14;
   }
 
   public resize() {
@@ -69,7 +75,7 @@ export class Paint {
         (this._canvas.parentElement?.clientHeight || 0) + "px";
     }
   }
-  public reposition(event: MouseEvent) {
+  public reposition(event: PointerEvent) {
     this._coords.x =
       (event.clientX -
         this._canvas.getBoundingClientRect().left -
@@ -81,11 +87,11 @@ export class Paint {
         this._canvas.scrollTop) /
       this._scale;
   }
-  public start(event: MouseEvent) {
+  public start(event: PointerEvent) {
     if (this._currentButton == event.button) {
       this.stop(event);
-    } else if (!this._currentButton && event.button == 2) {
-      event.preventDefault();
+    } else if (this._currentButton == 0 && event.button == 2) {
+      this._currentButton = event.button;
       this.stop(event);
       this.undo();
     } else if (!event.button) {
@@ -93,17 +99,17 @@ export class Paint {
       this._drawHandler = this.draw.bind(this);
       this.saveState();
 
-      document.addEventListener("mousemove", this._drawHandler);
+      document.addEventListener("pointermove", this._drawHandler);
       this.reposition(event);
     }
   }
-  public stop(event: MouseEvent) {
+  public stop(event: PointerEvent) {
     if (this._currentButton === event.button) {
-      document.removeEventListener("mousemove", this._drawHandler);
+      document.removeEventListener("pointermove", this._drawHandler);
       this._currentButton = null;
     }
   }
-  public draw(event: MouseEvent) {
+  public draw(event: PointerEvent) {
     const [red, green, blue] = document.documentElement.style
       .getPropertyValue("--active")
       .trim()
@@ -187,8 +193,8 @@ export class Paint {
     this._scale = this._scale === 1 ? 2 : 1;
 
     this._ctx!.canvas.style.width =
-      (this._scale * (this._canvas.parentElement?.clientWidth || 0)) - 14 + "px";
+      this._scale * (this._canvas.parentElement?.clientWidth || 0) - 14 + "px";
     this._ctx!.canvas.style.height =
-      (this._scale * (this._canvas.parentElement?.clientHeight || 0)) - 14 + "px";
+      this._scale * (this._canvas.parentElement?.clientHeight || 0) - 14 + "px";
   }
 }
