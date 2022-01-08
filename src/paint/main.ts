@@ -187,8 +187,8 @@ export class Paint {
     this._scale = this._scale === 1 ? 2 : 1;
 
     this._ctx!.canvas.style.width =
-      this._scale * (this._canvas.parentElement?.clientWidth || 0) + "px";
+      (this._scale * (this._canvas.parentElement?.clientWidth || 0)) - 14 + "px";
     this._ctx!.canvas.style.height =
-      this._scale * (this._canvas.parentElement?.clientHeight || 0) + "px";
+      (this._scale * (this._canvas.parentElement?.clientHeight || 0)) - 14 + "px";
   }
 }

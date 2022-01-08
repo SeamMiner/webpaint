@@ -155,12 +155,9 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     border-radius: 0.5rem;
-    overflow: scroll;
-
-    & > canvas {
-      background: rgb(var(--white));
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-    }
+    overflow-x: auto;
+    background: rgb(var(--white));
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 
     &::-webkit-scrollbar {
       width: 14px;
