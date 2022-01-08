@@ -171,8 +171,8 @@ export default defineComponent({
       border: 4px solid rgba(var(--base) / 0);
       background-clip: padding-box;
       background-color: rgba(var(--base) / 0.2);
-      -webkit-border-radius: 7px;
-      -webkit-box-shadow: inset -1px -1px 0px rgba(var(--base) / 0.05),
+      border-radius: 7px;
+      box-shadow: inset -1px -1px 0px rgba(var(--base) / 0.05),
         inset 1px 1px 0px rgba(var(--base) / 0.05);
     }
 

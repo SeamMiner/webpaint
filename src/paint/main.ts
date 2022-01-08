@@ -140,6 +140,7 @@ export class Paint {
   }
   public eraseAll() {
     this._ctx?.clearRect(0, 0, this._canvas.width, this._canvas.height);
+    this.saveState();
   }
 
   private saveState(isRedo = false, keepRedo = false) {
