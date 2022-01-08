@@ -143,5 +143,22 @@ body {
       padding: 0 1rem !important;
     }
   }
+
+  @keyframes dockAppears {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes dissolve {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 </style>

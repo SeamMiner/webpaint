@@ -99,6 +99,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .dock {
+  animation: dissolve 0.6s ease-in-out, dockAppears 0.45s cubic-bezier(0.18, 0, 0.51, 1.26);
   background: rgb(var(--neutral));
   box-sizing: border-box;
   box-shadow: inset 0px 0px 0px 1px rgba(var(--base) / 0.1),
@@ -142,6 +143,19 @@ export default defineComponent({
         margin-top: -0.75rem;
       }
     }
+  }
+
+  .drawTools > svg:first-child {
+    animation: dockAppears 0.4s ease-in-out;
+  }
+  .drawTools > svg:nth-child(2) {
+    animation: dockAppears 0.6s ease-in-out;
+  }
+  .drawTools > svg:nth-child(3) {
+    animation: dockAppears 0.76s ease-in-out;
+  }
+  .drawTools > svg:nth-child(4) {
+    animation: dockAppears 0.84s ease-in-out;
   }
 
   .brushes {

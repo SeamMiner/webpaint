@@ -50,12 +50,12 @@ export class Paint {
   public init() {
     this._canvas.addEventListener("mousedown", this.start.bind(this));
     document.addEventListener("mouseup", this.stop.bind(this));
-    window.addEventListener("resize", this.resize.bind(this));
+    //window.addEventListener("resize", this.resize.bind(this));
 
     this._canvas.parentElement!.style.height =
       (this._canvas.parentElement?.clientHeight || 0) + "px";
-    this._ctx!.canvas.width = this._canvas.parentElement?.clientWidth || 0;
-    this._ctx!.canvas.height = this._canvas.parentElement?.clientHeight || 0;
+    this._ctx!.canvas.width = (this._canvas.parentElement?.clientWidth || 0) - 14;
+    this._ctx!.canvas.height = (this._canvas.parentElement?.clientHeight || 0) - 14;
   }
 
   public resize() {

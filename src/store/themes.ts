@@ -17,8 +17,6 @@ enum themeVariables {
   neutralHover = "neutral-hover",
   systematic = "systematic",
   base = "base",
-  // TODO: unify 'black-grey' with current color guide
-  blackGrey = "black-grey",
   grey = "grey",
   blue = "blue",
   orange = "orange",
@@ -26,7 +24,6 @@ enum themeVariables {
   semiBlack = "semiBlack",
   black = "black",
   white = "white",
-  // TODO: unify 'checkedOpacity' & 'dockDraw' with current color guide
   checkedOpacity = "checked-opacity",
   dockDraw = "dock-draw",
   active = "active",
@@ -73,8 +70,8 @@ const themeModuleState: ThemeModuleState = {
     {
       name: themeVariables.accentHover,
       value: new Map([
-        [Themes.black, "97, 6, 212"],
-        [Themes.white, "18, 18, 237"],
+        [Themes.black, "115, 18, 239"],
+        [Themes.white, "138, 53, 246"],
       ]),
     },
     {
@@ -94,8 +91,8 @@ const themeModuleState: ThemeModuleState = {
     {
       name: themeVariables.neutralHover,
       value: new Map([
-        [Themes.black, "29, 29, 29"],
-        [Themes.white, "231, 231, 231"],
+        [Themes.black, "0 0 0"],
+        [Themes.white, "227 227 227"],
       ]),
     },
     {
@@ -110,13 +107,6 @@ const themeModuleState: ThemeModuleState = {
       value: new Map([
         [Themes.black, "255 255 255"],
         [Themes.white, "0 0 0"],
-      ]),
-    },
-    {
-      name: themeVariables.blackGrey,
-      value: new Map([
-        [Themes.black, "0 0 0"],
-        [Themes.white, "227 227 227"],
       ]),
     },
     {

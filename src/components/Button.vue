@@ -52,7 +52,7 @@ button {
 button[data-type="accent"] {
   color: rgb(var(--on-accent));
   background: rgb(var(--accent));
-  border: 1px solid rgba(var(--black) / 0.1);
+  border: 1px solid rgba(var(--base) / 0.1);
   font-family: Graphik LCG;
   font-style: normal;
   font-weight: normal;

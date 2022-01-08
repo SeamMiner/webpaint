@@ -41,7 +41,7 @@ export default defineComponent({
 
   &:hover,
   &:focus {
-    background: rgba(var(--black-grey) / 0.8);
+    background: rgba(var(--neutral-hover) / 0.8);
   }
 
   &:focus {

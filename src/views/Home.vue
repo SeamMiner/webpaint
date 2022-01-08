@@ -157,9 +157,14 @@ export default defineComponent({
     border-radius: 0.5rem;
     overflow: scroll;
 
+    & > canvas {
+      background: rgb(var(--white));
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
     &::-webkit-scrollbar {
       width: 14px;
-      height: 18px;
+      height: 14px;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -182,11 +187,6 @@ export default defineComponent({
       background-color: transparent;
     }
 
-    & > canvas {
-      background: rgb(var(--white));
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
     @media (max-width: 576px) {
       display: none;
     }
@@ -204,6 +204,10 @@ export default defineComponent({
       rgb(var(--systematic)) 2px
     );
     background-size: 1.75rem 1.75rem;
+
+    button {
+      animation: dockAppears 0.6s cubic-bezier(0.18, 0, 0.51, 1.26);
+    }
   }
 
   .goDesktop {
