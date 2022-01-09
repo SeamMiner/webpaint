@@ -180,8 +180,8 @@ const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
     context.dispatch("updateProperties");
   },
 
-  toggle(context, newTheme: Themes) {
-    context.commit("change", { newTheme });
+  toggle(context) {
+    context.commit("change", { newTheme: context.state.activeTheme === Themes.white ? Themes.black : Themes.white });
     context.dispatch("updateProperties");
   },
 

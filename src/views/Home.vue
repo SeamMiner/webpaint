@@ -1,11 +1,8 @@
 <template>
   <section class="paint">
     <div class="goDesktop">
-      <b>H<i>e</i>y!</b>
-      <p>
-        Try a&nbsp;desktop version to&nbsp;see the full functionality
-        of&nbsp;WebPaint.
-      </p>
+      <b v-html="t('pages.home.cap.title')"></b>
+      <p v-html="t('pages.home.cap.description')"></p>
       <svg
         width="320"
         height="457"
@@ -66,7 +63,7 @@
       <div data-made-by="@SeamMiner and @greenyboy"></div>
       <Dock />
       <Button data-type="accent" data-size="big" data-slot="text">
-        Let’s work
+        {{ t('pages.home.workButton') }}
       </Button>
     </div>
   </section>
@@ -88,6 +85,7 @@ import { Paint } from "../paint/main";
 import Dock from "@/components/Dock.vue";
 import Button from "@/components/Button.vue";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   components: {
@@ -97,6 +95,8 @@ export default defineComponent({
   name: "Home",
 
   setup() {
+    const { t } = useI18n({ useScope: 'global' }); 
+
     const store = useStore();
 
     const canvas: Ref<HTMLCanvasElement | null> = ref(null);
@@ -126,6 +126,7 @@ export default defineComponent({
 
     return {
       canvas,
+      t
     };
   },
 });
@@ -168,12 +169,12 @@ export default defineComponent({
 
     &::-webkit-scrollbar-thumb {
       height: 6px;
-      border: 4px solid rgba(var(--base) / 0);
+      border: 4px solid rgba(var(--black) / 0);
       background-clip: padding-box;
-      background-color: rgba(var(--base) / 0.2);
+      background-color: rgba(var(--black) / 0.2);
       border-radius: 7px;
-      box-shadow: inset -1px -1px 0px rgba(var(--base) / 0.05),
-        inset 1px 1px 0px rgba(var(--base) / 0.05);
+      box-shadow: inset -1px -1px 0px rgba(var(--black) / 0.05),
+        inset 1px 1px 0px rgba(var(--blackVM) / 0.05);
     }
 
     &::-webkit-scrollbar-button {

@@ -1,38 +1,45 @@
 {
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "Web Paint — draw pictures, figures & more"
+      },
+      "tooltip": {
+        "move": "Move tool",
+        "zoom": "Zoom tool",
+        "pen": "Pen tool",
+        "marker": "Marker tool",
+        "eraser": "Eraser tool",
+        "magic": "Magic tool",
+        "thickness": "Brush Thickness",
+        "opacity": "Color Opacity",
+        "color": "Pick a Color"
+      },
+      "cap": {
+        "title": "H<i>e</i>y!",
+        "description": "Try a&nbsp;desktop version to&nbsp;see the full functionality of&nbsp;WebPaint."
+      },
+      "workButton": "Let's work"
+    }
+  },
   "navbar": {
     "save": "Save File",
     "share": "Share",
     "about": "About",
     "help": "Help",
-    "donate": "Donate"
-  },
-  "tooltip": {
-    "move": "Move tool",
-    "zoom": "Zoom tool",
-    "pen": "Pen tool",
-    "marker": "Marker tool",
-    "eraser": "Eraser tool",
-    "magic": "Magic tool"
-  },
-  "button": [
-    {
-      "accent": [
-        {
-          "cta": "Let’s work"
-        }
-      ]
+    "donate": "Donate",
+    "tooltip": {
+      "undo": "Undo",
+      "redo": "Redo",
+      "save": "Save File",
+      "theme": "Theme",
+      "lang": "Language"
     }
-  ],
-  "cap": {
-    "title": "Hey!",
-    "description": "Try a desktop version to see the full functionality of WebPaint."
   },
-  "popup": [
-    {
-      "about": {
-        "title": "Web Paint",
-        "description": "Minimalistic graphic editor on the web. Idea by Greene & Lapp studio. Designed by Alexander Greene, developed by Platon Lapp in 2021. Web Paint 1.0.1"
-      }
+  "popup": {
+    "about": {
+      "title": "Web Paint",
+      "description": "Minimalistic graphic editor on&nbsp;the web. <br><br> Idea by&nbsp;Greene <i>&</i>&nbsp;Lapp studio.<br> Designed by&nbsp;<a href='https://t.me/greeneboy'>Alexander Greene</a>, developed by&nbsp;<a https://t.me/seamminer>Platon Lapp</a> in&nbsp;2022. <br><br> Web Paint&nbsp;0.1.0"
     }
-  ]
+  }
 }
