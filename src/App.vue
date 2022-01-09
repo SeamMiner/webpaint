@@ -143,21 +143,19 @@ body {
   }
 }
 
-
-
 .v-popper__popper {
   z-index: 10000;
 
   &.v-popper__popper--hidden {
     visibility: hidden;
     opacity: 0;
-    transition: opacity .15s, visibility .15s;
+    transition: opacity 0.15s, visibility 0.15s;
   }
 
   &.v-popper__popper--shown {
     visibility: visible;
     opacity: 1;
-    transition: opacity .15s;
+    transition: opacity 0.15s;
   }
 
   &.v-popper__popper--skip-transition {
@@ -169,24 +167,24 @@ body {
   }
 
   .v-popper__wrapper {
-
     .v-popper__inner {
       display: flex;
-      gap: .75rem;
+      gap: 0.75rem;
       background: rgb(var(--systematic));
       color: rgb(var(--base));
       box-sizing: border-box;
       box-shadow: inset 0px 0px 0px 1px rgba(var(--base) / 0.1);
-      border-radius: .5rem;
-      padding: .5rem .75rem;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.75rem;
       font-family: "Inter", "HelveticaNeueCyr", system-ui, sans-serif;
 
       & span {
-        color: rgba(var(--base) / .6);
+        color: rgba(var(--base) / 0.6);
       }
     }
 
-    .v-popper__arrow-outer, .v-popper__arrow-inner {
+    .v-popper__arrow-outer,
+    .v-popper__arrow-inner {
       width: 0;
       height: 0;
       border-style: solid;
@@ -200,7 +198,8 @@ body {
   &[data-popper-placement^="top"] {
     margin-bottom: 5px;
 
-    .v-popper__arrow-inner, .v-popper__arrow-outer {
+    .v-popper__arrow-inner,
+    .v-popper__arrow-outer {
       border-width: 5px 5px 0 5px;
       border-left-color: transparent !important;
       border-right-color: transparent !important;
@@ -215,7 +214,8 @@ body {
   &[data-popper-placement^="bottom"] {
     margin-top: 5px;
 
-    .v-popper__arrow-outer, .v-popper__arrow-inner {
+    .v-popper__arrow-outer,
+    .v-popper__arrow-inner {
       border-width: 0 5px 5px 5px;
       border-left-color: transparent !important;
       border-right-color: transparent !important;

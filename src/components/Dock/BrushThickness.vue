@@ -106,7 +106,7 @@
 <script lang="ts">
 import { defineComponent, ref, watchEffect, computed } from "vue";
 import { useStore } from "vuex";
-import { useHotkey } from 'vue-use-hotkey'
+import { useHotkey } from "vue-use-hotkey";
 
 export default defineComponent({
   setup() {
@@ -121,36 +121,36 @@ export default defineComponent({
 
     useHotkey([
       {
-        keys: ['t', '1'],
+        keys: ["t", "1"],
         handler() {
-          lineWidth_.value = 2
-        }
+          lineWidth_.value = 2;
+        },
       },
       {
-        keys: ['t', '2'],
+        keys: ["t", "2"],
         handler() {
-          lineWidth_.value = 3
-        }
+          lineWidth_.value = 3;
+        },
       },
       {
-        keys: ['t', '3'],
+        keys: ["t", "3"],
         handler() {
-          lineWidth_.value = 5
-        }
+          lineWidth_.value = 5;
+        },
       },
       {
-        keys: ['t', '4'],
+        keys: ["t", "4"],
         handler() {
-          lineWidth_.value = 7
-        }
+          lineWidth_.value = 7;
+        },
       },
       {
-        keys: ['t', '5'],
+        keys: ["t", "5"],
         handler() {
-          lineWidth_.value = 10
-        }
+          lineWidth_.value = 10;
+        },
       },
-    ])
+    ]);
     return {
       lineWidth_,
     };

@@ -181,7 +181,12 @@ const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
   },
 
   toggle(context) {
-    context.commit("change", { newTheme: context.state.activeTheme === Themes.white ? Themes.black : Themes.white });
+    context.commit("change", {
+      newTheme:
+        context.state.activeTheme === Themes.white
+          ? Themes.black
+          : Themes.white,
+    });
     context.dispatch("updateProperties");
   },
 

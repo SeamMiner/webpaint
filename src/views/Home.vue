@@ -63,7 +63,7 @@
       <div data-made-by="@SeamMiner and @greenyboy"></div>
       <Dock />
       <Button data-type="accent" data-size="big" data-slot="text">
-        {{ t('pages.home.workButton') }}
+        {{ t("pages.home.workButton") }}
       </Button>
     </div>
   </section>
@@ -95,7 +95,7 @@ export default defineComponent({
   name: "Home",
 
   setup() {
-    const { t } = useI18n({ useScope: 'global' }); 
+    const { t } = useI18n({ useScope: "global" });
 
     const store = useStore();
 
@@ -126,7 +126,7 @@ export default defineComponent({
 
     return {
       canvas,
-      t
+      t,
     };
   },
 });

@@ -3,7 +3,14 @@
     <Logo></Logo>
     <ul class="options">
       <div class="option__controls">
-        <li v-tooltip.top-center="{ content: `${t('navbar.tooltip.undo')} <span>Ctrl + Z</span>`, html: true }" @click="paint.undo()" class="undo">
+        <li
+          v-tooltip.top-center="{
+            content: `${t('navbar.tooltip.undo')} <span>Ctrl + Z</span>`,
+            html: true,
+          }"
+          @click="paint.undo()"
+          class="undo"
+        >
           <svg
             width="15"
             height="15"
@@ -15,7 +22,14 @@
             />
           </svg>
         </li>
-        <li v-tooltip.top-center="{ content: `${t('navbar.tooltip.redo')} <span>Ctrl + Y</span>`, html: true }" @click="paint.redo()" class="redo">
+        <li
+          v-tooltip.top-center="{
+            content: `${t('navbar.tooltip.redo')} <span>Ctrl + Y</span>`,
+            html: true,
+          }"
+          @click="paint.redo()"
+          class="redo"
+        >
           <svg
             width="15"
             height="15"
@@ -29,22 +43,28 @@
           </svg>
         </li>
       </div>
-      <li class="save" v-tooltip.top-center="{ content: `${t('navbar.tooltip.save')} <span>Ctrl + S</span>`, html: true }" @click="paint.save()">
-        <Link> {{ t('navbar.save') }} </Link>
+      <li
+        class="save"
+        v-tooltip.top-center="{
+          content: `${t('navbar.tooltip.save')} <span>Ctrl + S</span>`,
+          html: true,
+        }"
+        @click="paint.save()"
+      >
+        <Link> {{ t("navbar.save") }} </Link>
       </li>
       <li class="share">
-        <Link> {{ t('navbar.share') }} </Link>
+        <Link> {{ t("navbar.share") }} </Link>
       </li>
       <li class="about">
-        <Link> {{ t('navbar.about') }} </Link>
+        <Link link="/about"> {{ t("navbar.about") }} </Link>
       </li>
-      <!-- TODO: add link https://t.me/greeneboy -->
       <li class="help">
-        <Link> {{ t('navbar.help') }} </Link>
+        <Link link="https://t.me/greeneboy"> {{ t("navbar.help") }} </Link>
       </li>
       <li class="donate">
         <Link>
-          {{ t('navbar.donate') }}
+          {{ t("navbar.donate") }}
           <svg
             width="16"
             height="15"
@@ -61,10 +81,13 @@
     </ul>
 
     <div class="buttons">
-      <Button 
+      <Button
         @click="switchTheme"
         type="icon"
-        v-tooltip.top-center="{ content: `${t('navbar.tooltip.theme')} <span>Shift + T</span>`, html: true }"
+        v-tooltip.top-center="{
+          content: `${t('navbar.tooltip.theme')} <span>Shift + T</span>`,
+          html: true,
+        }"
       >
         <svg
           width="24"
@@ -78,10 +101,13 @@
           />
         </svg>
       </Button>
-      <Button 
+      <Button
         @click="switchLang"
         type="icon"
-        v-tooltip.top-center="{ content: `${t('navbar.tooltip.lang')} <span>Shift + L</span>`, html: true }"
+        v-tooltip.top-center="{
+          content: `${t('navbar.tooltip.lang')} <span>Shift + L</span>`,
+          html: true,
+        }"
       >
         <svg
           width="24"
@@ -102,7 +128,7 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
-import { useHotkey } from 'vue-use-hotkey'
+import { useHotkey } from "vue-use-hotkey";
 
 import Logo from "@/components/Logo.vue";
 import Link from "@/components/Link.vue";
@@ -116,53 +142,54 @@ export default defineComponent({
     Button,
   },
   setup() {
-    const { t, locale } = useI18n({ useScope: 'global' })
+    const { t, locale } = useI18n({ useScope: "global" });
 
     const store = useStore();
-    const paint = computed(() => store.state.paint.paint)
+    const paint = computed(() => store.state.paint.paint);
 
-    const switchLang = () => locale.value = locale.value === 'en' ? 'ru' : 'en'
+    const switchLang = () =>
+      (locale.value = locale.value === "en" ? "ru" : "en");
     const switchTheme = () => store.dispatch("theme/toggle");
 
     useHotkey([
       {
-        keys: ['Control', 'z'],
-        handler () {
-          paint.value.undo()
-        }
+        keys: ["Control", "z"],
+        handler() {
+          paint.value.undo();
+        },
       },
       {
-        keys: ['Control', 'y'],
-        handler () {
-          paint.value.redo()
-        }
+        keys: ["Control", "y"],
+        handler() {
+          paint.value.redo();
+        },
       },
       {
-        keys: ['Control', 's'],
+        keys: ["Control", "s"],
         preventDefault: true,
-        handler () {
-          paint.value.save()
-        }
+        handler() {
+          paint.value.save();
+        },
       },
       {
-        keys: ['T'],
-        handler () {
-          switchTheme()
-        }
+        keys: ["T"],
+        handler() {
+          switchTheme();
+        },
       },
       {
-        keys: ['L'],
-        handler () {
-          switchLang()
-        }
+        keys: ["L"],
+        handler() {
+          switchLang();
+        },
       },
-    ])
+    ]);
 
     return {
       paint,
       t,
       switchLang,
-      switchTheme
+      switchTheme,
     };
   },
 });

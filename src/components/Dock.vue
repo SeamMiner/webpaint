@@ -6,7 +6,10 @@
         data-size="small"
         data-type="accent"
         data-slot="icon"
-        v-tooltip.top-center="{ content: `${t('pages.home.tooltip.move')} <span>V</span>`, html: true }"
+        v-tooltip.top-center="{
+          content: `${t('pages.home.tooltip.move')} <span>V</span>`,
+          html: true,
+        }"
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
@@ -15,7 +18,10 @@
         data-size="small"
         data-type="white"
         data-slot="icon"
-        v-tooltip.top-center="{ content: `${t('pages.home.tooltip.zoom')} <span>M</span>`, html: true }"
+        v-tooltip.top-center="{
+          content: `${t('pages.home.tooltip.zoom')} <span>M</span>`,
+          html: true,
+        }"
         @click="paint.magnifier()"
       >
         <img :src="require('@/assets/Magnifier.svg')" alt="Scale" />
@@ -28,7 +34,10 @@
           activeDrawTool_ = 'pen';
         "
         :class="{ active: activeDrawTool_ == 'pen' }"
-        v-tooltip.top-center="{ content: `${t('pages.home.tooltip.pen')} <span>P</span>`, html: true }"
+        v-tooltip.top-center="{
+          content: `${t('pages.home.tooltip.pen')} <span>P</span>`,
+          html: true,
+        }"
       />
       <Marker
         @click="
@@ -36,7 +45,10 @@
           activeDrawTool_ = 'marker';
         "
         :class="{ active: activeDrawTool_ == 'marker' }"
-        v-tooltip.top-center="{ content: `${t('pages.home.tooltip.marker')} <span>Shift + P</span>`, html: true }"
+        v-tooltip.top-center="{
+          content: `${t('pages.home.tooltip.marker')} <span>Shift + P</span>`,
+          html: true,
+        }"
       />
       <Erase
         @click="
@@ -44,28 +56,38 @@
           activeDrawTool_ = 'erase';
         "
         :class="{ active: activeDrawTool_ == 'erase' }"
-        v-tooltip.top-center="{ content: `${t('pages.home.tooltip.eraser')} <span>E</span>`, html: true }"
+        v-tooltip.top-center="{
+          content: `${t('pages.home.tooltip.eraser')} <span>E</span>`,
+          html: true,
+        }"
       />
       <Magic
-        @click="paint.eraseAll()" 
-        v-tooltip.top-center="{ content: `${t('pages.home.tooltip.magic')} <span>Shift + E</span>`, html: true }"
+        @click="paint.eraseAll()"
+        v-tooltip.top-center="{
+          content: `${t('pages.home.tooltip.magic')} <span>Shift + E</span>`,
+          html: true,
+        }"
       />
     </div>
-    <BrushThickness 
-      v-tooltip.top-center="{ content: `${t('pages.home.tooltip.thickness')} <span>T + [1-5]</span>`, html: true }"
+    <BrushThickness
+      v-tooltip.top-center="{
+        content: `${t('pages.home.tooltip.thickness')} <span>T + [1-5]</span>`,
+        html: true,
+      }"
     />
-    <OpacityTool 
-      v-tooltip.top-center="t('pages.home.tooltip.opacity')"
-    />
+    <OpacityTool v-tooltip.top-center="t('pages.home.tooltip.opacity')" />
     <PickedColorTool
-      v-tooltip.top-center="{ content: `${t('pages.home.tooltip.color')} <span>C + [1-6]</span>`, html: true }"
+      v-tooltip.top-center="{
+        content: `${t('pages.home.tooltip.color')} <span>C + [1-6]</span>`,
+        html: true,
+      }"
     />
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref, watchEffect } from "vue";
-import { useHotkey } from 'vue-use-hotkey'
+import { useHotkey } from "vue-use-hotkey";
 import { useStore } from "vuex";
 
 import Button from "@/components/Button.vue";
@@ -95,7 +117,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { t } = useI18n()
+    const { t } = useI18n();
     const store = useStore();
 
     const paint = computed(() => store.state.paint.paint);
@@ -108,53 +130,53 @@ export default defineComponent({
 
     useHotkey([
       {
-        keys: ['v'],
+        keys: ["v"],
         handler() {
-          paint.value.move()
-          activeDrawTool_.value = 'move'
-        }
+          paint.value.move();
+          activeDrawTool_.value = "move";
+        },
       },
       {
-        keys: ['m'],
+        keys: ["m"],
         handler() {
-          paint.value.magnifier()
-          activeDrawTool_.value = 'magnifier'
-        }
+          paint.value.magnifier();
+          activeDrawTool_.value = "magnifier";
+        },
       },
       {
-        keys: ['p'],
+        keys: ["p"],
         handler() {
-          lineCap_.value = 'round'
-          activeDrawTool_.value = 'pen'
-        }
+          lineCap_.value = "round";
+          activeDrawTool_.value = "pen";
+        },
       },
       {
-        keys: ['P'],
+        keys: ["P"],
         handler() {
-          lineCap_.value = 'square'
-          activeDrawTool_.value = 'marker'
-        }
+          lineCap_.value = "square";
+          activeDrawTool_.value = "marker";
+        },
       },
       {
-        keys: ['e'],
+        keys: ["e"],
         handler() {
-          lineCap_.value = 'eraser'
-          activeDrawTool_.value = 'eraser'
-        }
+          lineCap_.value = "eraser";
+          activeDrawTool_.value = "eraser";
+        },
       },
       {
-        keys: ['E'],
+        keys: ["E"],
         handler() {
-          paint.value.eraseAll()
-        }
+          paint.value.eraseAll();
+        },
       },
-    ])
+    ]);
 
     return {
       lineCap_,
       activeDrawTool_,
       paint,
-      t
+      t,
     };
   },
 });

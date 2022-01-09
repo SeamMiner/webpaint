@@ -26,7 +26,7 @@
 <script lang="ts">
 import { computed, defineComponent, watchEffect, ref, Ref } from "vue";
 import { useStore } from "vuex";
-import { useHotkey } from 'vue-use-hotkey'
+import { useHotkey } from "vue-use-hotkey";
 import useDebouncedRef from "@/useDebouncedRef";
 import { Hotkey } from "vue-use-hotkey/dist/types/types";
 
@@ -38,25 +38,25 @@ export default defineComponent({
     const colors: string[] = [];
     const shortcuts: Hotkey[] = [
       {
-        keys: ['c', '6'],
+        keys: ["c", "6"],
         handler() {
-          colorPicker.value?.click()
-          setActiveColor(hex2rgb(colorPickerColor.value))
-        }
+          colorPicker.value?.click();
+          setActiveColor(hex2rgb(colorPickerColor.value));
+        },
       },
-    ]
-    ;["red", "orange", "grey", "blue", "black"].forEach((color, index) => {
-      color = root.getPropertyValue(`--${color}`)
+    ];
+    ["red", "orange", "grey", "blue", "black"].forEach((color, index) => {
+      color = root.getPropertyValue(`--${color}`);
       colors.push(color);
       shortcuts.push({
-        keys: ['c', `${5 - index}`],
+        keys: ["c", `${5 - index}`],
         handler() {
-          setActiveColor(color)
-        }
-      })
+          setActiveColor(color);
+        },
+      });
     });
 
-    const colorPicker: Ref<HTMLInputElement | null> = ref(null)
+    const colorPicker: Ref<HTMLInputElement | null> = ref(null);
     const activeColor = computed(() => store.state.theme.activeColor);
     const setActiveColor = (color: string) => {
       store.dispatch("theme/updateActiveColor", color);
@@ -82,7 +82,7 @@ export default defineComponent({
 
     watchEffect(() => setActiveColor(hex2rgb(colorPickerColor.value)));
 
-    useHotkey(shortcuts)
+    useHotkey(shortcuts);
 
     return {
       colors,
@@ -90,7 +90,7 @@ export default defineComponent({
       setActiveColor,
       colorPickerColor,
       hex2rgb,
-      colorPicker
+      colorPicker,
     };
   },
 });

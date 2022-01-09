@@ -1,11 +1,18 @@
 <template>
-  <router-link :to="link" :disabled="!link" class="link">
-    <slot></slot>
-  </router-link>
+  <template v-if="isExternal">
+    <router-link :to="link" :disabled="!link" class="link">
+      <slot></slot>
+    </router-link>
+  </template>
+  <template v-else>
+    <a :href="link" :disabled="!link" target="_blank" class="link">
+      <slot></slot>
+    </a>
+  </template>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 
 enum Types {
   Header = "header",
@@ -23,8 +30,16 @@ export default defineComponent({
     },
   },
 
-  setup() {
-    console.log();
+  setup(props) {
+    const isExternal = computed(() => {
+      const domain = (url: string) =>
+        url.replace("http://", "").replace("https://", "").split("/")[0];
+      return !domain(props.link);
+    });
+
+    return {
+      isExternal,
+    };
   },
 });
 </script>
