@@ -63,7 +63,7 @@
         <Link link="https://t.me/greeneboy"> {{ t("navbar.help") }} </Link>
       </li>
       <li class="donate">
-        <Link>
+        <Link link="https://www.patreon.com/greenelapp">
           {{ t("navbar.donate") }}
           <svg
             width="16"

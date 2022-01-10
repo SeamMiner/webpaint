@@ -3,7 +3,14 @@
     <div class="mobile__navbar__first__row">
       <Logo></Logo>
       <div class="buttons">
-        <Button type="icon">
+        <Button
+          @click="switchTheme"
+          type="icon"
+          v-tooltip.top-center="{
+            content: `${t('navbar.tooltip.theme')} <span>Shift + T</span>`,
+            html: true,
+          }"
+        >
           <svg
             width="24"
             height="24"
@@ -16,7 +23,14 @@
             />
           </svg>
         </Button>
-        <Button type="icon">
+        <Button
+          @click="switchLang"
+          type="icon"
+          v-tooltip.top-center="{
+            content: `${t('navbar.tooltip.lang')} <span>Shift + L</span>`,
+            html: true,
+          }"
+        >
           <svg
             width="24"
             height="24"
@@ -33,7 +47,14 @@
     </div>
     <ul class="options">
       <div class="option__controls">
-        <li class="undo">
+        <li
+          v-tooltip.top-center="{
+            content: `${t('navbar.tooltip.undo')} <span>Ctrl + Z</span>`,
+            html: true,
+          }"
+          @click="paint.undo()"
+          class="undo"
+        >
           <svg
             width="15"
             height="15"
@@ -45,7 +66,14 @@
             />
           </svg>
         </li>
-        <li class="redo">
+        <li
+          v-tooltip.top-center="{
+            content: `${t('navbar.tooltip.redo')} <span>Ctrl + Y</span>`,
+            html: true,
+          }"
+          @click="paint.redo()"
+          class="redo"
+        >
           <svg
             width="15"
             height="15"
@@ -60,17 +88,18 @@
         </li>
       </div>
       <li class="share">
-        <Link> Share </Link>
+        <Link> {{ t("navbar.share") }} </Link>
       </li>
       <li class="about">
-        <Link> About </Link>
+        <Link> {{ t("navbar.about") }} </Link>
       </li>
-      <!-- TODO: add link https://t.me/greeneboy -->
       <li class="help">
-        <Link> Help </Link>
+        <Link link="https://t.me/greeneboy"> {{ t("navbar.help") }} </Link>
       </li>
       <li class="donate">
-        <Link> Donate </Link>
+        <Link link="https://www.patreon.com/greenelapp">
+          {{ t("navbar.donate") }}
+        </Link>
         <svg
           width="16"
           height="15"
@@ -88,10 +117,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import { useStore } from "vuex";
+import { useHotkey } from "vue-use-hotkey";
+
 import Logo from "@/components/Logo.vue";
 import Link from "@/components/Link.vue";
 import Button from "@/components/Button.vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   components: {
@@ -100,7 +133,55 @@ export default defineComponent({
     Button,
   },
   setup() {
-    console.log("this is logo");
+    const { t, locale } = useI18n({ useScope: "global" });
+
+    const store = useStore();
+    const paint = computed(() => store.state.paint.paint);
+
+    const switchLang = () =>
+      (locale.value = locale.value === "en" ? "ru" : "en");
+    const switchTheme = () => store.dispatch("theme/toggle");
+
+    useHotkey([
+      {
+        keys: ["Control", "z"],
+        handler() {
+          paint.value.undo();
+        },
+      },
+      {
+        keys: ["Control", "y"],
+        handler() {
+          paint.value.redo();
+        },
+      },
+      {
+        keys: ["Control", "s"],
+        preventDefault: true,
+        handler() {
+          paint.value.save();
+        },
+      },
+      {
+        keys: ["T"],
+        handler() {
+          switchTheme();
+        },
+      },
+      {
+        keys: ["L"],
+        handler() {
+          switchLang();
+        },
+      },
+    ]);
+
+    return {
+      paint,
+      t,
+      switchLang,
+      switchTheme,
+    };
   },
 });
 </script>

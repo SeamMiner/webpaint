@@ -60,7 +60,7 @@
       <canvas ref="canvas" id="canvas"></canvas>
     </div>
     <div class="dock">
-      <div data-made-by="@SeamMiner and @greenyboy"></div>
+      <div data-made-by="@SeamMiner and @greeneboy"></div>
       <Dock />
       <Button data-type="accent" data-size="big" data-slot="text">
         {{ t("pages.home.workButton") }}
@@ -142,7 +142,7 @@ export default defineComponent({
   gap: 1.5rem;
   width: 100%;
   height: 100%;
-  padding: 0 4rem;
+  padding: 0 4rem 24px;
 
   & > * {
     min-height: 100px;

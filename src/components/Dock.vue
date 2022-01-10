@@ -226,6 +226,7 @@ export default defineComponent({
 
       &:hover,
       &.active {
+        outline: none;
         margin-top: -0.75rem;
       }
     }
@@ -237,7 +238,7 @@ export default defineComponent({
   .drawTools > svg:nth-child(2) {
     animation: dockAppears 0.6s ease-in-out;
   }
-  .drawTools > svg:nth-child(3) {
+  .drawTools > .eraser__wrapper {
     animation: dockAppears 0.76s ease-in-out;
   }
   .drawTools > svg:nth-child(4) {
