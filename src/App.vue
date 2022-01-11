@@ -98,8 +98,8 @@ body {
   // padding: 1.5rem 4rem 2.5rem 4rem;
   display: grid;
   grid:
-    "navbar" minmax(40px, min-content)
-    "content" auto
+    "navbar" minmax(90px, min-content)
+    "content" 1fr
     / 100%;
   background-color: rgb(var(--systematic));
   color: rgb(var(--on-neutral));
