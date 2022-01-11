@@ -144,18 +144,6 @@ export default defineComponent({
 
     useHotkey([
       {
-        keys: ["Control", "z"],
-        handler() {
-          paint.value.undo();
-        },
-      },
-      {
-        keys: ["Control", "y"],
-        handler() {
-          paint.value.redo();
-        },
-      },
-      {
         keys: ["Control", "s"],
         preventDefault: true,
         handler() {
@@ -189,10 +177,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 .mobile__navbar {
   padding: 0.75rem 1rem;
-  display: flex;
+  display: none;
   gap: 2rem;
   align-items: center;
   transition: all 0.2s ease-in-out;
+
+  @media (max-width: 992px) {
+    display: block;
+  }
 
   .mobile__navbar__first__row {
     display: flex;

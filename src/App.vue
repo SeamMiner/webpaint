@@ -7,16 +7,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, defineAsyncComponent } from "vue";
 import { useStore } from "vuex";
-
-import Navbar from "@/components/Navbar.vue";
-import MobileNavbar from "@/components/MobileNavbar.vue";
 
 export default defineComponent({
   components: {
-    Navbar,
-    MobileNavbar,
+    Navbar: defineAsyncComponent(() => import("./components/Navbar.vue")),
+    MobileNavbar: defineAsyncComponent(() => import("./components/MobileNavbar.vue")),
   },
   setup() {
     const store = useStore();
@@ -69,13 +66,16 @@ export default defineComponent({
   font-family: "Inter", "HelveticaNeueCyr", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
 }
 
 *,
 :after,
 :before {
   box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
 }
 
 html {
@@ -103,23 +103,6 @@ body {
     / 100%;
   background-color: rgb(var(--systematic));
   color: rgb(var(--on-neutral));
-
-  .navbar {
-    grid-area: navbar;
-    padding: 1.5rem 4rem; //TODO: throw it to component
-
-    @media (max-width: 992px) {
-      display: none;
-    }
-  }
-
-  .mobile__navbar {
-    display: none;
-
-    @media (max-width: 992px) {
-      display: block;
-    }
-  }
 
   .content {
     grid-area: content;

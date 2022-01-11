@@ -56,35 +56,32 @@ const themeModuleState: ThemeModuleState = {
     {
       name: themeVariables.accent,
       value: new Map([
-        [Themes.black, "134, 41, 253"],
-        [Themes.white, "151, 70, 255"],
+        [Themes.black, "134 41 253"],
+        [Themes.white, "151 70 255"],
       ]),
     },
     {
       name: themeVariables.onAccent,
-      value: new Map([
-        [Themes.black, "255, 255, 255"],
-        [Themes.white, "255, 255, 255"],
-      ]),
+      value: "255 255 255",
     },
     {
       name: themeVariables.accentHover,
       value: new Map([
-        [Themes.black, "115, 18, 239"],
-        [Themes.white, "138, 53, 246"],
+        [Themes.black, "115 18 239"],
+        [Themes.white, "138 53 246"],
       ]),
     },
     {
       name: themeVariables.neutral,
       value: new Map([
-        [Themes.black, "46, 46, 46"],
-        [Themes.white, "255, 255, 255"],
+        [Themes.black, "46 46 46"],
+        [Themes.white, "255 255 255"],
       ]),
     },
     {
       name: themeVariables.onNeutral,
       value: new Map([
-        [Themes.black, "255, 255, 255"],
+        [Themes.black, "255 255 255"],
         [Themes.white, "0 0 0"],
       ]),
     },
@@ -98,8 +95,8 @@ const themeModuleState: ThemeModuleState = {
     {
       name: themeVariables.systematic,
       value: new Map([
-        [Themes.black, "29, 29, 29"],
-        [Themes.white, "245, 244, 244"],
+        [Themes.black, "29 29 29"],
+        [Themes.white, "245 244 244"],
       ]),
     },
     {

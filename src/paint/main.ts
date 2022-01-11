@@ -51,7 +51,9 @@ export class Paint {
     this._canvas.addEventListener("pointerdown", this.start.bind(this));
     document.addEventListener("pointerup", this.stop.bind(this));
     this._canvas.addEventListener("contextmenu", (e) => {
-      this.stop.bind(this);
+      this._currentButton = e.button
+      this.undo()
+      this.stop(e);
       e.preventDefault();
     });
     //window.addEventListener("resize", this.resize.bind(this));
@@ -90,10 +92,6 @@ export class Paint {
   public start(event: PointerEvent) {
     if (this._currentButton == event.button) {
       this.stop(event);
-    } else if (this._currentButton == 0 && event.button == 2) {
-      this._currentButton = event.button;
-      this.stop(event);
-      this.undo();
     } else if (!event.button) {
       this._currentButton = event.button;
       this._drawHandler = this.draw.bind(this);
@@ -103,7 +101,7 @@ export class Paint {
       this.reposition(event);
     }
   }
-  public stop(event: PointerEvent) {
+  public stop(event: PointerEvent | MouseEvent) {
     if (this._currentButton === event.button) {
       document.removeEventListener("pointermove", this._drawHandler);
       this._currentButton = null;
@@ -138,12 +136,13 @@ export class Paint {
     this._ctx!.lineTo(this._coords.x, this._coords.y);
     this._ctx!.stroke();
   }
-  public eraseAll() {
+  public eraseAll(keepRedo = true) {
+    keepRedo ? this.saveState(false, keepRedo) : '';
     this._ctx?.clearRect(0, 0, this._canvas.width, this._canvas.height);
-    this.saveState();
   }
 
   private saveState(isRedo = false, keepRedo = false) {
+    console.log('save', this._undoHistory, this._redoHistory)
     if (!keepRedo) {
       this._redoHistory = [];
     }
@@ -153,12 +152,13 @@ export class Paint {
   }
 
   private restoreState(isUndo = false) {
+    console.log('restore', this._undoHistory, this._redoHistory)
     if ((isUndo ? this._undoHistory : this._redoHistory).length) {
       this.saveState(isUndo, true);
       const img = new Image();
       img.src = (isUndo ? this._undoHistory : this._redoHistory).pop()!;
       img.onload = () => {
-        this.eraseAll();
+        this.eraseAll(false);
         this._ctx?.drawImage(
           img,
           0,
@@ -175,10 +175,13 @@ export class Paint {
   }
 
   public undo() {
+    console.log('undo');
+    
     this.restoreState(true);
   }
 
   public redo() {
+    console.log('redo')
     this.restoreState();
   }
 
@@ -194,8 +197,8 @@ export class Paint {
     this._scale = this._scale === 1 ? 2 : 1;
 
     this._ctx!.canvas.style.width =
-      this._scale * (this._canvas.parentElement?.clientWidth || 0) - 14 + "px";
+      this._scale * (this._ctx!.canvas.width || 0) + "px";
     this._ctx!.canvas.style.height =
-      this._scale * (this._canvas.parentElement?.clientHeight || 0) - 14 + "px";
+      this._scale * (this._ctx!.canvas.height || 0) + "px";
   }
 }

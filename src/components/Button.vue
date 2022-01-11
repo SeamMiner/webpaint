@@ -47,28 +47,37 @@ button {
   display: grid;
   place-items: center;
   transition: all 0.2s ease-in-out;
+  background: rgb(var(--neutral));
+  color: rgb(var(--on-neutral));
+
+  &:hover,
+  &:focus {
+    background: rgba(var(--neutral-hover) / 0.8);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.125rem rgba(var(--on-neutral) / 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
 }
 
 button[data-type="accent"] {
   color: rgb(var(--on-accent));
   background: rgb(var(--accent));
   border: 1px solid rgba(var(--base) / 0.1);
-  font-family: Graphik LCG;
+  font-family: "Graphik LCG";
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 1.2;
-  letter-spacing: -0.38px;
-}
 
-button[data-type="accent"]:hover {
-  background: rgb(var(--accent-hover));
-}
-
-button[data-type="white"],
-button[data-type="icon"] {
-  color: rgb(var(--black));
-  background: rgb(var(--white));
+  &:hover {
+    background: rgb(var(--accent-hover));
+  }
 }
 
 button[data-size="small"] {

@@ -141,8 +141,7 @@ export default defineComponent({
     / 100%;
   gap: 1.5rem;
   width: 100%;
-  height: 100%;
-  padding: 0 4rem 24px;
+  padding: 0 4rem 1.5rem;
 
   & > * {
     min-height: 100px;

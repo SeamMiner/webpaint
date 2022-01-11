@@ -85,7 +85,7 @@
         @click="switchTheme"
         type="icon"
         v-tooltip.top-center="{
-          content: `${t('navbar.tooltip.theme')} <span>Shift + T</span>`,
+          content: `${t('navbar.tooltip.theme')} <span>Q</span>`,
           html: true,
         }"
       >
@@ -93,7 +93,7 @@
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          fill="none"
+          fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -105,7 +105,7 @@
         @click="switchLang"
         type="icon"
         v-tooltip.top-center="{
-          content: `${t('navbar.tooltip.lang')} <span>Shift + L</span>`,
+          content: `${t('navbar.tooltip.lang')} <span>W</span>`,
           html: true,
         }"
       >
@@ -113,7 +113,7 @@
           width="24"
           height="24"
           viewBox="0 0 23 23"
-          fill="none"
+          fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -153,18 +153,6 @@ export default defineComponent({
 
     useHotkey([
       {
-        keys: ["Control", "z"],
-        handler() {
-          paint.value.undo();
-        },
-      },
-      {
-        keys: ["Control", "y"],
-        handler() {
-          paint.value.redo();
-        },
-      },
-      {
         keys: ["Control", "s"],
         preventDefault: true,
         handler() {
@@ -172,13 +160,13 @@ export default defineComponent({
         },
       },
       {
-        keys: ["T"],
+        keys: ["q"],
         handler() {
           switchTheme();
         },
       },
       {
-        keys: ["L"],
+        keys: ["w"],
         handler() {
           switchLang();
         },
@@ -201,6 +189,12 @@ export default defineComponent({
   grid-template: 1fr / auto 1fr auto;
   gap: 2rem;
   align-items: center;
+  grid-area: navbar;
+  padding: 1.5rem 4rem; 
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 
   .options {
     display: flex;
@@ -225,7 +219,7 @@ export default defineComponent({
       background: rgb(var(--neutral));
       border-radius: 50%;
       padding: 0.875rem 0.8125rem 0.75rem;
-      color: rgba(var(--on-neutral) / 0.2);
+      color: rgba(var(--on-neutral) / 1);
 
       svg {
         fill: currentColor;
@@ -242,30 +236,6 @@ export default defineComponent({
   .buttons {
     display: flex;
     gap: 0.5rem;
-
-    Button {
-      background: rgb(var(--neutral));
-      color: rgba(var(--on-neutral));
-      transition: all 0.2s ease-in-out;
-
-      &:hover,
-      &:focus {
-        background: rgba(var(--neutral-hover) / 0.8);
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 0.125rem rgba(var(--on-neutral) / 0.2);
-      }
-
-      &:disabled {
-        opacity: 0.4;
-        pointer-events: none;
-      }
-
-      svg {
-        fill: currentColor;
-      }
-    }
   }
 
   .link {
