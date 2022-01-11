@@ -7,9 +7,9 @@ export class Paint {
 
   private _drawHandler: any;
 
-  private _redoHistory: string[] = [];
+  public _redoHistory: string[] = [];
 
-  private _undoHistory: string[] = [];
+  public _undoHistory: string[] = [];
 
   public _lineCap: CanvasLineCap | "eraser" = "round";
 
@@ -142,7 +142,6 @@ export class Paint {
   }
 
   private saveState(isRedo = false, keepRedo = false) {
-    console.log('save', this._undoHistory, this._redoHistory)
     if (!keepRedo) {
       this._redoHistory = [];
     }
@@ -152,7 +151,6 @@ export class Paint {
   }
 
   private restoreState(isUndo = false) {
-    console.log('restore', this._undoHistory, this._redoHistory)
     if ((isUndo ? this._undoHistory : this._redoHistory).length) {
       this.saveState(isUndo, true);
       const img = new Image();
@@ -175,13 +173,10 @@ export class Paint {
   }
 
   public undo() {
-    console.log('undo');
-    
     this.restoreState(true);
   }
 
   public redo() {
-    console.log('redo')
     this.restoreState();
   }
 

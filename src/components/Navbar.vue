@@ -10,6 +10,7 @@
           }"
           @click="paint.undo()"
           class="undo"
+          :class="{disabled: !paint._undoHistory.length}"
         >
           <svg
             width="15"
@@ -29,6 +30,7 @@
           }"
           @click="paint.redo()"
           class="redo"
+          :class="{disabled: !paint._redoHistory.length}"
         >
           <svg
             width="15"
@@ -175,6 +177,7 @@ export default defineComponent({
 
     return {
       paint,
+      undoHistory: computed(() => store.state.paint.paint._undoHistory),
       t,
       switchLang,
       switchTheme,
@@ -220,6 +223,10 @@ export default defineComponent({
       border-radius: 50%;
       padding: 0.875rem 0.8125rem 0.75rem;
       color: rgba(var(--on-neutral) / 1);
+
+      &.disabled {
+        color: rgba(var(--on-neutral) / .2);
+      }
 
       svg {
         fill: currentColor;
