@@ -45,6 +45,7 @@ input[type="range"] {
             </svg>');
   background-size: 21px 21px;
   width: 100%;
+  height: 1.875rem;
   border-radius: 1.5rem;
   box-shadow: inset 0 0 0 1px rgba(var(--base) / 0.1);
   margin: 0;
@@ -80,7 +81,6 @@ input[type="range"]::-moz-range-track {
   background: linear-gradient(90deg, transparent 0%, rgba(var(--active)));
   border: none;
   border-radius: 1.5rem;
-  width: 100%;
   height: 1.875rem;
   padding-right: 0.5rem;
   cursor: pointer;
@@ -93,7 +93,7 @@ input[type="range"]::-moz-range-thumb {
   border: 4px solid #ffffff;
   border-radius: 50%;
   cursor: pointer;
-  -webkit-appearance: none;
+  appearance: none;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
 }
 input[type="range"]::-ms-track {

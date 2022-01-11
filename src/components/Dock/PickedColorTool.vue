@@ -1,17 +1,21 @@
 <template>
   <div class="pickedColorTool">
-    <input
-      ref="colorPicker"
-      type="color"
+    <span
       class="color"
-      id="colorPicker"
-      v-model="colorPickerColor"
       :class="{
         active:
           activeColor == hex2rgb(colorPickerColor) &&
           !colors.includes(hex2rgb(colorPickerColor)),
       }"
-    />
+    >
+      <input
+        ref="colorPicker"
+        type="color"
+        id="colorPicker"
+        class="color"
+        v-model="colorPickerColor"
+      />
+    </span>
     <template v-for="color in colors" :key="color">
       <div
         class="color"
@@ -107,7 +111,9 @@ export default defineComponent({
   .color {
     height: 2rem;
     width: 2rem;
-    border: 0.0625rem solid rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    box-shadow: inset 0 0 0 0.0625rem rgba(0, 0, 0, 0.05);
+    border: none;
     border-radius: 100px;
     position: relative;
     cursor: pointer;
@@ -122,10 +128,14 @@ export default defineComponent({
     &::-webkit-color-swatch-wrapper {
       opacity: 0;
     }
+    
+    &::-moz-color-swatch {
+      opacity: 0;
+    }
   }
 
   .color.active::before,
-  input[type="color"]:focus::before {
+  input[type="color"]:focus .color.color.active::before {
     content: "";
     position: absolute;
     height: 1rem;
@@ -135,9 +145,10 @@ export default defineComponent({
     box-shadow: 0px 0px 2px rgba(var(--black) 0.1);
     top: calc(50% - 0.5rem);
     left: calc(50% - 0.5rem);
+    z-index: 1;
   }
 
-  input[type="color"].color:focus ~ .color.active::before {
+  input[type="color"]:focus ~ .color.active::before {
     position: relative;
   }
 
