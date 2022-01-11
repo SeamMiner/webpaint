@@ -57,7 +57,11 @@
       </svg>
     </div>
     <div class="canvas">
-      <canvas ref="canvas" id="canvas"></canvas>
+      <canvas 
+        ref="canvas" 
+        id="canvas"
+        :style="`cursor: url(${require(`@/assets/${paint._lineCap === 'eraser' ? 'eraser' : 'pen'}.svg`)}) 0 24, crosshair`"
+      ></canvas>
     </div>
     <div class="dock">
       <div data-made-by="@SeamMiner and @greeneboy"></div>
@@ -75,7 +79,6 @@ import {
   onMounted,
   ref,
   Ref,
-  watchEffect,
   onUnmounted,
   computed,
 } from "vue";
@@ -127,6 +130,7 @@ export default defineComponent({
     return {
       canvas,
       t,
+      paint
     };
   },
 });
