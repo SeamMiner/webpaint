@@ -197,8 +197,10 @@ export default defineComponent({
 
   & > .dock {
     grid-area: dock;
+    display: grid;
+    grid: min-content / 1fr max-content 1fr;
     justify-content: space-between;
-    display: flex;
+    justify-items: flex-end;
     gap: 1.5rem;
     padding: 1.25rem 1.625rem;
     background: radial-gradient(
