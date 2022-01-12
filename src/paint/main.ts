@@ -15,7 +15,7 @@ export class Paint {
 
   public _lineWidth = 5;
 
-  public _opacity = 255;
+  public _opacity = 1;
 
   public _scale = 1;
 
@@ -27,24 +27,11 @@ export class Paint {
     this._coords = { x: 0, y: 0 };
   }
 
-  public ColorToHex(color: number) {
-    const hexadecimal = color.toString(16);
-    return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
-  }
-
-  public ConvertRGBtoHex(
-    red: number,
-    green: number,
-    blue: number,
-    opacity = 255
-  ) {
-    return (
-      "#" +
-      this.ColorToHex(red) +
-      this.ColorToHex(green) +
-      this.ColorToHex(blue) +
-      this.ColorToHex(opacity)
-    );
+  public rgba2rgb(red=0, green=0, blue=0) {
+    return '#' + 
+    Math.round((1 - this._opacity) * 255 + this._opacity * red).toString(16) +
+    Math.round((1 - this._opacity) * 255 + this._opacity * green).toString(16) +
+    Math.round((1 - this._opacity) * 255 + this._opacity * blue).toString(16)
   }
 
   public init() {
@@ -125,11 +112,10 @@ export class Paint {
     this._ctx!.strokeStyle =
       this._lineCap == "eraser"
         ? "#000"
-        : this.ConvertRGBtoHex(
+        : this.rgba2rgb(
             parseInt(red),
             parseInt(green),
             parseInt(blue),
-            this._opacity
           );
     this._ctx!.moveTo(this._coords.x, this._coords.y);
     this.reposition(event);
