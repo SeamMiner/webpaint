@@ -13,7 +13,9 @@ import { useStore } from "vuex";
 export default defineComponent({
   components: {
     Navbar: defineAsyncComponent(() => import("./components/Navbar.vue")),
-    MobileNavbar: defineAsyncComponent(() => import("./components/MobileNavbar.vue")),
+    MobileNavbar: defineAsyncComponent(
+      () => import("./components/MobileNavbar.vue")
+    ),
   },
   setup() {
     const store = useStore();

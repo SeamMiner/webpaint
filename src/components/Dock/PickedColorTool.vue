@@ -128,7 +128,7 @@ export default defineComponent({
     &::-webkit-color-swatch-wrapper {
       opacity: 0;
     }
-    
+
     &::-moz-color-swatch {
       opacity: 0;
     }

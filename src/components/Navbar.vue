@@ -10,7 +10,7 @@
           }"
           @click="paint.undo()"
           class="undo"
-          :class="{disabled: !paint._undoHistory.length}"
+          :class="{ disabled: !paint._undoHistory.length }"
         >
           <svg
             width="15"
@@ -30,7 +30,7 @@
           }"
           @click="paint.redo()"
           class="redo"
-          :class="{disabled: !paint._redoHistory.length}"
+          :class="{ disabled: !paint._redoHistory.length }"
         >
           <svg
             width="15"
@@ -192,7 +192,7 @@ export default defineComponent({
   gap: 2rem;
   align-items: center;
   grid-area: navbar;
-  padding: 1.5rem 4rem; 
+  padding: 1.5rem 4rem;
 
   @media (max-width: 992px) {
     display: none;
@@ -224,7 +224,7 @@ export default defineComponent({
       color: rgba(var(--on-neutral) / 1);
 
       &.disabled {
-        color: rgba(var(--on-neutral) / .2);
+        color: rgba(var(--on-neutral) / 0.2);
       }
 
       svg {

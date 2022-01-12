@@ -17,7 +17,7 @@ export class Paint {
 
   public _opacity = 1;
 
-  public _scale = 1;
+  public _scale = 2;
 
   public _currentButton: number | null = null;
 
@@ -47,33 +47,30 @@ export class Paint {
 
     this._canvas.parentElement!.style.height =
       (this._canvas.parentElement?.clientHeight || 0) + "px";
-    this._ctx!.canvas.width =
-      (this._canvas.parentElement?.clientWidth || 0) - 14;
-    this._ctx!.canvas.height =
-      (this._canvas.parentElement?.clientHeight || 0) - 14;
+
+    this._canvas.width =
+      this._scale * (this._canvas.parentElement?.clientWidth || 0) - 14;
+    this._canvas.height =
+      this._scale * (this._canvas.parentElement?.clientHeight || 0) - 14;
+    this.resize();
   }
 
   public resize() {
-    if (
-      (parseInt(this._ctx!.canvas.style.width) || 0) <
-      (this._canvas.parentElement?.clientWidth || 0)
-    ) {
-      this._ctx!.canvas.style.width =
-        (this._canvas.parentElement?.clientWidth || 0) + "px";
-      this._ctx!.canvas.style.height =
-        (this._canvas.parentElement?.clientHeight || 0) + "px";
-    }
+    this._canvas.style.width =
+      (1/this._scale) * this._canvas.width + "px";
+    this._canvas.style.height =
+      (1/this._scale) * this._canvas.height + "px";
   }
   public reposition(event: PointerEvent) {
     this._coords.x =
       (event.clientX -
         this._canvas.getBoundingClientRect().left -
-        this._canvas.scrollLeft) /
+        this._canvas.scrollLeft) *
       this._scale;
     this._coords.y =
       (event.clientY -
         this._canvas.getBoundingClientRect().top -
-        this._canvas.scrollTop) /
+        this._canvas.scrollTop) *
       this._scale;
   }
   public start(event: PointerEvent) {
@@ -83,6 +80,28 @@ export class Paint {
       this._currentButton = event.button;
       this._drawHandler = this.draw.bind(this);
       this.saveState();
+
+      const [red, green, blue] = document.documentElement.style
+      .getPropertyValue("--active")
+      .trim()
+      .split(" ");
+
+    if (this._lineCap == "eraser") {
+      this._ctx!.globalCompositeOperation = "destination-out";
+    } else {
+      this._ctx!.globalCompositeOperation = "source-over";
+    }
+    this._ctx!.lineWidth =
+    this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
+    this._ctx!.lineCap = this._lineCap == "eraser" ? "round" : this._lineCap;
+    this._ctx!.strokeStyle =
+      this._lineCap == "eraser"
+        ? "#000"
+        : this.rgba2rgb(
+            parseInt(red),
+            parseInt(green),
+            parseInt(blue),
+          );
 
       document.addEventListener("pointermove", this._drawHandler);
       this.reposition(event);
@@ -95,31 +114,14 @@ export class Paint {
     }
   }
   public draw(event: PointerEvent) {
-    const [red, green, blue] = document.documentElement.style
-      .getPropertyValue("--active")
-      .trim()
-      .split(" ");
-
-    if (this._lineCap == "eraser") {
-      this._ctx!.globalCompositeOperation = "destination-out";
-    } else {
-      this._ctx!.globalCompositeOperation = "source-over";
-    }
+    
     this._ctx!.beginPath();
-    this._ctx!.lineWidth =
-      this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
-    this._ctx!.lineCap = this._lineCap == "eraser" ? "round" : this._lineCap;
-    this._ctx!.strokeStyle =
-      this._lineCap == "eraser"
-        ? "#000"
-        : this.rgba2rgb(
-            parseInt(red),
-            parseInt(green),
-            parseInt(blue),
-          );
+    
     this._ctx!.moveTo(this._coords.x, this._coords.y);
+    
     this.reposition(event);
     this._ctx!.lineTo(this._coords.x, this._coords.y);
+
     this._ctx!.stroke();
   }
   public eraseAll(keepRedo = true) {
@@ -177,9 +179,6 @@ export class Paint {
   public magnifier() {
     this._scale = this._scale === 1 ? 2 : 1;
 
-    this._ctx!.canvas.style.width =
-      this._scale * (this._ctx!.canvas.width || 0) + "px";
-    this._ctx!.canvas.style.height =
-      this._scale * (this._ctx!.canvas.height || 0) + "px";
+    this.resize();
   }
 }

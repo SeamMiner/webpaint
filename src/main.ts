@@ -18,8 +18,8 @@ createApp(App)
         delay: {
           show: 600,
           hide: 0,
-        }
-      }
-    }
+        },
+      },
+    },
   })
   .mount("#app");

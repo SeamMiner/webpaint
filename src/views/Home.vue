@@ -57,10 +57,12 @@
       </svg>
     </div>
     <div class="canvas">
-      <canvas 
-        ref="canvas" 
+      <canvas
+        ref="canvas"
         id="canvas"
-        :style="`cursor: url(${require(`@/assets/${paint._lineCap === 'eraser' ? 'eraser' : 'pen'}.svg`)}) 0 24, crosshair`"
+        :style="`cursor: url(${require(`@/assets/${
+          paint._lineCap === 'eraser' ? 'eraser' : 'pen'
+        }.svg`)}) 0 24, crosshair`"
       ></canvas>
     </div>
     <div class="dock">
@@ -130,7 +132,7 @@ export default defineComponent({
     return {
       canvas,
       t,
-      paint
+      paint,
     };
   },
 });
@@ -164,6 +166,10 @@ export default defineComponent({
     background: rgb(var(--white));
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
     touch-action: none;
+
+    & > canvas {
+      image-rendering: pixelated;
+    }
 
     &::-webkit-scrollbar {
       width: 14px;
