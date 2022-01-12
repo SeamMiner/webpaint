@@ -16,7 +16,7 @@ createApp(App)
     themes: {
       tooltip: {
         delay: {
-          show: 3000,
+          show: 600,
           hide: 0,
         }
       }

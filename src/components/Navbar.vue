@@ -177,7 +177,6 @@ export default defineComponent({
 
     return {
       paint,
-      undoHistory: computed(() => store.state.paint.paint._undoHistory),
       t,
       switchLang,
       switchTheme,
