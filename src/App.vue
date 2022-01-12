@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 
 export default defineComponent({
@@ -18,8 +19,15 @@ export default defineComponent({
     ),
   },
   setup() {
+    const { locale } = useI18n();
     const store = useStore();
     store.dispatch("theme/init");
+
+    const lang =
+      localStorage.getItem("webpaint:selectedLanguage") || navigator.language;
+    if (/^[a-z][a-z]-[A-Z][A-Z]/.test(lang)) {
+      locale.value = lang;
+    }
   },
 });
 </script>
@@ -174,16 +182,16 @@ body {
       }
     }
 
-    .v-popper__arrow-outer,
-    .v-popper__arrow-inner {
-      width: 0;
-      height: 0;
-      border-style: solid;
-      position: absolute;
-      margin: 5px;
-      border-color: rgb(var(--systematic));
-      z-index: 1;
-    }
+    // .v-popper__arrow-outer,
+    // .v-popper__arrow-inner {
+    //   width: 0;
+    //   height: 0;
+    //   border-style: solid;
+    //   position: absolute;
+    //   margin: 5px;
+    //   border-color: rgb(var(--systematic));
+    //   z-index: 1;
+    // }
   }
 
   &[data-popper-placement^="top"] {

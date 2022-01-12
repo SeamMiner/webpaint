@@ -68,9 +68,9 @@
     <div class="dock">
       <div data-made-by="@SeamMiner and @greeneboy"></div>
       <Dock />
-      <Button data-type="accent" data-size="big" data-slot="text">
+      <!-- <Button data-type="accent" data-size="big" data-slot="text">
         {{ t("pages.home.workButton") }}
-      </Button>
+      </Button> -->
     </div>
   </section>
 </template>
@@ -88,19 +88,18 @@ import {
 import { Paint } from "../paint/main";
 
 import Dock from "@/components/Dock.vue";
-import Button from "@/components/Button.vue";
+// import Button from "@/components/Button.vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   components: {
     Dock,
-    Button,
   },
   name: "Home",
 
   setup() {
-    const { t } = useI18n({ useScope: "global" });
+    const { t } = useI18n();
 
     const store = useStore();
 

@@ -55,9 +55,6 @@
       >
         <Link> {{ t("navbar.save") }} </Link>
       </li>
-      <li class="share">
-        <Link> {{ t("navbar.share") }} </Link>
-      </li>
       <li class="about">
         <Link link="/about"> {{ t("navbar.about") }} </Link>
       </li>
@@ -149,8 +146,10 @@ export default defineComponent({
     const store = useStore();
     const paint = computed(() => store.state.paint.paint);
 
-    const switchLang = () =>
-      (locale.value = locale.value === "en" ? "ru" : "en");
+    const switchLang = () => {
+      locale.value = locale.value === "en-US" ? "ru-RU" : "en-US";
+      localStorage.setItem("webpaint:selectedLanguage", locale.value);
+    };
     const switchTheme = () => store.dispatch("theme/toggle");
 
     useHotkey([

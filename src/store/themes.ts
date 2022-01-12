@@ -1,11 +1,11 @@
 import { ActionTree, MutationTree } from "vuex";
 
 enum Themes {
-  black,
-  white,
-  blue,
-  orange,
-  red,
+  black = "black",
+  white = "white",
+  blue = "blue",
+  orange = "orange",
+  red = "red",
 }
 
 enum themeVariables {
@@ -146,6 +146,7 @@ const themeModuleState: ThemeModuleState = {
 const themeModuleMutations = <MutationTree<ThemeModuleState>>{
   change(state, props: { newTheme: Themes }) {
     state.activeTheme = props.newTheme;
+    localStorage.setItem("webpaint:selectedTheme", props.newTheme);
   },
   setActiveColor(state, props: { newColor: string }) {
     state.activeColor = props.newColor;
@@ -154,26 +155,26 @@ const themeModuleMutations = <MutationTree<ThemeModuleState>>{
 
 const themeModuleActions = <ActionTree<ThemeModuleState, null>>{
   init(context) {
-    if (window.matchMedia("(prefers-color-scheme)").media !== "not all") {
+    const theme = localStorage.getItem("webpaint:selectedTheme") || "";
+    if (Object.values<string>(Themes).includes(theme)) {
+      context.dispatch("setTheme", theme);
+    } else if (
+      window.matchMedia("(prefers-color-scheme)").media !== "not all"
+    ) {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        context.dispatch("setDark");
+        context.dispatch("setTheme", Themes.black);
       } else {
-        context.dispatch("setLight");
+        context.dispatch("setTheme", Themes.white);
       }
     } else {
-      context.dispatch("setLight");
+      context.dispatch("setTheme", Themes.white);
     }
 
     context.dispatch("updateActiveColor", context.state.activeColor);
   },
 
-  setLight(context) {
-    context.commit("change", { newTheme: Themes.white });
-    context.dispatch("updateProperties");
-  },
-
-  setDark(context) {
-    context.commit("change", { newTheme: Themes.black });
+  setTheme(context, newTheme) {
+    context.commit("change", { newTheme: newTheme });
     context.dispatch("updateProperties");
   },
 

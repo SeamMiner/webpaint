@@ -27,19 +27,23 @@ export class Paint {
     this._coords = { x: 0, y: 0 };
   }
 
-  public rgba2rgb(red=0, green=0, blue=0) {
-    return '#' + 
-    Math.round((1 - this._opacity) * 255 + this._opacity * red).toString(16) +
-    Math.round((1 - this._opacity) * 255 + this._opacity * green).toString(16) +
-    Math.round((1 - this._opacity) * 255 + this._opacity * blue).toString(16)
+  public rgba2rgb(red = 0, green = 0, blue = 0) {
+    return (
+      "#" +
+      Math.round((1 - this._opacity) * 255 + this._opacity * red).toString(16) +
+      Math.round((1 - this._opacity) * 255 + this._opacity * green).toString(
+        16
+      ) +
+      Math.round((1 - this._opacity) * 255 + this._opacity * blue).toString(16)
+    );
   }
 
   public init() {
     this._canvas.addEventListener("pointerdown", this.start.bind(this));
     document.addEventListener("pointerup", this.stop.bind(this));
     this._canvas.addEventListener("contextmenu", (e) => {
-      this._currentButton = e.button
-      this.undo()
+      this._currentButton = e.button;
+      this.undo();
       this.stop(e);
       e.preventDefault();
     });
@@ -56,10 +60,8 @@ export class Paint {
   }
 
   public resize() {
-    this._canvas.style.width =
-      (1/this._scale) * this._canvas.width + "px";
-    this._canvas.style.height =
-      (1/this._scale) * this._canvas.height + "px";
+    this._canvas.style.width = (1 / this._scale) * this._canvas.width + "px";
+    this._canvas.style.height = (1 / this._scale) * this._canvas.height + "px";
   }
   public reposition(event: PointerEvent) {
     this._coords.x =
@@ -82,26 +84,22 @@ export class Paint {
       this.saveState();
 
       const [red, green, blue] = document.documentElement.style
-      .getPropertyValue("--active")
-      .trim()
-      .split(" ");
+        .getPropertyValue("--active")
+        .trim()
+        .split(" ");
 
-    if (this._lineCap == "eraser") {
-      this._ctx!.globalCompositeOperation = "destination-out";
-    } else {
-      this._ctx!.globalCompositeOperation = "source-over";
-    }
-    this._ctx!.lineWidth =
-    this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
-    this._ctx!.lineCap = this._lineCap == "eraser" ? "round" : this._lineCap;
-    this._ctx!.strokeStyle =
-      this._lineCap == "eraser"
-        ? "#000"
-        : this.rgba2rgb(
-            parseInt(red),
-            parseInt(green),
-            parseInt(blue),
-          );
+      if (this._lineCap == "eraser") {
+        this._ctx!.globalCompositeOperation = "destination-out";
+      } else {
+        this._ctx!.globalCompositeOperation = "source-over";
+      }
+      this._ctx!.lineWidth =
+        this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
+      this._ctx!.lineCap = this._lineCap == "eraser" ? "round" : this._lineCap;
+      this._ctx!.strokeStyle =
+        this._lineCap == "eraser"
+          ? "#000"
+          : this.rgba2rgb(parseInt(red), parseInt(green), parseInt(blue));
 
       document.addEventListener("pointermove", this._drawHandler);
       this.reposition(event);
@@ -114,18 +112,17 @@ export class Paint {
     }
   }
   public draw(event: PointerEvent) {
-    
     this._ctx!.beginPath();
-    
+
     this._ctx!.moveTo(this._coords.x, this._coords.y);
-    
+
     this.reposition(event);
     this._ctx!.lineTo(this._coords.x, this._coords.y);
 
     this._ctx!.stroke();
   }
   public eraseAll(keepRedo = true) {
-    keepRedo ? this.saveState(false, keepRedo) : '';
+    keepRedo ? this.saveState(false, keepRedo) : "";
     this._ctx?.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
 
