@@ -132,12 +132,22 @@ body {
       transform: translateY(0);
     }
   }
+
   @keyframes dissolve {
     0% {
       opacity: 0;
     }
     100% {
       opacity: 1;
+    }
+  }
+
+  @keyframes showPointOnColor {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 }

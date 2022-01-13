@@ -2,8 +2,8 @@
   <div class="brushes">
     <div
       class="brush lighter"
-      :class="{ active: lineWidth_ == 2 }"
-      @click="lineWidth_ = 2"
+      :class="{ active: lineWidth_ == 3 }"
+      @click="lineWidth_ = 3"
     >
       <svg
         width="35"
@@ -22,8 +22,8 @@
     </div>
     <div
       class="brush light"
-      :class="{ active: lineWidth_ == 3 }"
-      @click="lineWidth_ = 3"
+      :class="{ active: lineWidth_ == 5 }"
+      @click="lineWidth_ = 5"
     >
       <svg
         width="36"
@@ -42,8 +42,8 @@
     </div>
     <div
       class="brush normal"
-      :class="{ active: lineWidth_ == 5 }"
-      @click="lineWidth_ = 5"
+      :class="{ active: lineWidth_ == 10 }"
+      @click="lineWidth_ = 10"
     >
       <svg
         width="36"
@@ -62,8 +62,8 @@
     </div>
     <div
       class="brush bold"
-      :class="{ active: lineWidth_ == 7 }"
-      @click="lineWidth_ = 7"
+      :class="{ active: lineWidth_ == 15 }"
+      @click="lineWidth_ = 15"
     >
       <svg
         width="36"
@@ -82,8 +82,8 @@
     </div>
     <div
       class="brush bolder"
-      :class="{ active: lineWidth_ == 10 }"
-      @click="lineWidth_ = 10"
+      :class="{ active: lineWidth_ == 20 }"
+      @click="lineWidth_ = 20"
     >
       <svg
         width="36"
@@ -169,6 +169,7 @@ export default defineComponent({
     border-radius: 0.75rem;
     background-color: transparent;
     color: rgb(var(--on-neutral));
+    transition: background-color 0.2s ease-out;
 
     &:hover,
     &.active {

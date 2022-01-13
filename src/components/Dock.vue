@@ -209,6 +209,15 @@ export default defineComponent({
       border-radius: 0;
       border: none;
       box-shadow: inset -1px 0px 0px rgba(var(--black) / 0.1);
+      transition: background-color 0.2s ease-out;
+    }
+
+    .scale:hover,
+    :focus {
+      background-color: rgba(var(--systematic) / 0.7);
+    }
+    .scale:active {
+      background-color: rgba(var(--accent));
     }
   }
 

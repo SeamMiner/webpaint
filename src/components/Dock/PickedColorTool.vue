@@ -140,12 +140,13 @@ export default defineComponent({
     position: absolute;
     height: 1rem;
     width: 1rem;
-    background: #ffffff;
+    background-color: #ffffff;
     border-radius: 50%;
     box-shadow: 0px 0px 2px rgba(var(--black) 0.1);
     top: calc(50% - 0.5rem);
     left: calc(50% - 0.5rem);
     z-index: 1;
+    animation: showPointOnColor 0.19s ease-out;
   }
 
   input[type="color"]:focus ~ .color.active::before {

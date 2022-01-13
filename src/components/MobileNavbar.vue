@@ -230,6 +230,7 @@ export default defineComponent({
 
     .undo,
     .redo {
+      transition: background-color 0.2s ease-out;
       background: rgb(var(--neutral));
       border-radius: 50%;
       padding: 0.875rem 0.8125rem 0.75rem;
@@ -242,6 +243,18 @@ export default defineComponent({
       @media (max-width: 576px) {
         display: none;
       }
+    }
+
+    .undo:hover,
+    :focus,
+    .redo:hover,
+    :focus {
+      background-color: rgba(var(--neutral-hover) / 0.8);
+    }
+
+    .undo:active,
+    .redo:active {
+      background-color: rgba(var(--base) / 0.1);
     }
 
     .donate {
