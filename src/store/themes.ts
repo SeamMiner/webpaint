@@ -67,7 +67,7 @@ const themeModuleState: ThemeModuleState = {
     {
       name: themeVariables.accentHover,
       value: new Map([
-        [Themes.black, "115 18 239"],
+        [Themes.black, "159 85 255"],
         [Themes.white, "138 53 246"],
       ]),
     },
