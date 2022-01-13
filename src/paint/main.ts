@@ -174,8 +174,6 @@ export class Paint {
   }
 
   public magnifier() {
-    console.log("magnifier");
-
     this._scale = this._scale === 1 ? 2 : 1;
 
     this.resize();
