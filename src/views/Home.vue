@@ -60,9 +60,11 @@
       <canvas
         ref="canvas"
         id="canvas"
-        :style="`cursor: url(${require(`@/assets/${
-          paint._lineCap === 'eraser' ? 'eraser' : 'pen'
-        }.svg`)}) 0 24, crosshair`"
+        :style="{
+          cursor: `url(${require(`@/assets/${
+            paint._lineCap === 'eraser' ? 'eraser' : 'pen'
+          }.svg`)}) 0 24, crosshair`,
+        }"
       ></canvas>
     </div>
     <div class="dock">

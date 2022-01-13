@@ -13,7 +13,7 @@ export class Paint {
 
   public _lineCap: CanvasLineCap | "eraser" = "round";
 
-  public _lineWidth = 5;
+  public _lineWidth = 10;
 
   public _opacity = 1;
 
@@ -53,9 +53,9 @@ export class Paint {
       (this._canvas.parentElement?.clientHeight || 0) + "px";
 
     this._canvas.width =
-      this._scale * (this._canvas.parentElement?.clientWidth || 0) - 14;
+      this._scale * (this._canvas.parentElement?.clientWidth || 0);
     this._canvas.height =
-      this._scale * (this._canvas.parentElement?.clientHeight || 0) - 14;
+      this._scale * (this._canvas.parentElement?.clientHeight || 0);
     this.resize();
   }
 
@@ -174,6 +174,8 @@ export class Paint {
   }
 
   public magnifier() {
+    console.log("magnifier");
+
     this._scale = this._scale === 1 ? 2 : 1;
 
     this.resize();

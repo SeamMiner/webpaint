@@ -113,7 +113,7 @@ export default defineComponent({
     const store = useStore();
 
     const paint = computed(() => store.state.paint.paint);
-    const lineWidth_ = ref(5);
+    const lineWidth_ = ref(paint.value._lineWidth);
 
     watchEffect(() => {
       paint.value._lineWidth = lineWidth_.value;
@@ -123,31 +123,31 @@ export default defineComponent({
       {
         keys: ["t", "1"],
         handler() {
-          lineWidth_.value = 2;
+          lineWidth_.value = 3;
         },
       },
       {
         keys: ["t", "2"],
         handler() {
-          lineWidth_.value = 3;
+          lineWidth_.value = 5;
         },
       },
       {
         keys: ["t", "3"],
         handler() {
-          lineWidth_.value = 5;
+          lineWidth_.value = 10;
         },
       },
       {
         keys: ["t", "4"],
         handler() {
-          lineWidth_.value = 7;
+          lineWidth_.value = 15;
         },
       },
       {
         keys: ["t", "5"],
         handler() {
-          lineWidth_.value = 10;
+          lineWidth_.value = 20;
         },
       },
     ]);
