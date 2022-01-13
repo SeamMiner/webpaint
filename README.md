@@ -1,4 +1,5 @@
 # webpaint
+![Image alt](src/assets/release__1.0.1.png)
 
 ## Project setup
 ```
