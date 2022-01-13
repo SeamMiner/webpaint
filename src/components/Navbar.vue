@@ -55,8 +55,8 @@
       >
         <Link> {{ t("navbar.save") }} </Link>
       </li>
-      <li class="about">
-        <Link link="/about"> {{ t("navbar.about") }} </Link>
+      <li class="about" @click="showModal = true">
+        <Link> {{ t("navbar.about") }} </Link>
       </li>
       <li class="help">
         <Link link="https://t.me/greeneboy"> {{ t("navbar.help") }} </Link>
@@ -121,30 +121,36 @@
         </svg>
       </Button>
     </div>
+    <transition name="modal">
+      <AboutPopup v-show="showModal" @close="showModal = false" />
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import { useHotkey } from "vue-use-hotkey";
+import { useI18n } from "vue-i18n";
 
 import Logo from "@/components/Logo.vue";
 import Link from "@/components/Link.vue";
 import Button from "@/components/Button.vue";
-import { useI18n } from "vue-i18n";
+import AboutPopup from "@/components/AboutPopup.vue";
 
 export default defineComponent({
   components: {
     Logo,
     Link,
     Button,
+    AboutPopup,
   },
   setup() {
     const { t, locale } = useI18n({ useScope: "global" });
 
     const store = useStore();
     const paint = computed(() => store.state.paint.paint);
+    const showModal = ref(false);
 
     const switchLang = () => {
       locale.value = locale.value === "en-US" ? "ru-RU" : "en-US";
@@ -179,6 +185,7 @@ export default defineComponent({
       t,
       switchLang,
       switchTheme,
+      showModal,
     };
   },
 });
@@ -260,5 +267,15 @@ export default defineComponent({
   .link {
     white-space: nowrap;
   }
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
 }
 </style>
