@@ -225,6 +225,7 @@ export default defineComponent({
 
       &.disabled {
         color: rgba(var(--on-neutral) / 0.2);
+        pointer-events: none;
       }
 
       svg {

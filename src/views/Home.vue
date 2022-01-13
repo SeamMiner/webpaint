@@ -117,7 +117,10 @@ export default defineComponent({
       if (e.code == "KeyZ" && (e.ctrlKey || e.metaKey)) {
         paint.value.undo();
       }
-      if (e.code == "KeyY" && (e.ctrlKey || e.metaKey)) {
+      if (
+        (e.code == "KeyY" && (e.ctrlKey || e.metaKey)) ||
+        (e.code == "KeyZ" && (e.ctrlKey || e.metaKey) && e.shiftKey)
+      ) {
         paint.value.redo();
       }
     };
