@@ -87,9 +87,9 @@
           </svg>
         </li>
       </div>
-      <li class="share">
+      <!-- <li class="share">
         <Link> {{ t("navbar.share") }} </Link>
-      </li>
+      </li> -->
       <li class="about">
         <Link> {{ t("navbar.about") }} </Link>
       </li>
@@ -139,7 +139,7 @@ export default defineComponent({
     const paint = computed(() => store.state.paint.paint);
 
     const switchLang = () =>
-      (locale.value = locale.value === "en" ? "ru" : "en");
+      (locale.value = locale.value === "en-US" ? "ru-RU" : "en-US");
     const switchTheme = () => store.dispatch("theme/toggle");
 
     useHotkey([

@@ -73,7 +73,7 @@ export default defineComponent({
 }
 
 #app {
-  font-family: "Inter", "HelveticaNeueCyr", system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -90,12 +90,6 @@ export default defineComponent({
 
 html {
   background-color: rgb(var(--systematic));
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 body {
@@ -185,7 +179,7 @@ body {
       box-shadow: inset 0px 0px 0px 1px rgba(var(--base) / 0.1);
       border-radius: 0.5rem;
       padding: 0.5rem 0.75rem;
-      font-family: "Inter", "HelveticaNeueCyr", system-ui, sans-serif;
+      font-family: "Inter", system-ui, sans-serif;
 
       & span {
         color: rgba(var(--base) / 0.6);

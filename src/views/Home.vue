@@ -242,6 +242,7 @@ export default defineComponent({
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
       border-radius: 0.5rem;
       margin-bottom: 2rem;
+      text-align: center;
 
       b {
         font-weight: 700;

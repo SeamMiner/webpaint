@@ -52,6 +52,7 @@ export default defineComponent({
   color: rgb(var(--on-neutral));
   border-radius: 0.75rem;
   text-decoration: none;
+  font-weight: normal;
   transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   &:hover,
