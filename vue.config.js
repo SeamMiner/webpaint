@@ -14,15 +14,15 @@ module.exports = {
   },
   pwa: {
     manifestOptions: {
-      name: "Web Paint — draw pictures, figures & more",
+      name: "Web Paint",
       short_name: "Web Paint",
       start_url: ".",
       display: "standalone",
-      theme_color: "#9746FF",
+      theme_color: "#06B896",
     },
 
-    themeColor: "#9746FF",
-    msTileColor: "#9746FF",
+    themeColor: "#06B896",
+    msTileColor: "#06B896",
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black-translucent",
   },
