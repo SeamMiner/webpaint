@@ -62,7 +62,7 @@
         }"
       />
       <Magic
-        @click="paint.eraseAll()"
+        @click="paint.clear()"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.magic')} <span>Shift + E</span>`,
           html: true,
@@ -167,7 +167,7 @@ export default defineComponent({
       {
         keys: ["E"],
         handler() {
-          paint.value.eraseAll();
+          paint.value.clear();
         },
       },
     ]);
