@@ -199,6 +199,7 @@ export default defineComponent({
   }
 
   .options {
+    overflow-x: auto;
     display: flex;
     align-items: flex-start;
     gap: 1rem;

@@ -142,7 +142,7 @@ export default defineComponent({
     width: 1rem;
     background-color: #ffffff;
     border-radius: 50%;
-    box-shadow: 0px 0px 2px rgba(var(--black) 0.1);
+    box-shadow: 0px 0px 2px rgba(var(--black) / 0.2);
     top: calc(50% - 0.5rem);
     left: calc(50% - 0.5rem);
     z-index: 1;
