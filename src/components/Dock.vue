@@ -228,7 +228,8 @@ export default defineComponent({
     display: flex;
     align-items: flex-start;
 
-    svg,div {
+    svg,
+    div {
       margin-top: 0.3125rem;
     }
 

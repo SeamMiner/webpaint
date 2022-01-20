@@ -30,9 +30,22 @@ export class Paint {
   public rgba2rgb(red = 0, green = 0, blue = 0) {
     return (
       "#" +
-      ("0" + Math.round((1 - this._opacity) * 255 + this._opacity * red).toString(16)).slice(-2) +
-      ("0" + Math.round((1 - this._opacity) * 255 + this._opacity * green).toString(16)).slice(-2) +
-      ("0" + Math.round((1 - this._opacity) * 255 + this._opacity * blue).toString(16)).slice(-2)
+      (
+        "0" +
+        Math.round((1 - this._opacity) * 255 + this._opacity * red).toString(16)
+      ).slice(-2) +
+      (
+        "0" +
+        Math.round((1 - this._opacity) * 255 + this._opacity * green).toString(
+          16
+        )
+      ).slice(-2) +
+      (
+        "0" +
+        Math.round((1 - this._opacity) * 255 + this._opacity * blue).toString(
+          16
+        )
+      ).slice(-2)
     );
   }
 
