@@ -228,6 +228,10 @@ export default defineComponent({
     display: flex;
     align-items: flex-start;
 
+    svg,div {
+      margin-top: 0.3125rem;
+    }
+
     & > * {
       cursor: pointer;
       transition: margin-top 0.15s ease-in-out;

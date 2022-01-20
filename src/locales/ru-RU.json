@@ -10,7 +10,7 @@
         "pen": "Ручка",
         "marker": "Маркер",
         "eraser": "Ластик",
-        "magic": "Волшебная палочка",
+        "magic": "Стереть всё",
         "thickness": "Жирность кисти",
         "opacity": "Прозрачность",
         "color": "Выбрать цвет"
@@ -39,7 +39,7 @@
   "popup": {
     "about": {
       "title": "Web Paint",
-      "description": "Минималистичный граф.редактор в&nbsp;интернете. <br><br> Идея студии Greene <i>&amp;</i>&nbsp;Lapp.<br> Задизайнено <a href='https://t.me/greeneboy' target='_blank'>Александром Грином</a>, разработано <a href='https://t.me/seamminer' target='_blank'>Лапп Платоном</a> в&nbsp;2022."
+      "description": "Минималистичный граф.редактор в&nbsp;браузере. <br><br> Идея студии Greene <i>&amp;</i>&nbsp;Lapp.<br> Задизайнено <a href='https://t.me/greeneboy' target='_blank'>Александром Грином</a>, разработано <a href='https://t.me/seamminer' target='_blank'>Лапп Платоном</a> в&nbsp;2022."
     }
   }
 }
