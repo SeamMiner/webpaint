@@ -1,14 +1,12 @@
 <template>
-    <Logo></Logo>
     <h1>jdjdj</h1>
 </template>
 
 <script>
-import Logo from "@/components/Logo.vue";
+import {defineComponent} from "vue";
 
 export default defineComponent({
-    setup() {
-        Logo
+    components: {
     },
 })
 </script>

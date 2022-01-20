@@ -8,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "home",
     component: Home,
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "404",
+    component: () => import("@/components/404.vue"),
+  },
 ];
 
 const router = createRouter({
