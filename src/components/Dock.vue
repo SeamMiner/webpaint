@@ -212,10 +212,10 @@ export default defineComponent({
       transition: background-color 0.2s ease-out;
     }
 
-    .scale:hover,
-    :focus {
+    .scale:hover {
       background-color: rgba(var(--systematic) / 0.7);
     }
+
     .scale:active {
       background-color: rgba(var(--accent));
     }

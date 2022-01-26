@@ -1,17 +1,13 @@
 <template>
-    <h1>jdjdj</h1>
+  <h1>jdjdj</h1>
 </template>
 
 <script>
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    components: {
-    },
-})
+  components: {},
+});
 </script>
 
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

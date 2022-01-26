@@ -39,7 +39,7 @@
   "popup": {
     "about": {
       "title": "Web Paint",
-      "description": "Minimalistic graphic editor in&nbsp;the browser. <br><br> Idea by&nbsp;Greene <i>&</i>&nbsp;Lapp studio.<br> Designed by&nbsp;<a href='https://t.me/greeneboy' target='_blank'>Alexander Greene</a>, developed by&nbsp;<a href='https://t.me/seamminer' target='_blank'>Platon Lapp</a> in&nbsp;2022."
+      "description": "Minimalistic graphics editor in&nbsp;the browser. <br><br> Idea by&nbsp;Greene <i>&</i>&nbsp;Lapp studio.<br> Designed by&nbsp;<a href='https://t.me/greeneboy' target='_blank'>Alexander Greene</a>, developed by&nbsp;<a href='https://t.me/seamminer' target='_blank'>Platon Lapp</a> in&nbsp;2022."
     }
   }
 }
