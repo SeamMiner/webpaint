@@ -20,6 +20,10 @@
         "description": "Try a&nbsp;desktop version to&nbsp;see the full functionality of&nbsp;WebPaint."
       },
       "workButton": "Let’s work"
+    },
+    "404": {
+      "title": "The page does not exist.",
+      "link": "Back Home"
     }
   },
   "navbar": {
