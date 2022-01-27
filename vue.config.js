@@ -26,4 +26,11 @@ module.exports = {
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black-translucent",
   },
+
+  chainWebpack: (config) => {
+    config.plugin("html").tap((args) => {
+      args[0].title = "Web Paint — draw pictures, figures & more";
+      return args;
+    });
+  },
 };

@@ -3,7 +3,7 @@
     <input
       type="range"
       min="1"
-      max="100"
+      max="255"
       step="1"
       id="opacity"
       v-model="opacity_"
@@ -21,10 +21,10 @@ export default defineComponent({
     const store = useStore();
 
     const paint = computed(() => store.state.paint.paint);
-    const opacity_ = useDebouncedRef(100, 500);
+    const opacity_ = useDebouncedRef(255, 250);
 
     watchEffect(() => {
-      paint.value._opacity = parseInt(opacity_.value) / 100;
+      paint.value._opacity = parseInt(opacity_.value);
     });
 
     return {
