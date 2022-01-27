@@ -23,7 +23,7 @@ export class Paint {
 
   public _lineWidth = 10;
 
-  public _opacity = 255;
+  public _opacity = 1;
 
   public _scale = 2;
 
@@ -39,23 +39,25 @@ export class Paint {
     this._coords = { x: 0, y: 0 };
   }
 
-  public ColorToHex(color: number) {
-    const hexadecimal = color.toString(16);
-    return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
-  }
-
-  public ConvertRGBtoHex(
-    red: number,
-    green: number,
-    blue: number,
-    opacity = 255
-  ) {
+  public rgba2rgb(red = 0, green = 0, blue = 0) {
     return (
       "#" +
-      this.ColorToHex(red) +
-      this.ColorToHex(green) +
-      this.ColorToHex(blue) +
-      this.ColorToHex(opacity)
+      (
+        "0" +
+        Math.round((1 - this._opacity) * 255 + this._opacity * red).toString(16)
+      ).slice(-2) +
+      (
+        "0" +
+        Math.round((1 - this._opacity) * 255 + this._opacity * green).toString(
+          16
+        )
+      ).slice(-2) +
+      (
+        "0" +
+        Math.round((1 - this._opacity) * 255 + this._opacity * blue).toString(
+          16
+        )
+      ).slice(-2)
     );
   }
 
@@ -70,6 +72,7 @@ export class Paint {
         e.preventDefault();
       }
     });
+    //window.addEventListener("resize", this.resize.bind(this));
 
     this._canvas.parentElement!.style.height =
       (this._canvas.parentElement?.clientHeight || 0) + "px";
@@ -141,6 +144,7 @@ export class Paint {
     this.updateCanvas(this._memCanvas, this._ctx);
 
     this.reposition(event);
+    this._ctx!.lineTo(this._coords.x, this._coords.y);
 
     if (this._points.length < 6) {
       const b = this._points[0];
@@ -166,15 +170,18 @@ export class Paint {
     );
     this._ctx!.stroke();
   }
-  public eraseAll(ctx = this._ctx) {
-    ctx?.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  public eraseAll(keepRedo = true) {
+    keepRedo ? this.saveState(false, keepRedo) : "";
+    this._ctx?.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
 
-  private saveState(history = this._undoHistory, keepRedo = false) {
+  private saveState(isRedo = false, keepRedo = false) {
     if (!keepRedo) {
       this._redoHistory = [];
     }
-    history.push(this._memCanvas.toDataURL());
+    (isRedo ? this._redoHistory : this._undoHistory).push(
+      this._canvas.toDataURL()
+    );
   }
 
   private restoreState(
@@ -184,7 +191,7 @@ export class Paint {
     if (history.length) {
       this.saveState(saveTo, true);
       const img = new Image();
-      img.src = history.pop()!;
+      img.src = (isUndo ? this._undoHistory : this._redoHistory).pop()!;
       img.onload = () => {
         this.eraseAll(this._memCtx);
         this._memCtx?.drawImage(img, 0, 0);
@@ -194,11 +201,11 @@ export class Paint {
   }
 
   public undo() {
-    this.restoreState(this._undoHistory, this._redoHistory);
+    this.restoreState(true);
   }
 
   public redo() {
-    this.restoreState(this._redoHistory, this._undoHistory);
+    this.restoreState();
   }
 
   public save() {
