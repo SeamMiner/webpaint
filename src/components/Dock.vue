@@ -4,26 +4,26 @@
       <Button
         class="move"
         data-size="small"
-        data-type="accent"
+        :data-type="activeDrawTool_ === 'move' ? 'accent':'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.move')} <span>V</span>`,
           html: true,
         }"
-        @click="paint.moveTool()"
+        @click="paint.moveTool(); activeDrawTool_ = 'move'"
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
       <Button
         class="scale"
         data-size="small"
-        data-type="white"
+        :data-type="activeDrawTool_ === 'magnifier' ? 'accent':'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.zoom')} <span>M</span>`,
           html: true,
         }"
-        @click="paint.magnifier()"
+        @click="paint.magnifier(); activeDrawTool_ = 'magnifier'"
       >
         <img :src="require('@/assets/Magnifier.svg')" alt="Scale" />
       </Button>
@@ -208,8 +208,17 @@ export default defineComponent({
       padding: 0.875rem 1.5rem;
       border-radius: 0;
       border: none;
-      box-shadow: inset -1px 0px 0px rgba(var(--black) / 0.1);
       transition: background-color 0.2s ease-out;
+    }
+
+    .move {
+      box-shadow: inset -1px -1px 0px rgba(var(--black) / 0.1), inset 1px 1px 0px rgba(var(--base ) / 0.1);
+      border-top-left-radius: 32px;
+    }
+
+    .scale {
+      box-shadow: inset -1px 0px 0px rgba(var(--black) / 0.1), inset 1px -1px 0px rgba(var(--base ) / 0.1);
+      border-bottom-left-radius: 32px;
     }
 
     .scale:hover {
