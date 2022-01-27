@@ -61,8 +61,8 @@
         ref="canvas"
         id="canvas"
         :style="{
-          cursor: `url(${require(`@/assets/${
-            paint._lineCap === 'eraser' ? 'eraser' : 'pen'
+          cursor: `url(${require(`@/assets/cursors/${
+            paint._cursor || 'pen'
           }.svg`)}) 0 24, crosshair`,
         }"
       ></canvas>
