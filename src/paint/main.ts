@@ -12,7 +12,8 @@ export class Paint {
 
   private _points: { x: number; y: number }[] = [];
 
-  private _drawHandler = this.draw.bind(this);
+  private _drawHandler: ((event: PointerEvent) => void) | null =
+    this.draw.bind(this);
 
   public _redoHistory: string[] = [];
 
@@ -27,6 +28,10 @@ export class Paint {
   public _scale = 2;
 
   public _currentButton: number | null = null;
+
+  public _cursor = "move";
+
+  public _thicknessMultiplier = 1;
 
   constructor(canvas: HTMLCanvasElement | null) {
     this._canvas = canvas ? canvas : document.createElement("canvas");
@@ -101,18 +106,30 @@ export class Paint {
   public start(event: PointerEvent) {
     if (this._currentButton == event.button) {
       this.stop(event);
-    } else if (!event.button) {
-      this.saveState(this._undoHistory, true);
-      this._currentButton = event.button;
-
-      this.updateCanvasProperties();
-
-      document.addEventListener("pointermove", this._drawHandler);
-      this.reposition(event);
+    } else if (
+      !event.button &&
+      (this._cursor === "pen" || this._cursor === "eraser")
+    ) {
+      this.keyDownDrawHandler(event);
+    } else if (this._cursor === "magnifier") {
+      this.magnifierHandler(event);
     }
   }
+
+  private keyDownDrawHandler(event: PointerEvent) {
+    this.saveState(this._undoHistory, true);
+    this._currentButton = event.button;
+
+    this.updateCanvasProperties();
+
+    if (this._drawHandler) {
+      document.addEventListener("pointermove", this._drawHandler);
+    }
+    this.reposition(event);
+  }
+
   public stop(event: PointerEvent | MouseEvent) {
-    if (this._currentButton === event.button) {
+    if (this._currentButton === event.button && this._drawHandler) {
       this.updateCanvas(this._canvas, this._memCtx);
 
       document.removeEventListener("pointermove", this._drawHandler);
@@ -174,7 +191,6 @@ export class Paint {
         this.updateCanvas(this._memCanvas, this._ctx);
       };
     }
-    console.log(this._undoHistory, this._redoHistory);
   }
 
   public undo() {
@@ -194,14 +210,21 @@ export class Paint {
   }
 
   public magnifier() {
-    this._scale = this._scale === 1 ? 2 : 1;
+    this._cursor = "magnifier";
+  }
 
+  public magnifierHandler(event: MouseEvent) {
+    this._scale = this._scale === 1 ? 2 : 1;
     this.resize();
+
+    this._canvas.parentElement!.scrollLeft = event.offsetX;
+    this._canvas.parentElement!.scrollTop = event.offsetY;
   }
 
   public clear() {
     this.eraseAll(this._ctx);
     this.eraseAll(this._memCtx);
+    this.saveState(this._undoHistory);
   }
 
   public updateCanvas(canvas = this._canvas, ctx = this._ctx) {
@@ -227,20 +250,24 @@ export class Paint {
       parseInt(blue),
       this._opacity
     );
+
+    this._ctx!.lineCap = this._lineCap;
+    this._ctx!.lineWidth = this._lineWidth * this._thicknessMultiplier;
   }
 
   public eraserTool() {
     this._ctx!.globalCompositeOperation = "destination-out";
-    this._ctx!.lineWidth = this._lineWidth * 4;
-    this._ctx!.lineCap = "round";
+    this._lineCap = "round";
+    this._cursor = "eraser";
+    this._thicknessMultiplier = 4;
 
     this._drawHandler = this.erase.bind(this);
   }
 
   public drawTool() {
     this._ctx!.globalCompositeOperation = "source-over";
-    this._ctx!.lineWidth = this._lineWidth;
-    this._ctx!.lineCap = this._lineCap;
+    this._cursor = "pen";
+    this._thicknessMultiplier = 1;
 
     this._drawHandler = this.draw.bind(this);
   }
@@ -258,6 +285,6 @@ export class Paint {
   }
 
   public moveTool() {
-    console.log("move");
+    this._cursor = "move";
   }
 }

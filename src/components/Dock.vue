@@ -10,6 +10,7 @@
           content: `${t('pages.home.tooltip.move')} <span>V</span>`,
           html: true,
         }"
+        @click="paint.moveTool()"
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
@@ -133,7 +134,7 @@ export default defineComponent({
       {
         keys: ["v"],
         handler() {
-          paint.value.move();
+          paint.value.moveTool();
           activeDrawTool_.value = "move";
         },
       },
