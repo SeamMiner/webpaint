@@ -29,10 +29,7 @@
     </div>
     <div class="drawTools">
       <Pen
-        @click="
-          lineCap_ = 'round';
-          activeDrawTool_ = 'pen';
-        "
+        @click="selectDrawTool('pen', 'round')"
         :class="{ active: activeDrawTool_ == 'pen' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.pen')} <span>P</span>`,
@@ -40,10 +37,7 @@
         }"
       />
       <Marker
-        @click="
-          lineCap_ = 'square';
-          activeDrawTool_ = 'marker';
-        "
+        @click="selectDrawTool('marker', 'square')"
         :class="{ active: activeDrawTool_ == 'marker' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.marker')} <span>Shift + P</span>`,
@@ -51,10 +45,7 @@
         }"
       />
       <Erase
-        @click="
-          lineCap_ = 'eraser';
-          activeDrawTool_ = 'erase';
-        "
+        @click="selectDrawTool('erase')"
         :class="{ active: activeDrawTool_ == 'erase' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.eraser')} <span>E</span>`,
@@ -124,6 +115,16 @@ export default defineComponent({
     const lineCap_ = ref(paint.value._lineCap);
     const activeDrawTool_ = ref("pen");
 
+    const selectDrawTool = (activeDrawTool: string, lineCap = "") => {
+      if (lineCap) {
+        lineCap_.value = lineCap;
+        paint.value.drawTool();
+      } else {
+        paint.value.eraserTool();
+      }
+      activeDrawTool_.value = activeDrawTool;
+    };
+
     watchEffect(() => {
       paint.value._lineCap = lineCap_.value;
     });
@@ -146,22 +147,19 @@ export default defineComponent({
       {
         keys: ["p"],
         handler() {
-          lineCap_.value = "round";
-          activeDrawTool_.value = "pen";
+          selectDrawTool("pen", "round");
         },
       },
       {
         keys: ["P"],
         handler() {
-          lineCap_.value = "square";
-          activeDrawTool_.value = "marker";
+          selectDrawTool("marker", "square");
         },
       },
       {
         keys: ["e"],
         handler() {
-          lineCap_.value = "eraser";
-          activeDrawTool_.value = "eraser";
+          selectDrawTool("eraser");
         },
       },
       {
@@ -177,6 +175,7 @@ export default defineComponent({
       activeDrawTool_,
       paint,
       t,
+      selectDrawTool,
     };
   },
 });

@@ -12,13 +12,13 @@ export class Paint {
 
   private _points: { x: number; y: number }[] = [];
 
-  private _drawHandler: any;
+  private _drawHandler = this.draw.bind(this);
 
   public _redoHistory: string[] = [];
 
   public _undoHistory: string[] = [];
 
-  public _lineCap: CanvasLineCap | "eraser" = "round";
+  public _lineCap: CanvasLineCap = "round";
 
   public _lineWidth = 10;
 
@@ -58,7 +58,7 @@ export class Paint {
     this._canvas.addEventListener("pointerdown", this.start.bind(this));
     document.addEventListener("pointerup", this.stop.bind(this));
     this._canvas.addEventListener("contextmenu", (e) => {
-      if (!this._currentButton) {
+      if (this._currentButton === 0) {
         this._currentButton = e.button;
         this.undo();
         this.stop(e);
@@ -77,6 +77,7 @@ export class Paint {
     this._memCanvas.width = this._canvas.width;
     this._memCanvas.height = this._canvas.height;
     this.resize();
+    this.drawTool();
   }
 
   public resize() {
@@ -103,29 +104,8 @@ export class Paint {
     } else if (!event.button) {
       this.saveState(this._undoHistory, true);
       this._currentButton = event.button;
-      this._drawHandler = this.draw.bind(this);
-      const [red, green, blue] = document.documentElement.style
-        .getPropertyValue("--active")
-        .trim()
-        .split(" ");
 
-      if (this._lineCap == "eraser") {
-        this._ctx!.globalCompositeOperation = "destination-out";
-      } else {
-        this._ctx!.globalCompositeOperation = "sorce-over";
-      }
-      this._ctx!.lineWidth =
-        this._lineCap == "eraser" ? this._lineWidth * 4 : this._lineWidth;
-      this._ctx!.lineCap = this._lineCap == "eraser" ? "round" : this._lineCap;
-      this._ctx!.strokeStyle =
-        this._lineCap == "eraser"
-          ? "#000"
-          : this.ConvertRGBtoHex(
-              parseInt(red),
-              parseInt(green),
-              parseInt(blue),
-              this._opacity
-            );
+      this.updateCanvasProperties();
 
       document.addEventListener("pointermove", this._drawHandler);
       this.reposition(event);
@@ -155,7 +135,7 @@ export class Paint {
     }
     this._ctx!.beginPath();
     this._ctx!.moveTo(this._points[0].x, this._points[0].y);
-    // draw a bunch of quadratics, using the average of two points as the control point
+
     for (let i = 1; i < this._points.length - 2; i++) {
       const c = (this._points[i].x + this._points[i + 1].x) / 2,
         d = (this._points[i].y + this._points[i + 1].y) / 2;
@@ -222,11 +202,62 @@ export class Paint {
   public clear() {
     this.eraseAll(this._ctx);
     this.eraseAll(this._memCtx);
-    this.saveState(this._undoHistory);
   }
 
   public updateCanvas(canvas = this._canvas, ctx = this._ctx) {
     this.eraseAll(ctx);
     ctx!.drawImage(canvas, 0, 0);
+  }
+
+  public updateCanvasProperties(ctx = this._ctx) {
+    const [red, green, blue] = document.documentElement.style
+      .getPropertyValue("--active")
+      .trim()
+      .split(" ");
+
+    ctx!.strokeStyle = this.ConvertRGBtoHex(
+      parseInt(red),
+      parseInt(green),
+      parseInt(blue),
+      this._opacity
+    );
+    ctx!.fillStyle = this.ConvertRGBtoHex(
+      parseInt(red),
+      parseInt(green),
+      parseInt(blue),
+      this._opacity
+    );
+  }
+
+  public eraserTool() {
+    this._ctx!.globalCompositeOperation = "destination-out";
+    this._ctx!.lineWidth = this._lineWidth * 4;
+    this._ctx!.lineCap = "round";
+
+    this._drawHandler = this.erase.bind(this);
+  }
+
+  public drawTool() {
+    this._ctx!.globalCompositeOperation = "source-over";
+    this._ctx!.lineWidth = this._lineWidth;
+    this._ctx!.lineCap = this._lineCap;
+
+    this._drawHandler = this.draw.bind(this);
+  }
+
+  public erase(event: PointerEvent) {
+    this._ctx!.beginPath();
+
+    this._ctx!.moveTo(this._coords.x, this._coords.y);
+
+    this.reposition(event);
+    this._ctx!.lineTo(this._coords.x, this._coords.y);
+
+    this._ctx!.stroke();
+    this._ctx!.closePath();
+  }
+
+  public moveTool() {
+    console.log("move");
   }
 }

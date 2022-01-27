@@ -21,7 +21,7 @@ export default defineComponent({
     const store = useStore();
 
     const paint = computed(() => store.state.paint.paint);
-    const opacity_ = useDebouncedRef(255, 500);
+    const opacity_ = useDebouncedRef(255, 250);
 
     watchEffect(() => {
       paint.value._opacity = parseInt(opacity_.value);
