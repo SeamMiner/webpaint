@@ -228,8 +228,13 @@ export class Paint {
   }
 
   public updateCanvas(canvas = this._canvas, ctx = this._ctx) {
+    const globalCompositeOperation = ctx!.globalCompositeOperation
+    ctx!.globalCompositeOperation = 'source-over'
+
     this.eraseAll(ctx);
     ctx!.drawImage(canvas, 0, 0);
+
+    ctx!.globalCompositeOperation = globalCompositeOperation
   }
 
   public updateCanvasProperties(ctx = this._ctx) {
