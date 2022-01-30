@@ -1,10 +1,10 @@
 ![Image alt](src/assets/readme__preview.png)
 
-### Meet a Web Paint
+## Meet a Web Paint
 
 Web Paint is a minimalistic graphics editor in the browser. Draw pictures, figures, enhance your fantasy with Web Paint based on classic Microsoft Paint. Web Paint is available for mac, linux, windows, ios, android.
 
-## Key Features
+### Key Features
 
 Web Paint contains these features like drawing figures with editable stroke width, vector zoom, two types of&nbsp;markers on&nbsp;current version, and a&nbsp;'erase all' tool with an&nbsp;eraser in&nbsp;the dock.
 
@@ -20,7 +20,7 @@ Idea by Greene & Lapp studio.
 - PWA — web apps that use service workers, manifests, and other web-platform features in combination with progressive enhancement to give users an experience on par with native apps.
 
 
-### Curren version • 0.2.1
+### Current version • 0.2.1
 
 ![Image alt](src/assets/webpaint__current__version.png)
 
