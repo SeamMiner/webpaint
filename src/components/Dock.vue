@@ -4,26 +4,32 @@
       <Button
         class="move"
         data-size="small"
-        :data-type="activeDrawTool_ === 'move' ? 'accent':'white'"
+        :data-type="activeDrawTool_ === 'move' ? 'accent' : 'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.move')} <span>V</span>`,
           html: true,
         }"
-        @click="paint.moveTool(); activeDrawTool_ = 'move'"
+        @click="
+          paint.moveTool();
+          activeDrawTool_ = 'move';
+        "
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
       <Button
         class="scale"
         data-size="small"
-        :data-type="activeDrawTool_ === 'magnifier' ? 'accent':'white'"
+        :data-type="activeDrawTool_ === 'magnifier' ? 'accent' : 'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.zoom')} <span>M</span>`,
           html: true,
         }"
-        @click="paint.magnifier(); activeDrawTool_ = 'magnifier'"
+        @click="
+          paint.magnifier();
+          activeDrawTool_ = 'magnifier';
+        "
       >
         <img :src="require('@/assets/Magnifier.svg')" alt="Scale" />
       </Button>
@@ -54,7 +60,7 @@
         }"
       />
       <Magic
-        @click="paint.eraseAll()"
+        @click="paint.clear()"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.magic')} <span>Shift + E</span>`,
           html: true,
@@ -166,7 +172,7 @@ export default defineComponent({
       {
         keys: ["E"],
         handler() {
-          paint.value.eraseAll();
+          paint.value.clear();
         },
       },
     ]);
@@ -212,12 +218,14 @@ export default defineComponent({
     }
 
     .move {
-      box-shadow: inset -1px -1px 0px rgba(var(--black) / 0.1), inset 1px 1px 0px rgba(var(--base ) / 0.1);
+      box-shadow: inset -1px -1px 0px rgba(var(--black) / 0.1),
+        inset 1px 1px 0px rgba(var(--base) / 0.1);
       border-top-left-radius: 32px;
     }
 
     .scale {
-      box-shadow: inset -1px 0px 0px rgba(var(--black) / 0.1), inset 1px -1px 0px rgba(var(--base ) / 0.1);
+      box-shadow: inset -1px 0px 0px rgba(var(--black) / 0.1),
+        inset 1px -1px 0px rgba(var(--base) / 0.1);
       border-bottom-left-radius: 32px;
     }
 

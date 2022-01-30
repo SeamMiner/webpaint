@@ -222,14 +222,19 @@ export class Paint {
   }
 
   public clear() {
+    this.saveState(this._undoHistory);
     this.eraseAll(this._ctx);
     this.eraseAll(this._memCtx);
-    this.saveState(this._undoHistory);
   }
 
   public updateCanvas(canvas = this._canvas, ctx = this._ctx) {
+    const globalCompositeOperation = ctx!.globalCompositeOperation
+    ctx!.globalCompositeOperation = 'source-over'
+
     this.eraseAll(ctx);
     ctx!.drawImage(canvas, 0, 0);
+
+    ctx!.globalCompositeOperation = globalCompositeOperation
   }
 
   public updateCanvasProperties(ctx = this._ctx) {
@@ -260,28 +265,12 @@ export class Paint {
     this._lineCap = "round";
     this._cursor = "eraser";
     this._thicknessMultiplier = 4;
-
-    this._drawHandler = this.erase.bind(this);
   }
 
   public drawTool() {
     this._ctx!.globalCompositeOperation = "source-over";
     this._cursor = "pen";
     this._thicknessMultiplier = 1;
-
-    this._drawHandler = this.draw.bind(this);
-  }
-
-  public erase(event: PointerEvent) {
-    this._ctx!.beginPath();
-
-    this._ctx!.moveTo(this._coords.x, this._coords.y);
-
-    this.reposition(event);
-    this._ctx!.lineTo(this._coords.x, this._coords.y);
-
-    this._ctx!.stroke();
-    this._ctx!.closePath();
   }
 
   public moveTool() {

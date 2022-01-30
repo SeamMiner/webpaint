@@ -122,7 +122,7 @@
       </Button>
     </div>
     <transition name="modal">
-      <AboutPopup v-show="showModal" @close="showModal = false" />
+      <AboutPopup v-if="showModal" @close="showModal = false" />
     </transition>
   </div>
 </template>
