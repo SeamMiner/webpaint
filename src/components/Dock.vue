@@ -172,7 +172,7 @@ export default defineComponent({
       {
         keys: ["E"],
         handler() {
-          paint.value.eraseAll();
+          paint.value.clear();
         },
       },
     ]);
