@@ -122,7 +122,7 @@
       </Button>
     </div>
     <transition name="modal">
-      <AboutPopup v-show="showModal" @close="showModal = false" />
+      <AboutPopup v-if="showModal" @close="showModal = false" />
     </transition>
   </div>
 </template>
@@ -157,28 +157,6 @@ export default defineComponent({
       localStorage.setItem("webpaint:selectedLanguage", locale.value);
     };
     const switchTheme = () => store.dispatch("theme/toggle");
-
-    useHotkey([
-      {
-        keys: ["Control", "s"],
-        preventDefault: true,
-        handler() {
-          paint.value.save();
-        },
-      },
-      {
-        keys: ["q"],
-        handler() {
-          switchTheme();
-        },
-      },
-      {
-        keys: ["w"],
-        handler() {
-          switchLang();
-        },
-      },
-    ]);
 
     return {
       paint,

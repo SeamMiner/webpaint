@@ -1,6 +1,6 @@
 <template>
   <div class="popupWrapper">
-    <div class="popup">
+    <div v-click-outside="() => $emit('close')" class="popup">
       <button @click="$emit('close')">
         <svg
           width="20"
@@ -28,8 +28,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useI18n } from "vue-i18n";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+/* @ts-ignore:disable-next-line */
+import vClickOutside from "click-outside-vue3";
 
 export default defineComponent({
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+
   setup() {
     const { t } = useI18n();
 
@@ -64,6 +71,7 @@ export default defineComponent({
   line-height: 1.3;
   font-style: normal;
   position: relative;
+  z-index: 9999;
 
   img {
     width: 72px;

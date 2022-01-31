@@ -14,6 +14,7 @@
         id="colorPicker"
         class="color"
         v-model="colorPickerColor"
+        @click="setActiveColor(hex2rgb(colorPickerColor))"
       />
     </span>
     <template v-for="color in colors" :key="color">
@@ -48,12 +49,25 @@ export default defineComponent({
           setActiveColor(hex2rgb(colorPickerColor.value));
         },
       },
+      {
+        keys: ["с", "6"],
+        handler() {
+          colorPicker.value?.click();
+          setActiveColor(hex2rgb(colorPickerColor.value));
+        },
+      },
     ];
     ["red", "orange", "grey", "blue", "black"].forEach((color, index) => {
       color = root.getPropertyValue(`--${color}`);
       colors.push(color);
       shortcuts.push({
         keys: ["c", `${5 - index}`],
+        handler() {
+          setActiveColor(color);
+        },
+      });
+      shortcuts.push({
+        keys: ["с", `${5 - index}`],
         handler() {
           setActiveColor(color);
         },
@@ -142,7 +156,7 @@ export default defineComponent({
     width: 1rem;
     background-color: #ffffff;
     border-radius: 50%;
-    box-shadow: 0px 0px 2px rgba(var(--black) 0.1);
+    box-shadow: 0px 0px 2px rgba(var(--black) / 0.2);
     top: calc(50% - 0.5rem);
     left: calc(50% - 0.5rem);
     z-index: 1;

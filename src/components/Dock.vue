@@ -4,19 +4,20 @@
       <Button
         class="move"
         data-size="small"
-        data-type="accent"
+        :data-type="cursor === 'move' ? 'accent' : 'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.move')} <span>V</span>`,
           html: true,
         }"
+        @click="paint.moveTool()"
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
       <Button
         class="scale"
         data-size="small"
-        data-type="white"
+        :data-type="cursor === 'magnifier' ? 'accent' : 'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.zoom')} <span>M</span>`,
@@ -29,40 +30,31 @@
     </div>
     <div class="drawTools">
       <Pen
-        @click="
-          lineCap_ = 'round';
-          activeDrawTool_ = 'pen';
-        "
-        :class="{ active: activeDrawTool_ == 'pen' }"
+        @click="selectDrawTool('pen', 'round')"
+        :class="{ active: cursor == 'pen' && lineCap_ === 'round' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.pen')} <span>P</span>`,
           html: true,
         }"
       />
       <Marker
-        @click="
-          lineCap_ = 'square';
-          activeDrawTool_ = 'marker';
-        "
-        :class="{ active: activeDrawTool_ == 'marker' }"
+        @click="selectDrawTool('marker', 'square')"
+        :class="{ active: cursor == 'pen' && lineCap_ === 'square' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.marker')} <span>Shift + P</span>`,
           html: true,
         }"
       />
       <Erase
-        @click="
-          lineCap_ = 'eraser';
-          activeDrawTool_ = 'erase';
-        "
-        :class="{ active: activeDrawTool_ == 'erase' }"
+        @click="selectDrawTool()"
+        :class="{ active: cursor == 'eraser' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.eraser')} <span>E</span>`,
           html: true,
         }"
       />
       <Magic
-        @click="paint.eraseAll()"
+        @click="paint.clear()"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.magic')} <span>Shift + E</span>`,
           html: true,
@@ -121,62 +113,28 @@ export default defineComponent({
     const store = useStore();
 
     const paint = computed(() => store.state.paint.paint);
-    const lineCap_ = ref(paint.value._lineCap);
-    const activeDrawTool_ = ref("pen");
+    const lineCap_ = computed(() => paint.value._lineCap);
+    const cursor = computed(() => paint.value._cursor);
+
+    const selectDrawTool = (lineCap = "") => {
+      if (lineCap) {
+        paint.value._lineCap = lineCap;
+        paint.value.drawTool();
+      } else {
+        paint.value.eraserTool();
+      }
+    };
 
     watchEffect(() => {
       paint.value._lineCap = lineCap_.value;
     });
 
-    useHotkey([
-      {
-        keys: ["v"],
-        handler() {
-          paint.value.move();
-          activeDrawTool_.value = "move";
-        },
-      },
-      {
-        keys: ["m"],
-        handler() {
-          paint.value.magnifier();
-          activeDrawTool_.value = "magnifier";
-        },
-      },
-      {
-        keys: ["p"],
-        handler() {
-          lineCap_.value = "round";
-          activeDrawTool_.value = "pen";
-        },
-      },
-      {
-        keys: ["P"],
-        handler() {
-          lineCap_.value = "square";
-          activeDrawTool_.value = "marker";
-        },
-      },
-      {
-        keys: ["e"],
-        handler() {
-          lineCap_.value = "eraser";
-          activeDrawTool_.value = "eraser";
-        },
-      },
-      {
-        keys: ["E"],
-        handler() {
-          paint.value.eraseAll();
-        },
-      },
-    ]);
-
     return {
       lineCap_,
-      activeDrawTool_,
+      cursor,
       paint,
       t,
+      selectDrawTool,
     };
   },
 });
@@ -208,14 +166,25 @@ export default defineComponent({
       padding: 0.875rem 1.5rem;
       border-radius: 0;
       border: none;
-      box-shadow: inset -1px 0px 0px rgba(var(--black) / 0.1);
       transition: background-color 0.2s ease-out;
     }
 
-    .scale:hover,
-    :focus {
+    .move {
+      box-shadow: inset -1px -1px 0px rgba(var(--black) / 0.1),
+        inset 1px 1px 0px rgba(var(--base) / 0.1);
+      border-top-left-radius: 32px;
+    }
+
+    .scale {
+      box-shadow: inset -1px 0px 0px rgba(var(--black) / 0.1),
+        inset 1px -1px 0px rgba(var(--base) / 0.1);
+      border-bottom-left-radius: 32px;
+    }
+
+    .scale:hover {
       background-color: rgba(var(--systematic) / 0.7);
     }
+
     .scale:active {
       background-color: rgba(var(--accent));
     }
@@ -228,7 +197,8 @@ export default defineComponent({
     display: flex;
     align-items: flex-start;
 
-    svg,div {
+    svg,
+    div {
       margin-top: 0.3125rem;
     }
 

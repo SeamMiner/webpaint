@@ -1,2 +1,3 @@
 User-agent: *
-Disallow:
+Disallow: https://beta.webpaint.app/
+Sitemap: https://webpaint.app/sitemap.xml
