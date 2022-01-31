@@ -30,7 +30,7 @@
     </div>
     <div class="drawTools">
       <Pen
-        @click="selectDrawTool('pen', 'round')"
+        @click="selectDrawTool('round')"
         :class="{ active: cursor == 'pen' && lineCap_ === 'round' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.pen')} <span>P</span>`,
@@ -38,7 +38,7 @@
         }"
       />
       <Marker
-        @click="selectDrawTool('marker', 'square')"
+        @click="selectDrawTool('square')"
         :class="{ active: cursor == 'pen' && lineCap_ === 'square' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.marker')} <span>Shift + P</span>`,
@@ -116,7 +116,7 @@ export default defineComponent({
     const lineCap_ = computed(() => paint.value._lineCap);
     const cursor = computed(() => paint.value._cursor);
 
-    const selectDrawTool = (lineCap = "") => {
+    const selectDrawTool = (lineCap = "round") => {
       if (lineCap) {
         paint.value._lineCap = lineCap;
         paint.value.drawTool();
