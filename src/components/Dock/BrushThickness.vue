@@ -3,7 +3,7 @@
     <div
       class="brush lighter"
       :class="{ active: lineWidth_ == 3 }"
-      @click="lineWidth_ = 3"
+      @click="paint._lineWidth = 3"
     >
       <svg
         width="35"
@@ -23,7 +23,7 @@
     <div
       class="brush light"
       :class="{ active: lineWidth_ == 5 }"
-      @click="lineWidth_ = 5"
+      @click="paint._lineWidth = 5"
     >
       <svg
         width="36"
@@ -43,7 +43,7 @@
     <div
       class="brush normal"
       :class="{ active: lineWidth_ == 10 }"
-      @click="lineWidth_ = 10"
+      @click="paint._lineWidth = 10"
     >
       <svg
         width="36"
@@ -63,7 +63,7 @@
     <div
       class="brush bold"
       :class="{ active: lineWidth_ == 15 }"
-      @click="lineWidth_ = 15"
+      @click="paint._lineWidth = 15"
     >
       <svg
         width="36"
@@ -83,7 +83,7 @@
     <div
       class="brush bolder"
       :class="{ active: lineWidth_ == 20 }"
-      @click="lineWidth_ = 20"
+      @click="paint._lineWidth = 20"
     >
       <svg
         width="36"
@@ -117,6 +117,7 @@ export default defineComponent({
 
     return {
       lineWidth_,
+      paint
     };
   },
 });
