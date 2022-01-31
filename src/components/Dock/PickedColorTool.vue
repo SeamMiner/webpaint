@@ -14,6 +14,7 @@
         id="colorPicker"
         class="color"
         v-model="colorPickerColor"
+        @click="setActiveColor(hex2rgb(colorPickerColor))"
       />
     </span>
     <template v-for="color in colors" :key="color">
