@@ -158,28 +158,6 @@ export default defineComponent({
     };
     const switchTheme = () => store.dispatch("theme/toggle");
 
-    useHotkey([
-      {
-        keys: ["Control", "s"],
-        preventDefault: true,
-        handler() {
-          paint.value.save();
-        },
-      },
-      {
-        keys: ["q"],
-        handler() {
-          switchTheme();
-        },
-      },
-      {
-        keys: ["w"],
-        handler() {
-          switchLang();
-        },
-      },
-    ]);
-
     return {
       paint,
       t,

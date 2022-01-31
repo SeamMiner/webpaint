@@ -142,28 +142,6 @@ export default defineComponent({
       (locale.value = locale.value === "en-US" ? "ru-RU" : "en-US");
     const switchTheme = () => store.dispatch("theme/toggle");
 
-    useHotkey([
-      {
-        keys: ["Control", "s"],
-        preventDefault: true,
-        handler() {
-          paint.value.save();
-        },
-      },
-      {
-        keys: ["T"],
-        handler() {
-          switchTheme();
-        },
-      },
-      {
-        keys: ["L"],
-        handler() {
-          switchLang();
-        },
-      },
-    ]);
-
     return {
       paint,
       t,

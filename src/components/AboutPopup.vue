@@ -30,11 +30,11 @@ import { defineComponent } from "vue";
 import { useI18n } from "vue-i18n";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 /* @ts-ignore:disable-next-line */
-import vClickOutside from 'click-outside-vue3'
+import vClickOutside from "click-outside-vue3";
 
 export default defineComponent({
   directives: {
-    clickOutside: vClickOutside.directive
+    clickOutside: vClickOutside.directive,
   },
 
   setup() {

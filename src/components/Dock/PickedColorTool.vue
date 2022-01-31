@@ -48,12 +48,25 @@ export default defineComponent({
           setActiveColor(hex2rgb(colorPickerColor.value));
         },
       },
+      {
+        keys: ["с", "6"],
+        handler() {
+          colorPicker.value?.click();
+          setActiveColor(hex2rgb(colorPickerColor.value));
+        },
+      },
     ];
     ["red", "orange", "grey", "blue", "black"].forEach((color, index) => {
       color = root.getPropertyValue(`--${color}`);
       colors.push(color);
       shortcuts.push({
         keys: ["c", `${5 - index}`],
+        handler() {
+          setActiveColor(color);
+        },
+      });
+      shortcuts.push({
+        keys: ["с", `${5 - index}`],
         handler() {
           setActiveColor(color);
         },
