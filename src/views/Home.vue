@@ -93,6 +93,8 @@ import Dock from "@/components/Dock.vue";
 // import Button from "@/components/Button.vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
+import { useHotkey } from "vue-use-hotkey";
+import shortcuts from "@/paint/shortcuts";
 
 export default defineComponent({
   components: {
@@ -113,24 +115,7 @@ export default defineComponent({
       paint.value.init();
     });
 
-    const shortCut = (e: KeyboardEvent) => {
-      if (
-        (e.code == "KeyY" && (e.ctrlKey || e.metaKey)) ||
-        (e.code == "KeyZ" && (e.ctrlKey || e.metaKey) && e.shiftKey)
-      ) {
-        paint.value.redo();
-      } else if (e.code == "KeyZ" && (e.ctrlKey || e.metaKey)) {
-        paint.value.undo();
-      }
-    };
-
-    onMounted(() => {
-      document.addEventListener("keydown", shortCut);
-    });
-
-    onUnmounted(() => {
-      document.removeEventListener("keydown", shortCut);
-    });
+    shortcuts(store);
 
     return {
       canvas,

@@ -2,9 +2,10 @@ import { createStore } from "vuex";
 import { themeModule } from "./themes";
 import { paintModule } from "./paint";
 
-export default createStore({
+const store = createStore({
   modules: {
     theme: themeModule,
     paint: paintModule,
   },
 });
+export default store;

@@ -4,56 +4,50 @@
       <Button
         class="move"
         data-size="small"
-        :data-type="activeDrawTool_ === 'move' ? 'accent' : 'white'"
+        :data-type="cursor === 'move' ? 'accent' : 'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.move')} <span>V</span>`,
           html: true,
         }"
-        @click="
-          paint.moveTool();
-          activeDrawTool_ = 'move';
-        "
+        @click="paint.moveTool()"
       >
         <img :src="require('@/assets/Arrow.svg')" alt="Arrow" />
       </Button>
       <Button
         class="scale"
         data-size="small"
-        :data-type="activeDrawTool_ === 'magnifier' ? 'accent' : 'white'"
+        :data-type="cursor === 'magnifier' ? 'accent' : 'white'"
         data-slot="icon"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.zoom')} <span>M</span>`,
           html: true,
         }"
-        @click="
-          paint.magnifier();
-          activeDrawTool_ = 'magnifier';
-        "
+        @click="paint.magnifier()"
       >
         <img :src="require('@/assets/Magnifier.svg')" alt="Scale" />
       </Button>
     </div>
     <div class="drawTools">
       <Pen
-        @click="selectDrawTool('pen', 'round')"
-        :class="{ active: activeDrawTool_ == 'pen' }"
+        @click="selectDrawTool('round')"
+        :class="{ active: cursor == 'pen' && lineCap_ === 'round' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.pen')} <span>P</span>`,
           html: true,
         }"
       />
       <Marker
-        @click="selectDrawTool('marker', 'square')"
-        :class="{ active: activeDrawTool_ == 'marker' }"
+        @click="selectDrawTool('square')"
+        :class="{ active: cursor == 'pen' && lineCap_ === 'square' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.marker')} <span>Shift + P</span>`,
           html: true,
         }"
       />
       <Erase
-        @click="selectDrawTool('erase')"
-        :class="{ active: activeDrawTool_ == 'erase' }"
+        @click="selectDrawTool()"
+        :class="{ active: cursor == 'eraser' }"
         v-tooltip.top-center="{
           content: `${t('pages.home.tooltip.eraser')} <span>E</span>`,
           html: true,
@@ -119,67 +113,25 @@ export default defineComponent({
     const store = useStore();
 
     const paint = computed(() => store.state.paint.paint);
-    const lineCap_ = ref(paint.value._lineCap);
-    const activeDrawTool_ = ref("pen");
+    const lineCap_ = computed(() => paint.value._lineCap);
+    const cursor = computed(() => paint.value._cursor);
 
-    const selectDrawTool = (activeDrawTool: string, lineCap = "") => {
+    const selectDrawTool = (lineCap = "round") => {
       if (lineCap) {
-        lineCap_.value = lineCap;
+        paint.value._lineCap = lineCap;
         paint.value.drawTool();
       } else {
         paint.value.eraserTool();
       }
-      activeDrawTool_.value = activeDrawTool;
     };
 
     watchEffect(() => {
       paint.value._lineCap = lineCap_.value;
     });
 
-    useHotkey([
-      {
-        keys: ["v"],
-        handler() {
-          paint.value.moveTool();
-          activeDrawTool_.value = "move";
-        },
-      },
-      {
-        keys: ["m"],
-        handler() {
-          paint.value.magnifier();
-          activeDrawTool_.value = "magnifier";
-        },
-      },
-      {
-        keys: ["p"],
-        handler() {
-          selectDrawTool("pen", "round");
-        },
-      },
-      {
-        keys: ["P"],
-        handler() {
-          selectDrawTool("marker", "square");
-        },
-      },
-      {
-        keys: ["e"],
-        handler() {
-          selectDrawTool("eraser");
-        },
-      },
-      {
-        keys: ["E"],
-        handler() {
-          paint.value.clear();
-        },
-      },
-    ]);
-
     return {
       lineCap_,
-      activeDrawTool_,
+      cursor,
       paint,
       t,
       selectDrawTool,

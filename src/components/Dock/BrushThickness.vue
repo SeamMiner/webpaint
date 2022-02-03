@@ -3,7 +3,7 @@
     <div
       class="brush lighter"
       :class="{ active: lineWidth_ == 3 }"
-      @click="lineWidth_ = 3"
+      @click="paint._lineWidth = 3"
     >
       <svg
         width="35"
@@ -23,7 +23,7 @@
     <div
       class="brush light"
       :class="{ active: lineWidth_ == 5 }"
-      @click="lineWidth_ = 5"
+      @click="paint._lineWidth = 5"
     >
       <svg
         width="36"
@@ -43,7 +43,7 @@
     <div
       class="brush normal"
       :class="{ active: lineWidth_ == 10 }"
-      @click="lineWidth_ = 10"
+      @click="paint._lineWidth = 10"
     >
       <svg
         width="36"
@@ -63,7 +63,7 @@
     <div
       class="brush bold"
       :class="{ active: lineWidth_ == 15 }"
-      @click="lineWidth_ = 15"
+      @click="paint._lineWidth = 15"
     >
       <svg
         width="36"
@@ -83,7 +83,7 @@
     <div
       class="brush bolder"
       :class="{ active: lineWidth_ == 20 }"
-      @click="lineWidth_ = 20"
+      @click="paint._lineWidth = 20"
     >
       <svg
         width="36"
@@ -113,46 +113,11 @@ export default defineComponent({
     const store = useStore();
 
     const paint = computed(() => store.state.paint.paint);
-    const lineWidth_ = ref(paint.value._lineWidth);
+    const lineWidth_ = computed(() => paint.value._lineWidth);
 
-    watchEffect(() => {
-      paint.value._lineWidth = lineWidth_.value;
-    });
-
-    useHotkey([
-      {
-        keys: ["t", "1"],
-        handler() {
-          lineWidth_.value = 3;
-        },
-      },
-      {
-        keys: ["t", "2"],
-        handler() {
-          lineWidth_.value = 5;
-        },
-      },
-      {
-        keys: ["t", "3"],
-        handler() {
-          lineWidth_.value = 10;
-        },
-      },
-      {
-        keys: ["t", "4"],
-        handler() {
-          lineWidth_.value = 15;
-        },
-      },
-      {
-        keys: ["t", "5"],
-        handler() {
-          lineWidth_.value = 20;
-        },
-      },
-    ]);
     return {
       lineWidth_,
+      paint
     };
   },
 });
