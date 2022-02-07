@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <Logo></Logo>
+    <Logo class="logo"></Logo>
     <ul class="options">
       <div class="option__controls">
         <li
@@ -130,7 +130,6 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import { useHotkey } from "vue-use-hotkey";
 import { useI18n } from "vue-i18n";
 
 import Logo from "@/components/Logo.vue";
@@ -172,17 +171,30 @@ export default defineComponent({
 <style lang="scss" scoped>
 .navbar {
   display: grid;
-  grid-template: 1fr / auto 1fr auto;
-  gap: 2rem;
+  grid-template: "logo options buttons" 1fr / auto 1fr auto;
+  gap: .5rem 2rem;
   align-items: center;
   grid-area: navbar;
   padding: 1.5rem 4rem;
 
   @media (max-width: 992px) {
-    display: none;
+    grid-template: "logo buttons" 1fr
+                    "options options" 1fr
+    / 1fr 1fr;
+    padding: 0.75rem 1rem;
+    justify-content: space-between;
+  }
+
+  .logo {
+    grid-area: logo;
+
+    @media (max-width: 576px) {
+      padding-left: 0.5rem;
+    }
   }
 
   .options {
+    grid-area: options;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -190,9 +202,27 @@ export default defineComponent({
     padding: 0;
     margin: 0;
 
+    @media (max-width: 576px) {
+      gap: 0;
+
+      @media (max-width: 374px) {
+        overflow-x: auto;
+      }
+
+      li {
+        margin-right: 1rem;
+      }
+    }
+
     & li {
       display: grid;
       cursor: pointer;
+
+      &.save {
+        @media (max-width: 576px) {
+          display: none;
+        }
+      }
     }
 
     .option__controls {
@@ -216,6 +246,10 @@ export default defineComponent({
       svg {
         fill: currentColor;
       }
+
+      @media (max-width: 576px) {
+        display: none;
+      }
     }
 
     .undo:hover,
@@ -238,8 +272,13 @@ export default defineComponent({
   }
 
   .buttons {
+    grid-area: buttons;
     display: flex;
     gap: 0.5rem;
+
+    @media (max-width: 992px) {
+      justify-self: flex-end;
+    }
   }
 
   .link {
