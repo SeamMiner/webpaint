@@ -7,6 +7,7 @@
           activeColor == hex2rgb(colorPickerColor) &&
           !colors.includes(hex2rgb(colorPickerColor)),
       }"
+      @click="colorPicker.click()"
     >
       <input
         ref="colorPicker"
