@@ -116,7 +116,7 @@ export default defineComponent({
     const lineCap_ = computed(() => paint.value._lineCap);
     const cursor = computed(() => paint.value._cursor);
 
-    const selectDrawTool = (lineCap = "round") => {
+    const selectDrawTool = (lineCap = "") => {
       if (lineCap) {
         paint.value._lineCap = lineCap;
         paint.value.drawTool();
