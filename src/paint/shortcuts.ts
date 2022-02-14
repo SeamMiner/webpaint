@@ -98,7 +98,21 @@ function shortcuts(store: Store<any>) {
       },
     },
     {
+      keys: ["Meta", "s"],
+      preventDefault: true,
+      handler() {
+        paint.value.save();
+      },
+    },
+    {
       keys: ["Control", "ы"],
+      preventDefault: true,
+      handler() {
+        paint.value.save();
+      },
+    },
+    {
+      keys: ["Meta", "ы"],
       preventDefault: true,
       handler() {
         paint.value.save();
@@ -198,7 +212,21 @@ function shortcuts(store: Store<any>) {
       },
     },
     {
+      keys: ["Meta", "я"],
+      preventDefault: true,
+      handler() {
+        paint.value.undo();
+      },
+    },
+    {
       keys: ["Control", "z"],
+      preventDefault: true,
+      handler() {
+        paint.value.undo();
+      },
+    },
+    {
+      keys: ["Meta", "z"],
       preventDefault: true,
       handler() {
         paint.value.undo();
@@ -212,7 +240,21 @@ function shortcuts(store: Store<any>) {
       },
     },
     {
+      keys: ["Meta", "y"],
+      preventDefault: true,
+      handler() {
+        paint.value.redo();
+      },
+    },
+    {
       keys: ["Control", "н"],
+      preventDefault: true,
+      handler() {
+        paint.value.redo();
+      },
+    },
+    {
+      keys: ["Meta", "н"],
       preventDefault: true,
       handler() {
         paint.value.redo();
@@ -226,7 +268,21 @@ function shortcuts(store: Store<any>) {
       },
     },
     {
+      keys: ["Meta", "Shift", "z"],
+      preventDefault: true,
+      handler() {
+        paint.value.redo();
+      },
+    },
+    {
       keys: ["Control", "Shift", "Я"],
+      preventDefault: true,
+      handler() {
+        paint.value.redo();
+      },
+    },
+    {
+      keys: ["Meta", "Shift", "Я"],
       preventDefault: true,
       handler() {
         paint.value.redo();
